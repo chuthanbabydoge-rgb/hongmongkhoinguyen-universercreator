@@ -11,11 +11,18 @@ import Register from "@/pages/register";
 import Dashboard from "@/pages/dashboard";
 import Projects from "@/pages/projects";
 import ProjectDetail from "@/pages/project-detail";
+import ProjectMembers from "@/pages/project-members";
 import Assets from "@/pages/assets";
 import Templates from "@/pages/templates";
 import Plugins from "@/pages/plugins";
 import Packages from "@/pages/packages";
 import Settings from "@/pages/settings";
+import Profile from "@/pages/profile";
+import Organizations from "@/pages/organizations";
+import OrgDetail from "@/pages/org-detail";
+import Invitations from "@/pages/invitations";
+import Notifications from "@/pages/notifications";
+import ActivityPage from "@/pages/activity";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -55,12 +62,19 @@ function Router() {
           <Switch>
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/projects" component={Projects} />
+            <Route path="/projects/:id/members" component={ProjectMembers} />
             <Route path="/projects/:id" component={ProjectDetail} />
             <Route path="/assets" component={Assets} />
             <Route path="/templates" component={Templates} />
             <Route path="/plugins" component={Plugins} />
             <Route path="/packages" component={Packages} />
             <Route path="/settings" component={Settings} />
+            <Route path="/profile" component={Profile} />
+            <Route path="/organizations" component={Organizations} />
+            <Route path="/organizations/:id" component={OrgDetail} />
+            <Route path="/invitations" component={Invitations} />
+            <Route path="/notifications" component={Notifications} />
+            <Route path="/activity" component={ActivityPage} />
             <Route component={NotFound} />
           </Switch>
         </Layout>

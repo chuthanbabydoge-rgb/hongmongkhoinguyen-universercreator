@@ -1,0 +1,379 @@
+CREATOR-02 — Identity & Project Collaboration
+
+Mục tiêu
+
+Xây lớp Identity & Project Collaboration cho Universe Creator.
+
+Đây KHÔNG phải sprint Editor.
+
+Không làm World Editor, NPC Editor, Visual Script...
+
+Chỉ xây nền tảng để sau này toàn bộ editor dùng chung.
+
+Kiến trúc
+
+Đọc toàn bộ codebase trước.
+
+Không rewrite.
+
+Không duplicate.
+
+Ưu tiên mở rộng kiến trúc hiện có.
+
+Sử dụng:
+
+Node.js
+Express
+PostgreSQL
+Drizzle ORM
+React
+TanStack Query
+JWT
+TypeScript strict
+
+Không mock.
+
+Không in-memory.
+
+Mọi dữ liệu phải lưu PostgreSQL.
+
+Sprint Goals
+
+Hoàn thiện:
+
+1. Identity
+
+Thêm:
+
+creator_profiles
+
+bao gồm
+
+displayName
+username
+avatar
+bio
+website
+location
+socialLinks
+verified
+creatorLevel
+reputation
+followers
+following
+2. Organizations
+
+Thêm:
+
+creator_organizations
+creator_organization_members
+creator_roles
+
+Cho phép
+
+Owner
+
+Admin
+
+Developer
+
+Designer
+
+Writer
+
+Tester
+
+Viewer
+
+3. Team Collaboration
+
+Project có nhiều thành viên.
+
+Permission:
+
+VIEW
+
+COMMENT
+
+EDIT
+
+BUILD
+
+PUBLISH
+
+ADMIN
+
+OWNER
+
+4. Invitations
+creator_invitations
+
+Flow
+
+Invite
+
+↓
+
+Accept
+
+↓
+
+Reject
+
+↓
+
+Expire
+
+5. Project Visibility
+
+Private
+
+Internal
+
+Public
+
+Marketplace
+
+6. Stars
+
+Github-style
+
+creator_project_stars
+7. Watches
+creator_project_watchers
+8. Recent Activity
+creator_activity
+
+Log
+
+Project created
+
+Joined
+
+Forked
+
+Published
+
+Commented
+
+Asset uploaded
+
+Permission changed
+
+9. Notifications
+creator_notifications
+
+Notification center
+
+Read
+
+Unread
+
+Archive
+
+Backend
+
+Tạo
+
+CreatorIdentityRepository
+
+CreatorOrganizationRepository
+
+CreatorProjectRepository
+
+Drizzle implementation đầy đủ.
+
+Business layer
+
+CreatorIdentityService
+
+OrganizationService
+
+ProjectPermissionService
+
+Controllers
+
+identityController
+
+organizationController
+
+projectMemberController
+
+notificationController
+
+REST API
+
+GET    /api/profile
+PUT    /api/profile
+
+GET    /api/organizations
+POST   /api/organizations
+
+GET    /api/organizations/:id
+
+POST   /api/organizations/:id/invite
+
+POST   /api/invitations/:id/accept
+
+POST   /api/invitations/:id/reject
+
+GET    /api/projects/:id/members
+
+POST   /api/projects/:id/members
+
+PATCH  /api/projects/:id/members/:memberId
+
+DELETE /api/projects/:id/members/:memberId
+
+POST   /api/projects/:id/star
+
+DELETE /api/projects/:id/star
+
+POST   /api/projects/:id/watch
+
+DELETE /api/projects/:id/watch
+
+GET    /api/activity
+
+GET    /api/notifications
+
+PATCH  /api/notifications/:id/read
+
+PATCH  /api/notifications/read-all
+Frontend
+
+Tạo
+
+Profile
+
+Organizations
+
+Organization Detail
+
+Members
+
+Invitations
+
+Notifications
+
+Activity
+
+Project Members
+
+Sidebar thêm
+
+Identity
+
+Organizations
+
+Activity
+
+Notifications
+
+Dashboard
+
+Thêm widget
+
+My Organizations
+
+Pending Invites
+
+Recent Activity
+
+Notifications
+
+Favorite Projects
+Permission
+
+Middleware
+
+requireProjectPermission()
+
+requireOrganizationRole()
+
+Support
+
+VIEW
+
+EDIT
+
+ADMIN
+
+OWNER
+
+Activity
+
+Log tự động
+
+create project
+delete
+invite
+join
+publish
+upload asset
+star
+watch
+Notification
+
+Tự động tạo
+
+Invite received
+
+Invite accepted
+
+Role changed
+
+Project published
+
+Asset uploaded
+
+Acceptance Criteria
+PostgreSQL only
+Drizzle ORM
+TypeScript strict
+Không mock
+Không rewrite code cũ
+Không phá CREATOR-01
+JWT hoạt động
+Permission middleware đầy đủ
+Organization hoạt động
+Collaboration hoạt động
+Stars/Watches hoạt động
+Activity log hoạt động
+Notification center hoạt động
+Frontend routing đầy đủ
+Sidebar cập nhật
+Build thành công
+Typecheck không tạo lỗi mới
+Output bắt buộc
+
+Sau khi hoàn thành, không giải thích dài dòng.
+
+Chỉ trả về đúng format:
+
+CREATOR-02 Sprint Report
+
+Files Created
+Files Modified
+
+Database
+- số bảng mới
+- enums
+
+REST APIs
+- toàn bộ endpoint
+
+Frontend
+- pages
+- components
+- hooks
+
+Permissions
+
+Notifications
+
+Activity
+
+Build Status
+
+Acceptance Checklist
