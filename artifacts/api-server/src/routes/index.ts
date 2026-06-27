@@ -15,6 +15,7 @@ import projectMembersRouter from "./project-members";
 import starsRouter from "./stars";
 import activityRouter from "./activity";
 import notificationsRouter from "./notifications";
+import documentsRouter from "./documents";
 
 const router: IRouter = Router();
 
@@ -34,5 +35,6 @@ router.use(projectMembersRouter);
 router.use(starsRouter);
 router.use(activityRouter);
 router.use(notificationsRouter);
+router.use(documentsRouter);
 
 export default router;

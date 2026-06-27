@@ -23,6 +23,11 @@ import OrgDetail from "@/pages/org-detail";
 import Invitations from "@/pages/invitations";
 import Notifications from "@/pages/notifications";
 import ActivityPage from "@/pages/activity";
+import Documents from "@/pages/documents";
+import DocumentDetail from "@/pages/document-detail";
+import DocumentHistory from "@/pages/document-history";
+import Folders from "@/pages/folders";
+import Bookmarks from "@/pages/bookmarks";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -75,6 +80,11 @@ function Router() {
             <Route path="/invitations" component={Invitations} />
             <Route path="/notifications" component={Notifications} />
             <Route path="/activity" component={ActivityPage} />
+            <Route path="/documents" component={Documents} />
+            <Route path="/documents/:id/history" component={DocumentHistory} />
+            <Route path="/documents/:id" component={DocumentDetail} />
+            <Route path="/folders" component={Folders} />
+            <Route path="/bookmarks" component={Bookmarks} />
             <Route component={NotFound} />
           </Switch>
         </Layout>

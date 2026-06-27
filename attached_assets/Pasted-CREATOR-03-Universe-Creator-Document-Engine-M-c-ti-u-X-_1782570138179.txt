@@ -1,0 +1,566 @@
+CREATOR-03 — Universe Creator Document Engine
+
+Mục tiêu
+
+Xây Document Engine – trái tim của Universe Creator.
+
+Đây KHÔNG phải Editor.
+
+Không làm Visual Editor.
+
+Không làm World Editor.
+
+Không làm Graph.
+
+Chỉ xây hệ thống Document chuẩn để tất cả Editor sau này dùng chung.
+
+Trước khi code
+
+Đọc song song toàn bộ codebase.
+
+Đọc đầy đủ:
+
+CREATOR-01
+CREATOR-02
+
+Không rewrite.
+
+Không duplicate.
+
+Không phá kiến trúc hiện tại.
+
+Mở rộng hệ thống hiện có.
+
+Sử dụng:
+
+TypeScript strict
+Node.js
+Express
+PostgreSQL
+Drizzle ORM
+React
+TanStack Query
+
+Không mock.
+
+Không in-memory.
+
+Ý tưởng
+
+Mọi thứ trong Universe Creator đều là Document.
+
+Ví dụ
+
+World
+
+NPC
+
+Quest
+
+Boss
+
+Dungeon
+
+Item
+
+Skill
+
+Pet
+
+Mount
+
+Dialogue
+
+Company
+
+Course
+
+Tournament
+
+City
+
+Building
+
+Tất cả đều phải kế thừa cùng một mô hình.
+
+Database
+
+Tạo
+
+creator_document_types
+
+creator_documents
+
+creator_document_versions
+
+creator_document_relations
+
+creator_document_tags
+
+creator_document_comments
+
+creator_document_history
+
+creator_document_locks
+
+creator_document_folders
+
+creator_document_bookmarks
+
+creator_document_exports
+
+creator_document_imports
+
+Enums
+
+DocumentType
+
+WORLD
+NPC
+QUEST
+BOSS
+DUNGEON
+ITEM
+SKILL
+PET
+MOUNT
+DIALOGUE
+COMPANY
+COURSE
+TOURNAMENT
+CITY
+BUILDING
+DocumentStatus
+
+DRAFT
+
+REVIEW
+
+APPROVED
+
+PUBLISHED
+
+ARCHIVED
+RelationType
+
+Parent
+
+Child
+
+Reference
+
+Dependency
+
+Linked
+ExportFormat
+
+JSON
+
+ZIP
+
+PACKAGE
+Base Document Model
+
+Mỗi document đều có
+
+id
+
+projectId
+
+type
+
+name
+
+slug
+
+description
+
+thumbnail
+
+icon
+
+status
+
+visibility
+
+version
+
+tags
+
+metadata (jsonb)
+
+createdBy
+
+updatedBy
+
+publishedAt
+
+createdAt
+
+updatedAt
+Metadata
+
+metadata phải dùng jsonb
+
+Ví dụ
+
+World
+
+{
+skybox,
+gravity,
+spawnPoint,
+weather,
+music
+}
+
+NPC
+
+{
+race,
+class,
+dialogue,
+ai,
+level
+}
+
+Quest
+
+{
+objectives,
+rewards,
+requirements
+}
+
+Boss
+
+{
+hp,
+skills,
+loot,
+phases
+}
+
+Không tạo table riêng cho từng loại.
+
+Dùng metadata.
+
+Repository
+
+Tạo
+
+CreatorDocumentRepository
+
+Drizzle implementation đầy đủ.
+
+Methods
+
+createDocument()
+
+updateDocument()
+
+deleteDocument()
+
+restoreVersion()
+
+duplicate()
+
+move()
+
+lock()
+
+unlock()
+
+bookmark()
+
+export()
+
+import()
+
+search()
+
+findRelations()
+Service
+CreatorDocumentService
+
+Business logic
+
+Versioning
+
+Document lock
+
+Folder
+
+Bookmarks
+
+Relations
+
+Duplicate
+
+Export
+
+Import
+
+History
+
+REST API
+GET    /api/documents
+
+POST   /api/documents
+
+GET    /api/documents/:id
+
+PATCH  /api/documents/:id
+
+DELETE /api/documents/:id
+
+POST   /api/documents/:id/duplicate
+
+POST   /api/documents/:id/bookmark
+
+DELETE /api/documents/:id/bookmark
+
+POST   /api/documents/:id/lock
+
+POST   /api/documents/:id/unlock
+
+GET    /api/documents/:id/history
+
+GET    /api/documents/:id/versions
+
+POST   /api/documents/:id/restore/:versionId
+
+GET    /api/documents/search
+
+GET    /api/documents/folders
+
+POST   /api/documents/folders
+
+PATCH  /api/documents/folders/:id
+
+DELETE /api/documents/folders/:id
+
+POST   /api/documents/export
+
+POST   /api/documents/import
+
+GET    /api/documents/types
+Search Engine
+
+Search theo
+
+keyword
+
+tag
+
+status
+
+type
+
+author
+
+project
+
+folder
+
+Sort
+
+Newest
+
+Oldest
+
+Updated
+
+Popular
+
+Alphabet
+Versioning
+
+Mỗi lần Save
+
+↓
+
+tạo Version
+
+v1
+
+v2
+
+v3
+
+...
+
+Có thể Restore.
+
+Locking
+
+Một document chỉ có
+
+1 editor
+
+Nếu đang edit
+
+↓
+
+lock
+
+Người khác chỉ được
+
+Read Only
+Relations
+
+Cho phép
+
+Quest
+
+↓
+
+Boss
+
+↓
+
+Item
+
+↓
+
+NPC
+
+↓
+
+World
+
+Document liên kết nhau.
+
+Frontend
+
+Tạo
+
+Document Dashboard
+
+Document Browser
+
+Document Detail
+
+Document History
+
+Document Versions
+
+Folder Explorer
+
+Bookmarks
+
+Search
+Sidebar
+
+Thêm
+
+Documents
+
+Folders
+
+Bookmarks
+
+Search
+Dashboard
+
+Widget
+
+Recent Documents
+
+Drafts
+
+Published
+
+Bookmarks
+
+Recently Edited
+Hooks
+useDocuments()
+
+useDocument()
+
+useCreateDocument()
+
+useUpdateDocument()
+
+useDuplicate()
+
+useRestore()
+
+useBookmark()
+
+useFolders()
+
+useSearchDocuments()
+Permission
+
+Reuse
+
+requireProjectPermission()
+
+VIEW
+
+EDIT
+
+ADMIN
+
+OWNER
+
+Acceptance Criteria
+PostgreSQL only
+Drizzle ORM
+JSONB metadata
+Không mock
+Không rewrite CREATOR-01
+Không rewrite CREATOR-02
+TypeScript strict
+Versioning hoạt động
+Restore hoạt động
+Bookmark hoạt động
+Folder hoạt động
+Search hoạt động
+Document Lock hoạt động
+Relations hoạt động
+Export/Import hoạt động
+Frontend routing đầy đủ
+Sidebar cập nhật
+Dashboard widgets
+Build thành công
+Không tạo lỗi TypeScript mới
+Output bắt buộc
+
+Sau khi hoàn thành, chỉ trả về đúng format:
+
+CREATOR-03 Sprint Report
+
+Files Created
+Files Modified
+
+Database
+- tables
+- enums
+
+Repositories
+
+Services
+
+REST APIs
+
+Frontend
+- pages
+- hooks
+- components
+
+Search
+
+Versioning
+
+Locking
+
+Relations
+
+Export / Import
+
+Build Status
+
+Acceptance Checklist

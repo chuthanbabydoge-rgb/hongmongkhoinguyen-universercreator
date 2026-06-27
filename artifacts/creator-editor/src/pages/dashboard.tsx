@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { useGetDashboard, getGetDashboardQueryKey } from "@workspace/api-client-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { FolderGit2, Upload, FileText, Send, Activity, Box, Building2, Bell, Star, Mail } from "lucide-react";
+import { FolderGit2, Upload, FileText, Send, Activity, Box, Building2, Bell, Star, Mail, Bookmark, BookmarkCheck } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
@@ -69,12 +69,56 @@ function useInvitations() {
   });
 }
 
+interface DocItem {
+  id: number; type: string; name: string; status: string; updatedAt: string;
+}
+
+function useRecentDocuments() {
+  return useQuery<{ items: DocItem[]; total: number }>({
+    queryKey: ["/api/documents", { sort: "updated", limit: "5" }],
+    queryFn: async () => {
+      const res = await fetch(`${BASE}/api/documents?sort=updated&limit=5`, {
+        headers: { Authorization: `Bearer ${token()}` },
+      });
+      if (!res.ok) return { items: [], total: 0 };
+      return res.json();
+    },
+  });
+}
+
+function useBookmarkedDocuments() {
+  return useQuery<{ items: DocItem[] }>({
+    queryKey: ["/api/documents/bookmarks/me"],
+    queryFn: async () => {
+      const res = await fetch(`${BASE}/api/documents/bookmarks/me`, {
+        headers: { Authorization: `Bearer ${token()}` },
+      });
+      if (!res.ok) return { items: [] };
+      return res.json();
+    },
+  });
+}
+
+const DOC_EMOJIS: Record<string, string> = {
+  world: "🌍", npc: "👤", quest: "📜", boss: "🐉", dungeon: "🏰",
+  item: "⚔️", skill: "✨", pet: "🐾", mount: "🐴", dialogue: "💬",
+  company: "🏢", course: "📚", tournament: "🏆", city: "🏙️", building: "🏗️",
+  education: "🎓", sports: "⚽", land: "🗺️", nation: "🚩",
+};
+
+const STATUS_COLORS: Record<string, string> = {
+  draft: "secondary", review: "outline", approved: "outline",
+  published: "default", archived: "outline",
+};
+
 export default function Dashboard() {
   const { data: dashboard, isLoading } = useGetDashboard({ query: { queryKey: getGetDashboardQueryKey() } });
   const { data: orgsData } = useOrganizations();
   const { data: notifsData } = useNotifications();
   const { data: activityData } = useActivity();
   const { data: invitesData } = useInvitations();
+  const { data: recentDocs } = useRecentDocuments();
+  const { data: bookmarkedDocs } = useBookmarkedDocuments();
 
   const pendingInvites = invitesData?.items?.filter(i => i.status === "pending") ?? [];
 
@@ -315,6 +359,86 @@ export default function Dashboard() {
             <div className="text-center py-6 text-xs text-muted-foreground border border-dashed border-border rounded-lg">
               Star projects to pin them here
             </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="bg-card/50 backdrop-blur border-border/50">
+          <CardHeader className="pb-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <FileText className="w-4 h-4 text-chart-4" />
+                <CardTitle className="text-sm">Recent Documents</CardTitle>
+              </div>
+              <Link href="/documents">
+                <Button variant="ghost" size="sm" className="h-6 text-xs text-muted-foreground">All →</Button>
+              </Link>
+            </div>
+          </CardHeader>
+          <CardContent>
+            {!recentDocs?.items?.length ? (
+              <Link href="/documents">
+                <div className="text-center py-6 text-xs text-muted-foreground border border-dashed border-border rounded-lg cursor-pointer hover:bg-secondary/10 transition-colors">
+                  No documents yet. Create your first →
+                </div>
+              </Link>
+            ) : (
+              <div className="space-y-2">
+                {recentDocs.items.map((doc) => (
+                  <Link key={doc.id} href={`/documents/${doc.id}`}>
+                    <div className="flex items-center justify-between p-2 rounded-lg hover:bg-secondary/20 transition-colors cursor-pointer">
+                      <div className="flex items-center gap-2">
+                        <span className="text-base">{DOC_EMOJIS[doc.type] ?? "📄"}</span>
+                        <div>
+                          <div className="text-sm font-medium truncate max-w-[180px]">{doc.name}</div>
+                          <div className="text-xs text-muted-foreground capitalize">{doc.type}</div>
+                        </div>
+                      </div>
+                      <Badge variant={STATUS_COLORS[doc.status] as "default" | "secondary" | "outline" ?? "outline"} className="text-xs capitalize">
+                        {doc.status}
+                      </Badge>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card className="bg-card/50 backdrop-blur border-border/50">
+          <CardHeader className="pb-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <BookmarkCheck className="w-4 h-4 text-primary" />
+                <CardTitle className="text-sm">Bookmarked Documents</CardTitle>
+              </div>
+              <Link href="/bookmarks">
+                <Button variant="ghost" size="sm" className="h-6 text-xs text-muted-foreground">All →</Button>
+              </Link>
+            </div>
+          </CardHeader>
+          <CardContent>
+            {!bookmarkedDocs?.items?.length ? (
+              <Link href="/documents">
+                <div className="text-center py-6 text-xs text-muted-foreground border border-dashed border-border rounded-lg cursor-pointer hover:bg-secondary/10 transition-colors">
+                  Bookmark documents to pin them here →
+                </div>
+              </Link>
+            ) : (
+              <div className="space-y-2">
+                {bookmarkedDocs.items.slice(0, 5).map((doc) => (
+                  <Link key={doc.id} href={`/documents/${doc.id}`}>
+                    <div className="flex items-center gap-2 p-2 rounded-lg hover:bg-secondary/20 transition-colors cursor-pointer">
+                      <Bookmark className="w-3 h-3 text-primary shrink-0" />
+                      <span className="text-base">{DOC_EMOJIS[doc.type] ?? "📄"}</span>
+                      <span className="text-sm truncate">{doc.name}</span>
+                      <Badge variant="outline" className="ml-auto text-xs capitalize shrink-0">{doc.type}</Badge>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>

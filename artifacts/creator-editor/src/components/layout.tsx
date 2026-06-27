@@ -16,6 +16,9 @@ import {
   Mail,
   Bell,
   Activity,
+  FileText,
+  Folder,
+  Bookmark,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -80,6 +83,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         { href: "/templates", label: "Templates", icon: LayoutTemplate },
         { href: "/plugins", label: "Plugins", icon: Blocks },
         { href: "/packages", label: "Packages", icon: PackageSearch },
+      ],
+    },
+    {
+      label: "Documents",
+      items: [
+        { href: "/documents", label: "All Documents", icon: FileText },
+        { href: "/folders", label: "Folders", icon: Folder },
+        { href: "/bookmarks", label: "Bookmarks", icon: Bookmark },
       ],
     },
     {

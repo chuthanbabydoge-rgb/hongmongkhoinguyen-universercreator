@@ -49,6 +49,20 @@ export const documentTypeEnum = pgEnum("document_type", [
   "sports",
   "land",
   "nation",
+  "mount",
+  "dialogue",
+  "course",
+  "tournament",
+  "city",
+  "building",
+]);
+
+export const documentStatusEnum = pgEnum("document_status", [
+  "draft",
+  "review",
+  "approved",
+  "published",
+  "archived",
 ]);
 
 // ─── Tables ───────────────────────────────────────────────────────────────────
@@ -92,8 +106,21 @@ export const creatorDocumentsTable = pgTable("creator_documents", {
     .references(() => creatorUsersTable.id, { onDelete: "cascade" }),
   type: documentTypeEnum("type").notNull(),
   name: text("name").notNull(),
+  slug: text("slug"),
+  description: text("description"),
+  thumbnail: text("thumbnail"),
+  icon: text("icon"),
+  status: documentStatusEnum("status").default("draft").notNull(),
+  visibility: text("visibility").default("private").notNull(),
   content: jsonb("content").default({}).notNull(),
+  metadata: jsonb("metadata").default({}).notNull(),
   version: integer("version").default(1).notNull(),
+  tags: text("tags").array().default([]).notNull(),
+  folderId: integer("folder_id"),
+  updatedBy: integer("updated_by").references(() => creatorUsersTable.id, {
+    onDelete: "set null",
+  }),
+  publishedAt: timestamp("published_at"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
