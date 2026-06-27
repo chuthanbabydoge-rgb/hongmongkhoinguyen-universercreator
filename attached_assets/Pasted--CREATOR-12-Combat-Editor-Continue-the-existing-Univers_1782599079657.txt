@@ -1,0 +1,504 @@
+# CREATOR-12 — Combat Editor
+
+Continue the existing Universe Creator project.
+
+DO NOT rewrite previous sprints.
+
+Keep the existing architecture.
+
+Use:
+
+- TypeScript
+- PostgreSQL
+- Drizzle ORM
+- Express
+- React
+- TanStack Query
+- Existing auth
+- Existing repositories/services pattern
+
+Everything must integrate with:
+
+CREATOR-04 Asset Pipeline
+CREATOR-05 Visual Scripting
+CREATOR-06 Runtime Engine
+CREATOR-07 World Editor
+CREATOR-08 NPC Editor
+CREATOR-09 Quest Editor
+CREATOR-10 Item Editor
+CREATOR-11 Skill Editor
+
+--------------------------------------------------
+
+GOAL
+
+Build the complete Combat Editor.
+
+This editor defines:
+
+Combat Rules
+
+Damage Formula
+
+Critical
+
+Defense
+
+Armor
+
+Resistance
+
+Hit
+
+Miss
+
+Dodge
+
+Block
+
+Parry
+
+Combo
+
+Status Effects
+
+Aggro
+
+Threat
+
+Death
+
+Respawn
+
+Combat Zones
+
+Target Filters
+
+AI Combat Behaviors
+
+--------------------------------------------------
+
+DATABASE
+
+Create new schema:
+
+lib/db/src/schema/combat.ts
+
+Create enums:
+
+combat_mode
+damage_formula
+combat_state
+combat_target
+combat_event_type
+combat_trigger
+status_category
+combat_log_type
+
+Create about 20 tables:
+
+creator_combats
+
+creator_combat_rules
+
+creator_damage_formulas
+
+creator_damage_modifiers
+
+creator_defense_rules
+
+creator_resistances
+
+creator_hit_rules
+
+creator_critical_rules
+
+creator_block_rules
+
+creator_dodge_rules
+
+creator_parry_rules
+
+creator_combo_rules
+
+creator_status_effects
+
+creator_status_effect_stacks
+
+creator_threat_rules
+
+creator_respawn_rules
+
+creator_combat_zones
+
+creator_target_filters
+
+creator_combat_history
+
+creator_combat_versions
+
+Export schema.
+
+Push to PostgreSQL.
+
+--------------------------------------------------
+
+BACKEND
+
+Create:
+
+repositories/combat-repository.ts
+
+services/
+
+combat-editor-service.ts
+
+combat-validator.ts
+
+combat-exporter.ts
+
+combat-importer.ts
+
+combat-runtime-bridge.ts
+
+Capabilities:
+
+CRUD
+
+duplicate
+
+fork
+
+publish
+
+archive
+
+restore
+
+version snapshots
+
+--------------------------------------------------
+
+VALIDATOR
+
+Validate:
+
+missing damage formula
+
+negative damage
+
+invalid defense
+
+broken references
+
+duplicate status
+
+infinite combo loops
+
+invalid targeting
+
+missing respawn
+
+warnings:
+
+unused modifiers
+
+unused status
+
+unreachable combo
+
+--------------------------------------------------
+
+EXPORTER
+
+Support:
+
+JSON
+
+Template
+
+Package
+
+SHA256 checksum
+
+--------------------------------------------------
+
+IMPORTER
+
+Support:
+
+JSON
+
+Template
+
+Package
+
+--------------------------------------------------
+
+RUNTIME BRIDGE
+
+Provide simulation:
+
+simulate attack
+
+simulate defense
+
+simulate crit
+
+simulate dodge
+
+simulate block
+
+simulate parry
+
+simulate combo
+
+simulate aggro
+
+simulate status
+
+simulate death
+
+simulate respawn
+
+--------------------------------------------------
+
+REST API
+
+Create around 60 endpoints.
+
+Prefix:
+
+/api/combat/*
+
+Include:
+
+CRUD
+
+Rules
+
+Damage
+
+Defense
+
+Resistance
+
+Critical
+
+Block
+
+Dodge
+
+Parry
+
+Combo
+
+Status
+
+Threat
+
+Respawn
+
+Validation
+
+Import
+
+Export
+
+Simulation
+
+History
+
+Templates
+
+--------------------------------------------------
+
+FRONTEND
+
+Create about 16 pages.
+
+Combat Dashboard
+
+Combat Browser
+
+Combat Editor
+
+Damage Formula Editor
+
+Defense Editor
+
+Resistance Editor
+
+Critical Editor
+
+Combo Editor
+
+Status Effect Editor
+
+Aggro Editor
+
+Respawn Editor
+
+Combat Simulator
+
+Templates
+
+Validator
+
+History
+
+Import / Export
+
+--------------------------------------------------
+
+EDITOR
+
+Main editor uses tabs:
+
+General
+
+Damage
+
+Defense
+
+Resistance
+
+Critical
+
+Block
+
+Dodge
+
+Parry
+
+Combo
+
+Status
+
+Aggro
+
+Respawn
+
+Simulation
+
+History
+
+Settings
+
+--------------------------------------------------
+
+SIDEBAR
+
+Add section:
+
+Combat Editor
+
+Dashboard
+
+Browser
+
+Templates
+
+Validator
+
+Simulator
+
+Import / Export
+
+--------------------------------------------------
+
+INTEGRATION
+
+Skill Editor
+
+Every skill references combat definitions.
+
+NPC Editor
+
+NPC combat profile.
+
+World Editor
+
+Combat zones.
+
+Quest Editor
+
+Combat objectives.
+
+Item Editor
+
+Weapon modifiers.
+
+Runtime Engine
+
+Combat simulation.
+
+Visual Scripting
+
+Combat events.
+
+Asset Pipeline
+
+Effects / audio.
+
+--------------------------------------------------
+
+DO NOT
+
+Rewrite previous sprints.
+
+Do not remove existing routes.
+
+Do not create mock data.
+
+Use PostgreSQL only.
+
+--------------------------------------------------
+
+ACCEPTANCE
+
+20 tables
+
+8 enums
+
+~60 REST endpoints
+
+16 React pages
+
+Sidebar integrated
+
+Runtime bridge
+
+Validator
+
+Importer
+
+Exporter
+
+Combat simulator
+
+PostgreSQL pushed
+
+Build succeeds
+
+Zero new TypeScript errors
+
+Finally output ONLY:
+
+CREATOR-12 Sprint Report
+
+including:
+
+Database
+
+Backend
+
+Frontend
+
+REST APIs
+
+Integration
+
+Build Status
+
+Acceptance Checklist
