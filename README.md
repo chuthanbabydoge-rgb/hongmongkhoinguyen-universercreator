@@ -1,283 +1,343 @@
-# Universe Creator
+<div align="center">
 
-A full-stack game development platform for building, scripting, and simulating game worlds. Universe Creator provides a suite of editors — asset management, document authoring, visual scripting, and a real-time runtime engine — all in one web application.
+# 🌌 Universe Creator
 
----
+![Version](https://img.shields.io/badge/phiên_bản-6.0.0-6366f1?style=for-the-badge&logo=rocket)
+![Node](https://img.shields.io/badge/Node.js-24-339933?style=for-the-badge&logo=node.js&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Drizzle_ORM-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 
-## Table of Contents
+**Nền tảng phát triển game toàn diện — quản lý tài nguyên, soạn thảo tài liệu, lập trình trực quan và mô phỏng thời gian thực, tất cả trong một ứng dụng web.**
 
-- [Overview](#overview)
-- [Stack](#stack)
-- [Monorepo Structure](#monorepo-structure)
-- [Running the Project](#running-the-project)
-- [Environment Variables](#environment-variables)
-- [Database](#database)
-- [API Server](#api-server)
-- [Creator Editor](#creator-editor)
-- [Sprints](#sprints)
-- [Architecture Decisions](#architecture-decisions)
-- [Gotchas](#gotchas)
+</div>
 
 ---
 
-## Overview
+## 📋 Mục lục
 
-Universe Creator is a multi-package pnpm monorepo. It consists of:
-
-| Service | Description | Port |
-|---|---|---|
-| `api-server` | Express 5 REST API with PostgreSQL backend | 3000 |
-| `creator-editor` | React 19 + Vite 7 web application | 5173 |
-
-Users sign in, create projects, manage assets and documents, build visual scripts (node-based programming), and run simulations via the Runtime Engine — all without leaving the browser.
+- [🎯 Tổng quan](#-tổng-quan)
+- [⚙️ Công nghệ sử dụng](#️-công-nghệ-sử-dụng)
+- [🗂️ Cấu trúc Monorepo](#️-cấu-trúc-monorepo)
+- [🚀 Khởi chạy dự án](#-khởi-chạy-dự-án)
+- [🔐 Biến môi trường](#-biến-môi-trường)
+- [🗄️ Cơ sở dữ liệu](#️-cơ-sở-dữ-liệu)
+- [🌐 API Server](#-api-server)
+- [🖥️ Creator Editor](#️-creator-editor)
+- [🏃 Các Sprint](#-các-sprint)
+- [🏛️ Quyết định kiến trúc](#️-quyết-định-kiến-trúc)
+- [⚠️ Lưu ý quan trọng](#️-lưu-ý-quan-trọng)
 
 ---
 
-## Stack
+## 🎯 Tổng quan
 
-| Layer | Technology |
+Universe Creator là một **pnpm monorepo đa gói**. Hệ thống gồm hai dịch vụ chính:
+
+| 🟢 Dịch vụ | 📝 Mô tả | 🔌 Cổng |
+|---|---|:---:|
+| `api-server` | REST API Express 5 với backend PostgreSQL | **3000** |
+| `creator-editor` | Ứng dụng web React 19 + Vite 7 | **5173** |
+
+Người dùng có thể đăng nhập, tạo dự án, quản lý tài nguyên và tài liệu, xây dựng kịch bản trực quan (lập trình dạng nút), và chạy mô phỏng qua Runtime Engine — tất cả ngay trên trình duyệt.
+
+---
+
+## ⚙️ Công nghệ sử dụng
+
+| 🏷️ Tầng | 🔧 Công nghệ |
 |---|---|
-| Runtime | Node.js 24 |
-| Language | TypeScript 5.9 (strict) |
-| Monorepo | pnpm workspaces |
-| API | Express 5 |
-| Database | PostgreSQL + Drizzle ORM |
-| Validation | Zod v4, drizzle-zod |
-| Build | esbuild (CJS bundle) |
-| Frontend | React 19, Vite 7, Wouter, TanStack Query |
-| UI | Radix UI + Tailwind CSS (shadcn/ui) |
-| Auth | JWT (jsonwebtoken + bcryptjs) |
+| 🟩 Runtime | Node.js 24 |
+| 🔵 Ngôn ngữ | TypeScript 5.9 (strict) |
+| 📦 Monorepo | pnpm workspaces |
+| 🚂 API | Express 5 |
+| 🗄️ Cơ sở dữ liệu | PostgreSQL + Drizzle ORM |
+| ✅ Xác thực dữ liệu | Zod v4, drizzle-zod |
+| 🏗️ Build | esbuild (CJS bundle) |
+| ⚛️ Frontend | React 19, Vite 7, Wouter, TanStack Query |
+| 🎨 Giao diện | Radix UI + Tailwind CSS (shadcn/ui) |
+| 🔑 Xác thực | JWT (jsonwebtoken + bcryptjs) |
 
 ---
 
-## Monorepo Structure
+## 🗂️ Cấu trúc Monorepo
 
 ```
 universe-creator/
-├── lib/
-│   └── db/                         # @workspace/db — Drizzle schema + client
-│       └── src/
-│           └── schema/
-│               ├── identity.ts     # Users, orgs, sessions
-│               ├── creator.ts      # Projects, templates, plugins
-│               ├── documents.ts    # Documents, folders, history
-│               ├── assets.ts       # Assets, pipeline, collections
-│               ├── graphs.ts       # Visual scripting — graphs, nodes, pins
-│               └── runtime.ts      # Runtime engine — sessions, ECS, events
-├── artifacts/
-│   ├── api-server/                 # @workspace/api-server — Express REST API
-│   │   └── src/
-│   │       ├── middlewares/        # auth.ts (JWT requireAuth)
-│   │       ├── repositories/       # DrizzleGraphRepository, DrizzleRuntimeRepository
-│   │       ├── services/           # Graph compiler/runtime, RuntimeEngine, ECS
-│   │       └── routes/             # One file per resource group
-│   └── creator-editor/             # @workspace/creator-editor — React SPA
-│       └── src/
-│           ├── pages/              # ~50 page components
-│           └── components/
-│               ├── layout.tsx      # Sidebar + main layout
-│               ├── graph/          # Visual scripting canvas components
-│               └── ui/             # Radix/shadcn atomic components
-└── pnpm-workspace.yaml
+│
+├── 📁 lib/
+│   └── 📁 db/                          # @workspace/db — Schema + client Drizzle
+│       └── src/schema/
+│           ├── 🔐 identity.ts          # Người dùng, tổ chức, phiên
+│           ├── 🏗️  creator.ts          # Dự án, mẫu, plugin
+│           ├── 📄 documents.ts         # Tài liệu, thư mục, lịch sử
+│           ├── 🖼️  assets.ts           # Tài nguyên, pipeline, bộ sưu tập
+│           ├── 🔀 graphs.ts            # Visual scripting — đồ thị, nút, chân
+│           └── ⚡ runtime.ts           # Runtime engine — phiên, ECS, sự kiện
+│
+└── 📁 artifacts/
+    ├── 📁 api-server/                  # @workspace/api-server — Express REST API
+    │   └── src/
+    │       ├── 🛡️  middlewares/        # auth.ts (JWT requireAuth)
+    │       ├── 🗃️  repositories/       # DrizzleGraphRepository, DrizzleRuntimeRepository
+    │       ├── ⚙️  services/           # Graph compiler/runtime, RuntimeEngine, ECS
+    │       └── 🌐 routes/              # Một file cho mỗi nhóm tài nguyên
+    │
+    └── 📁 creator-editor/              # @workspace/creator-editor — React SPA
+        └── src/
+            ├── 📄 pages/               # ~50 trang (page components)
+            └── 🧩 components/
+                ├── layout.tsx          # Sidebar + layout chính
+                ├── graph/              # Components canvas visual scripting
+                └── ui/                 # Components nguyên tử Radix/shadcn
 ```
 
 ---
 
-## Running the Project
+## 🚀 Khởi chạy dự án
 
 ```bash
-# Install dependencies
+# 📦 Cài đặt dependencies
 pnpm install
 
-# Push database schema (dev only — requires DATABASE_URL)
+# 🗄️ Đẩy schema lên database (chỉ dùng khi dev — cần DATABASE_URL)
 pnpm --filter @workspace/db run push
 
-# Start API server (port 3000)
+# 🌐 Khởi động API server (cổng 3000)
 PORT=3000 pnpm --filter @workspace/api-server run dev
 
-# Start Creator Editor (port 5173)
+# 🖥️ Khởi động Creator Editor (cổng 5173)
 PORT=5173 BASE_PATH=/ pnpm --filter @workspace/creator-editor run dev
 
-# Full typecheck across all packages
+# 🔍 Kiểm tra kiểu dữ liệu toàn bộ packages
 pnpm run typecheck
 
-# Build all packages
+# 🏗️ Build tất cả packages
 pnpm run build
 
-# Regenerate API hooks from OpenAPI spec
+# 🔄 Tái tạo API hooks từ OpenAPI spec
 pnpm --filter @workspace/api-spec run codegen
 ```
 
----
-
-## Environment Variables
-
-| Variable | Required | Description |
-|---|---|---|
-| `DATABASE_URL` | Yes | PostgreSQL connection string |
-| `PORT` | No | API server port (default: 3000) |
-| `BASE_PATH` | No | Vite base path for the editor (default: `/`) |
+> **💡 Thứ tự khởi động:** Luôn chạy `db run push` trước, sau đó mới khởi động `api-server`.
 
 ---
 
-## Database
+## 🔐 Biến môi trường
 
-Drizzle ORM with PostgreSQL. All schema lives in `lib/db/src/schema/`.
+| 🏷️ Biến | 🔴 Bắt buộc | 📝 Mô tả |
+|---|:---:|---|
+| `DATABASE_URL` | ✅ Có | Chuỗi kết nối PostgreSQL |
+| `PORT` | ❌ Không | Cổng API server (mặc định: `3000`) |
+| `BASE_PATH` | ❌ Không | Base path Vite cho editor (mặc định: `/`) |
 
-### Schema files
+---
 
-| File | Tables | Purpose |
+## 🗄️ Cơ sở dữ liệu
+
+Drizzle ORM với PostgreSQL. Toàn bộ schema nằm trong `lib/db/src/schema/`.
+
+### 📊 Các file Schema
+
+| 📄 File | 📋 Bảng chính | 🎯 Mục đích |
 |---|---|---|
-| `identity.ts` | users, organizations, sessions, invitations | Auth + multi-tenancy |
-| `creator.ts` | projects, templates, plugins, packages | Core project entities |
-| `documents.ts` | documents, folders, bookmarks, history | Document management |
-| `assets.ts` | assets, pipeline jobs, collections, folders | Asset pipeline |
-| `graphs.ts` | graphs, nodes, pins, connections, variables, functions, macros, … | Visual scripting (20 tables) |
-| `runtime.ts` | sessions, worlds, entities, components, systems, events, logs, … | Runtime engine (20 tables) |
+| `identity.ts` | users, organizations, sessions, invitations | Xác thực + đa thuê bao |
+| `creator.ts` | projects, templates, plugins, packages | Thực thể dự án cốt lõi |
+| `documents.ts` | documents, folders, bookmarks, history | Quản lý tài liệu |
+| `assets.ts` | assets, pipeline jobs, collections, folders | Pipeline tài nguyên |
+| `graphs.ts` | graphs, nodes, pins, connections, variables… | Visual scripting **(20 bảng)** |
+| `runtime.ts` | sessions, worlds, entities, components, systems… | Runtime engine **(20 bảng)** |
 
-**Push schema changes (dev):**
 ```bash
+# 🔄 Đẩy thay đổi schema (chỉ dùng khi dev)
 pnpm --filter @workspace/db run push
 ```
 
 ---
 
-## API Server
+## 🌐 API Server
 
-Express 5 REST API. All routes are prefixed `/api/`. Auth is enforced via `requireAuth` middleware (JWT Bearer token).
+Express 5 REST API. Tất cả routes có tiền tố `/api/`. Xác thực bằng middleware `requireAuth` (JWT Bearer token).
 
-### Route groups
+### 🛣️ Các nhóm route
 
-| Prefix | File | Description |
+| 🔗 Tiền tố | 📄 File | 📝 Mô tả |
 |---|---|---|
-| `/api/auth` | `auth.ts` | Register, login, me |
-| `/api/projects` | `projects.ts` | Project CRUD |
-| `/api/assets` | `assets.ts` | Asset CRUD |
-| `/api/pipeline` | `asset-pipeline.ts` | Asset ingestion + processing |
-| `/api/documents` | `documents.ts` | Document + folder CRUD |
-| `/api/graphs` | `graphs.ts` | Visual scripting CRUD + compile + execute |
-| `/api/runtime` | `runtime.ts` | Runtime sessions + ECS + play mode |
-| `/api/organizations` | `organizations.ts` | Org management |
-| `/api/notifications` | `notifications.ts` | In-app notifications |
-| `/api/dashboard` | `dashboard.ts` | Aggregate dashboard stats |
-| … | … | templates, plugins, packages, activity, stars, etc. |
+| `/api/auth` | `auth.ts` | Đăng ký, đăng nhập, thông tin người dùng |
+| `/api/projects` | `projects.ts` | CRUD dự án |
+| `/api/assets` | `assets.ts` | CRUD tài nguyên |
+| `/api/pipeline` | `asset-pipeline.ts` | Nhập và xử lý tài nguyên |
+| `/api/documents` | `documents.ts` | CRUD tài liệu + thư mục |
+| `/api/graphs` | `graphs.ts` | Visual scripting CRUD + biên dịch + thực thi |
+| `/api/runtime` | `runtime.ts` | Phiên runtime + ECS + play mode |
+| `/api/organizations` | `organizations.ts` | Quản lý tổ chức |
+| `/api/notifications` | `notifications.ts` | Thông báo trong ứng dụng |
+| `/api/dashboard` | `dashboard.ts` | Thống kê tổng hợp |
+| `…` | `…` | templates, plugins, packages, activity, stars… |
 
 ---
 
-## Creator Editor
+## 🖥️ Creator Editor
 
-React 19 SPA with Wouter routing. Auth token stored in `localStorage` as `creator_token`, sent as `Authorization: Bearer <token>` header.
+React 19 SPA với Wouter routing. Token xác thực lưu trong `localStorage` với key `creator_token`, gửi qua header `Authorization: Bearer <token>`.
 
-### Sidebar sections
+### 📌 Các mục trong Sidebar
 
-| Section | Pages |
+| 🏷️ Mục | 📄 Trang |
 |---|---|
-| Studio | Dashboard, Projects, Assets, Templates, Plugins, Packages |
-| Visual Scripting | Visual Script Dashboard, Graph Browser, Graph Templates, Macro Library, Execution Console, Compiler, Runtime Monitor |
-| Runtime | Runtime Engine, Simulation Center |
-| Documents | All Documents, Folders, Bookmarks |
-| Assets | Asset Pipeline, Browser, Upload Center, Collections, Asset Folders, Processing Queue |
-| Identity | Profile, Organizations, Invitations |
-| Feed | Activity, Notifications |
+| 🎬 **Studio** | Dashboard, Dự án, Tài nguyên, Mẫu, Plugin, Packages |
+| 🔀 **Visual Scripting** | Bảng điều khiển Script, Graph Browser, Mẫu Graph, Thư viện Macro, Console Thực thi, Compiler, Runtime Monitor |
+| ⚡ **Runtime** | Runtime Engine, Trung tâm Mô phỏng |
+| 📄 **Documents** | Tất cả Tài liệu, Thư mục, Bookmarks |
+| 🖼️ **Assets** | Pipeline, Trình duyệt, Upload Center, Bộ sưu tập, Thư mục Asset, Hàng đợi Xử lý |
+| 👤 **Identity** | Hồ sơ, Tổ chức, Lời mời |
+| 📡 **Feed** | Hoạt động, Thông báo |
 
 ---
 
-## Sprints
+## 🏃 Các Sprint
 
-### CREATOR-01 — Identity & Projects
-Core authentication (register/login/JWT), user profiles, organizations, invitations, project management, templates, plugins, packages, notifications, activity feed.
+### 🔐 CREATOR-01 — Danh tính & Dự án
+Xác thực cốt lõi (đăng ký/đăng nhập/JWT), hồ sơ người dùng, tổ chức, lời mời, quản lý dự án, mẫu, plugin, packages, thông báo, nhật ký hoạt động.
 
-### CREATOR-02 — Documents
-Full document management: rich document CRUD, folders, bookmarks, document history, full-text search.
+---
 
-### CREATOR-03 — Asset Pipeline
-Asset ingestion and processing pipeline: upload, transcode, metadata extraction, collections, asset folders, processing queue, pipeline dashboard.
+### 📄 CREATOR-02 — Tài liệu
+Quản lý tài liệu đầy đủ: CRUD tài liệu phong phú, thư mục, bookmarks, lịch sử tài liệu, tìm kiếm toàn văn.
 
-### CREATOR-04 — Asset Pipeline (Extended)
-Extended asset pipeline with batch processing, asset browser with advanced filtering, asset detail view, and pipeline job management.
+---
 
-### CREATOR-05 — Visual Scripting Engine
+### 🖼️ CREATOR-03 — Pipeline Tài nguyên
+Pipeline nhập và xử lý tài nguyên: upload, chuyển mã, trích xuất metadata, bộ sưu tập, thư mục asset, hàng đợi xử lý, bảng điều khiển pipeline.
 
-**20 database tables, 6 enums** in `lib/db/src/schema/graphs.ts`
+---
 
-**Backend services:**
-- `GraphValidator` — cycle detection, broken links, unused nodes, missing required pins
-- `GraphCompiler` — topological sort → `CompiledInstruction[]` → stored in `creator_graph_compiler_cache`
-- `GraphRuntime` + `ExecutionEngine` — in-memory node-by-node execution, pause/resume/stop
-- `GraphService` — orchestrates all services
-- 17 REST endpoints under `/api/graphs`
+### 🔧 CREATOR-04 — Pipeline Tài nguyên (Mở rộng)
+Pipeline tài nguyên mở rộng với xử lý hàng loạt, trình duyệt asset lọc nâng cao, xem chi tiết asset và quản lý jobs pipeline.
 
-**Frontend:**
-- `GraphEditor` — pan/zoom canvas, drag nodes, pin connections, SVG overlay, Ctrl+S save
-- `NodeLibrary` — 20 built-in node types across 7 categories (Flow, Math, Variables, Events, Functions, Logic, Debug)
-- `Inspector`, `MiniMap`, `Toolbar`, `ConnectionLayer`, `Pin`, `Node` components
-- Pages: Visual Script Dashboard, Graph Browser, Graph Templates, Macro Library, Execution Console, Compiler Panel, Runtime Monitor
+---
 
-### CREATOR-06 — Runtime Engine
+### 🔀 CREATOR-05 — Visual Scripting Engine
 
-**20 database tables, 6 enums** in `lib/db/src/schema/runtime.ts`
+> **20 bảng cơ sở dữ liệu · 6 enum** trong `lib/db/src/schema/graphs.ts`
 
-**Architecture:**
+**⚙️ Backend services:**
+- 🔍 `GraphValidator` — phát hiện vòng lặp, liên kết hỏng, nút thừa, chân bắt buộc còn thiếu
+- 🏗️ `GraphCompiler` — sắp xếp topo → `CompiledInstruction[]` → lưu vào `creator_graph_compiler_cache`
+- ▶️ `GraphRuntime` + `ExecutionEngine` — thực thi nút theo nút trong bộ nhớ, pause/resume/stop
+- 🎛️ `GraphService` — điều phối tất cả dịch vụ
+- 📡 **17 REST endpoints** dưới `/api/graphs`
+
+**🖥️ Frontend:**
+- `GraphEditor` — canvas pan/zoom, kéo nút, kết nối chân, SVG overlay, lưu Ctrl+S
+- `NodeLibrary` — 20 loại nút tích hợp thuộc 7 danh mục (Flow, Math, Variables, Events, Functions, Logic, Debug)
+- Các component: `Inspector`, `MiniMap`, `Toolbar`, `ConnectionLayer`, `Pin`, `Node`
+- Trang: Dashboard Script, Graph Browser, Mẫu, Thư viện Macro, Console, Compiler, Runtime Monitor
+
+---
+
+### ⚡ CREATOR-06 — Runtime Engine
+
+> **20 bảng cơ sở dữ liệu · 6 enum** trong `lib/db/src/schema/runtime.ts`
+
+**🏛️ Kiến trúc:**
+
 ```
-Graph Compiler (CREATOR-05)
-  ↓ CompiledInstruction[]
-RuntimeEngine
-  ↓ initialize / start / stop / pause / resume / step
-WorldRuntime
-  ├── EntityManager       spawn / destroy / transform / enable
-  ├── ComponentManager    transform / renderer / collider / script / health / …
-  ├── SystemManager       Physics / Animation / AI / Quest / Combat / … (11 systems)
-  ├── EventDispatcher     spawn / destroy / move / collision / quest / timer / custom
-  ├── TimerService        delay / interval / cooldown / countdown
-  └── SimulationEngine    tick loop, FPS tracking, frame time
-PlayModeService
-  └── start / pause / resume / stop / step / snapshot / restore
-ProfilerService + DebugService
-  └── per-frame CPU/memory sampling → creator_runtime_performance
+🔀 Graph Compiler (CREATOR-05)
+      ↓  CompiledInstruction[]
+⚡ RuntimeEngine
+      ↓  initialize → start → stop → pause → resume → step
+🌍 WorldRuntime
+      ├── 👾 EntityManager       spawn / destroy / transform / enable
+      ├── 🧩 ComponentManager    transform / renderer / collider / script / health / …
+      ├── ⚙️  SystemManager       Physics / Animation / AI / Quest / Combat / … (11 hệ thống)
+      ├── 📡 EventDispatcher     spawn / destroy / move / collision / quest / timer / custom
+      ├── ⏱️  TimerService        delay / interval / cooldown / countdown
+      └── 🎮 SimulationEngine    vòng lặp tick, theo dõi FPS, frame time
+🎬 PlayModeService
+      └── start / pause / resume / stop / step / snapshot / restore
+📊 ProfilerService + DebugService
+      └── lấy mẫu CPU/bộ nhớ mỗi frame → creator_runtime_performance
 ```
 
-**Simulation modes:** `editor` · `play` · `simulation` · `debug` · `headless` · `record` · `replay`
+**🎮 Các chế độ mô phỏng:**
 
-**23 REST endpoints** under `/api/runtime`
+| Chế độ | Mô tả |
+|---|---|
+| `editor` | Công cụ editor đầy đủ, hỗ trợ hot-reload |
+| `play` | Mô phỏng game thời gian thực |
+| `simulation` | Không giao diện, tốc độ tick tối đa |
+| `debug` | Step-frame, breakpoints, xem biến |
+| `headless` | Không render |
+| `record` / `replay` | Ghi lại và phát lại |
 
-**Frontend pages (12):**
-- Runtime Dashboard — stat widgets, session list, architecture overview
-- Play Mode — play toolbar, entity/system/log tabs, performance strip
-- Simulation Center — mode launcher (editor/play/simulation/debug)
-- Runtime Profiler — sparkline charts, system timing bars, sample table
-- Runtime Logs — level + search filter, color-coded stream
-- Runtime Inspector — entity hierarchy + transform inspector + component drill-down
-- Entity Explorer — filterable entity table
-- Component Explorer — type-grouped component table
-- System Monitor — timing bars, tick counters per system
-- Event Monitor — live event stream with type filter
-- Debug Console — tabbed console / errors / warnings
-- Snapshot Manager — create, list, restore snapshots
+**📡 23 REST endpoints** dưới `/api/runtime`
 
----
+**🖥️ 12 trang Frontend:**
 
-## Architecture Decisions
-
-1. **Repository Pattern + Service Pattern** — All database access goes through `Drizzle*Repository` classes. Business logic lives in `*Service`. Routes only call services, never the DB directly.
-
-2. **No mocks, no fake implementations** — Every feature talks to real PostgreSQL. There is no in-memory fallback.
-
-3. **JWT stored in localStorage** — Token key is `creator_token`. The `setAuthTokenGetter` hook injects it into all generated API client calls automatically.
-
-4. **Asset pipeline uses `/api/pipeline` prefix** — Not `/api/assets`, to avoid collision with the basic assets CRUD route registered earlier.
-
-5. **`@workspace/db` is the only import path for the DB client** — The subpath `@workspace/db/client` is not exported. All repositories use `import { db } from "@workspace/db"`.
-
-6. **Graph compiler is deterministic** — Topological sort produces a stable instruction order. The resulting checksum is stored in `creator_graph_compiler_cache` so unchanged graphs skip recompilation.
-
-7. **Runtime sessions are fully isolated** — Each session owns its own `WorldRuntime` instance in memory and a complete set of rows in the `creator_runtime_*` tables. Deleting a session cascades through all child tables.
+| 🏷️ Trang | 📝 Mô tả |
+|---|---|
+| Runtime Dashboard | Widgets thống kê, danh sách phiên, tổng quan kiến trúc |
+| Play Mode | Thanh công cụ play, tab entity/hệ thống/log, dải hiệu năng |
+| Simulation Center | Bộ khởi chạy chế độ (editor/play/simulation/debug) |
+| Runtime Profiler | Biểu đồ sparkline, thanh thời gian hệ thống, bảng mẫu |
+| Runtime Logs | Lọc theo cấp độ + tìm kiếm, luồng log màu sắc |
+| Runtime Inspector | Cây phân cấp entity + inspector transform + component |
+| Entity Explorer | Bảng entity có thể lọc |
+| Component Explorer | Bảng component phân nhóm theo loại |
+| System Monitor | Thanh thời gian, bộ đếm tick cho mỗi hệ thống |
+| Event Monitor | Luồng sự kiện trực tiếp với bộ lọc loại |
+| Debug Console | Tabbed: Console / Lỗi / Cảnh báo |
+| Snapshot Manager | Tạo, liệt kê, khôi phục snapshot |
 
 ---
 
-## Gotchas
+## 🏛️ Quyết định kiến trúc
 
-- **Always run `pnpm --filter @workspace/db run push` after schema changes** before restarting the API server. The server will crash on missing tables if schema is not pushed first.
-- **API server runs on port 3000**, not the default 5000 shown in some docs. The workflow command explicitly sets `PORT=3000`.
-- **Creator Editor needs `BASE_PATH=/`** — without it, Vite serves assets from the wrong path.
-- **Vite `allowedHosts: true`** is set in `vite.config.ts` — required because the preview pane is a proxied iframe from a different origin.
-- **TypeScript strict mode is on everywhere.** All `any` usages in page components are intentional (API responses are untyped at the page layer — codegen covers the client layer).
+> **1. 🗃️ Repository Pattern + Service Pattern**
+> Toàn bộ truy cập database đi qua các class `Drizzle*Repository`. Business logic nằm trong `*Service`. Routes chỉ gọi services, không bao giờ trực tiếp gọi DB.
+
+> **2. 🚫 Không mock, không triển khai giả**
+> Mọi tính năng đều giao tiếp với PostgreSQL thực. Không có fallback in-memory.
+
+> **3. 🔑 JWT lưu trong localStorage**
+> Key token là `creator_token`. Hook `setAuthTokenGetter` tự động inject vào tất cả lời gọi API client được tạo.
+
+> **4. 🛣️ Pipeline dùng tiền tố `/api/pipeline`**
+> Không dùng `/api/assets` để tránh xung đột với route CRUD assets cơ bản đã đăng ký trước.
+
+> **5. 📦 `@workspace/db` là đường dẫn import duy nhất cho DB client**
+> Subpath `@workspace/db/client` không được export. Tất cả repositories dùng `import { db } from "@workspace/db"`.
+
+> **6. 🔀 Graph compiler có tính xác định**
+> Sắp xếp topo tạo ra thứ tự lệnh ổn định. Checksum kết quả lưu trong `creator_graph_compiler_cache` để các graph không thay đổi bỏ qua biên dịch lại.
+
+> **7. ⚡ Các phiên runtime hoàn toàn cô lập**
+> Mỗi phiên có instance `WorldRuntime` riêng trong bộ nhớ và một tập hàng đầy đủ trong các bảng `creator_runtime_*`. Xóa phiên sẽ cascade qua tất cả bảng con.
+
+---
+
+## ⚠️ Lưu ý quan trọng
+
+> 🔴 **Luôn chạy `pnpm --filter @workspace/db run push` sau khi thay đổi schema** trước khi khởi động lại API server. Server sẽ crash nếu schema chưa được đẩy lên.
+
+> 🟠 **API server chạy trên cổng 3000**, không phải cổng mặc định 5000 như trong một số tài liệu. Lệnh workflow đặt `PORT=3000` một cách tường minh.
+
+> 🟡 **Creator Editor cần `BASE_PATH=/`** — nếu thiếu, Vite sẽ phục vụ assets từ đường dẫn sai.
+
+> 🔵 **Vite `allowedHosts: true`** được đặt trong `vite.config.ts` — bắt buộc vì preview pane là một iframe được proxy từ origin khác.
+
+> 🟣 **TypeScript strict mode bật ở mọi nơi.** Các usage `any` trong page components là có chủ đích (phản hồi API không được đánh kiểu ở tầng page — codegen xử lý tầng client).
+
+---
+
+<div align="center">
+
+**Được xây dựng với ❤️ — Universe Creator Platform**
+
+![Sprint](https://img.shields.io/badge/Sprint-CREATOR--06-6366f1?style=flat-square)
+![Tables](https://img.shields.io/badge/DB_Tables-40+-4169E1?style=flat-square&logo=postgresql&logoColor=white)
+![Pages](https://img.shields.io/badge/Trang-50+-61DAFB?style=flat-square&logo=react&logoColor=black)
+![API](https://img.shields.io/badge/API_Endpoints-60+-339933?style=flat-square&logo=express&logoColor=white)
+
+</div>
