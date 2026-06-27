@@ -1,0 +1,688 @@
+Bạn đang tiếp tục dự án Universe Creator.
+
+QUAN TRỌNG
+
+Đây là CREATOR-07.
+
+CREATOR-01 đến CREATOR-06 đã HOÀN THÀNH.
+
+KHÔNG được viết lại kiến ​​trúc hiện có.
+
+KHÔNG được thay thế mã nguồn cũ.
+
+CHỈ mở rộng dự án.
+
+====================================================
+
+DỰ ÁN
+
+Universe Creator
+
+Sprint
+
+CREATOR-07
+
+Tiêu đề
+
+Trình chỉnh sửa thế giới
+
+=====================================================
+
+MỤC TIÊU
+
+Xây dựng Trình chỉnh sửa thế giới.
+
+Đây là trình chỉnh sửa nội dung thực sự đầu tiên trong Universe Creator.
+
+Trình chỉnh sửa phải tích hợp với:
+
+CREATOR-01 Hệ thống Dự án
+
+CREATOR-03 Hệ thống Tài liệu
+
+CREATOR-04 Hệ thống Xử lý Tài sản
+
+CREATOR-05 Lập trình Trực quan
+
+CREATOR-06 Công cụ Thời gian chạy
+
+Trình chỉnh sửa tạo ra các Thế giới có thể chỉnh sửa, sau này chứa:
+
+NPC
+
+Nhiệm vụ
+
+Vật phẩm
+
+Trùm
+
+Công trình
+
+Thành phố
+
+Hầm ngục
+
+v.v.
+
+KHÔNG xây dựng các trình chỉnh sửa đó ngay.
+
+Chỉ xây dựng Trình chỉnh sửa Thế giới.
+
+====================================================
+
+CƠ SỞ DỮ LIỆU
+
+PostgreSQL
+
+ORM Drizzle
+
+KHÔNG SỬ DỤNG MOCK
+
+Tạo lược đồ
+
+world-editor.ts
+
+=====================================================
+
+Tạo enum
+
+world_type
+
+world_status
+
+world_environment
+
+world_lighting
+
+world_weather
+
+terrain_type
+
+spawn_type
+
+=======================================================
+
+Tạo bảng
+
+thế giới người tạo
+
+cài đặt thế giới người tạo
+
+vùng thế giới người tạo
+
+khối thế giới người tạo
+
+lớp thế giới người tạo
+
+điểm xuất hiện thế giới người tạo
+
+cảnh thế giới người tạo
+
+môi trường thế giới người tạo
+
+thời tiết thế giới người tạo
+
+ánh sáng thế giới người tạo
+
+điều hướng thế giới người tạo
+
+cổng thế giới người tạo
+
+dấu trang thế giới người tạo
+
+lịch sử thế giới người tạo
+
+phiên bản thế giới người tạo
+
+thế giới người tạo d_templates
+
+creator_world_exports
+
+creator_world_imports
+
+creator_world_runtime
+
+creator_world_statistics
+
+====================================================
+
+HỆ THỐNG PHỤ TRÁCH
+
+Tạo
+
+DrizzleWorldEditorRepository
+
+WorldEditorService
+
+WorldSerializer
+
+WorldImporter
+
+WorldExporter
+
+WorldValidator
+
+WorldRuntimeBridge
+
+====================================================
+
+THẾ GIỚI TÍNH NĂNG
+
+Tạo Thế giới
+
+Xóa Thế giới
+
+Đổi tên
+
+Sao chép
+
+Nhân bản
+
+Lưu trữ
+
+Khôi phục
+
+Xuất bản
+
+Phân nhánh
+
+Mẫu
+
+======================================================
+
+CÀI ĐẶT THẾ GIỚI
+
+Tên
+
+Đường dẫn
+
+Mô tả
+
+Biểu tượng
+
+Hình thu nhỏ
+
+Thẻ
+
+Khả năng hiển thị
+
+Môi trường
+
+Trọng lực
+
+Kích thước thế giới
+
+Khối Kích thước
+
+Hạt giống
+
+====================================================
+
+VÙNG
+
+Tạo
+
+Xóa
+
+Đổi tên
+
+Di chuyển
+
+Thay đổi kích thước
+
+Lồng nhau Khu vực
+
+===================================================
+
+LỚP
+
+Địa hình
+
+Đối tượng
+
+Nước
+
+Bầu trời
+
+Hiệu ứng
+
+Lối chơi
+
+Điều hướng
+
+Tùy chỉnh
+
+====================================================
+
+MÔI TRƯỜNG
+
+Khung bầu trời
+
+Mặt trời
+
+Mặt trăng
+
+Sương mù
+
+Môi trường xung quanh Ánh sáng
+
+Gió
+
+Mây
+
+====================================================
+
+THỜI TIẾT
+
+Nắng
+
+Mưa
+
+Bão
+
+Tuyết
+
+Sương mù
+
+Thời tiết động
+
+=====================================================
+
+ÁNH SÁNG
+
+Thời gian thực
+
+Đã xử lý
+
+Đã trộn
+
+Cường độ
+
+Màu sắc
+
+Bóng tối
+
+======================================================
+
+ĐIỂM XUẤT HIỆN
+
+Người chơi Điểm xuất hiện
+
+Điểm xuất hiện NPC
+
+Điểm xuất hiện Boss
+
+Điểm xuất hiện Thú cưng
+
+Điểm xuất hiện Phương tiện
+
+Điểm xuất hiện Tùy chỉnh
+
+====================================================
+
+CỔNG DỊCH CHUYỂN
+
+Tạo Cổng Dịch Chuyển
+
+Thế giới Mục tiêu
+
+Vị trí xuất hiện
+
+Điều kiện
+
+Thời gian hồi chiêu
+
+=====================================================
+
+ĐIỀU HƯỚNG
+
+Lưới điều hướng
+
+Khu vực bị chặn
+
+Khu vực có thể đi bộ
+
+Khu vực nhảy
+
+Nước Khu vực
+
+===================================================
+
+NHẬP/XUẤT
+
+JSON
+
+Gói
+
+Mẫu Thế giới
+
+=====================================================
+
+KIỂM TRA XÁC THỰC
+
+Thiếu điểm xuất hiện
+
+Vùng trùng lặp
+
+Cổng không hợp lệ
+
+Tham chiếu tài sản bị lỗi
+
+Thiếu đồ thị
+
+=====================================================
+
+THỜI GIAN CHẠY
+
+Tích hợp với Công cụ Thời gian chạy CREATOR-06.
+
+Hỗ trợ
+
+Tải thế giới
+
+Giải phóng thế giới
+
+Chơi thế giới
+
+Xem trước thế giới
+
+Mô phỏng
+
+=====================================================
+
+LẬP TRÌNH TRỰC QUAN
+
+Tích hợp với CREATOR-05.
+
+Cho phép gán đồ thị cho:
+
+Thế giới
+
+Vùng
+
+Cổng thông tin
+
+Điểm xuất hiện
+
+====================================================
+
+API REST
+
+/api/world-editor
+
+GET
+
+POST
+
+PATCH
+
+DELETE
+
+GET /templates
+
+POST /duplicate
+
+POST /fork
+
+POST /publish
+
+POST /archive
+
+POST /restore
+
+GET /regions
+
+POST /regions
+
+PATCH /regions/:id
+
+DELETE /regions/:id
+
+GET /layers
+
+GET /spawnpoints
+
+POST /spawnpoints
+
+GET /portals
+
+POST /portals
+
+GET /statistics
+
+POST /preview
+
+POST /play
+
+POST /export
+
+POST /import
+
+POST /validate
+
+====================================================
+
+FRONTEND
+
+React
+
+Tạo trang
+
+WorldDashboard
+
+WorldBrowser
+
+WorldEditor
+
+WorldTemplates
+
+WorldRegions
+
+WorldLayers
+
+WorldEnvironment
+
+WeatherEditor
+
+LightingEditor
+
+SpawnManager
+
+PortalManager
+
+NavigationEditor
+
+WorldStatistics
+
+ImportExportCenter
+
+========================================== ===========
+
+CÁC THÀNH PHẦN
+
+Cấu trúc phân cấp
+
+Cây cảnh
+
+Trình kiểm tra
+
+Thuộc tính
+
+Thanh công cụ
+
+Khung nhìn
+
+Cây vùng
+
+Bảng lớp
+
+Bảng môi trường
+
+Bảng thời tiết
+
+Bảng ánh sáng
+
+Bảng tạo đối tượng
+
+Bảng cổng
+
+Bản đồ thu nhỏ
+
+Xem trước thế giới
+
+=====================================================
+
+TÍNH NĂNG CỦA TRÌNH CHỈNH SỬA
+
+Tạo thế giới
+
+Sao chép
+
+Đổi tên
+
+Kéo vùng
+
+Thay đổi kích thước vùng
+
+Chọn nhiều vùng
+
+Hoàn tác
+
+Làm lại
+
+Tìm kiếm
+
+Lọc
+Lưu
+
+Tự động lưu
+
+====================================================
+
+BẢNG ĐIỀU KHIỂN
+
+Thêm tiện ích
+
+Thế giới gần đây
+
+Thế giới đã xuất bản
+
+Mẫu
+
+Trạng thái thời gian chạy
+
+=====================================================
+
+THANH BÊN
+
+Thêm
+
+Trình chỉnh sửa thế giới
+
+trong
+
+Creator Studio
+
+=====================================================
+
+TÍCH HỢP
+
+Phải tích hợp với
+
+CREATOR-01
+
+CREATOR-03
+
+CREATOR-04
+
+CREATOR-05
+
+CREATOR-06
+
+Sử dụng kiến ​​trúc hiện có.
+
+Không có hệ thống trùng lặp.
+
+====================================================
+
+KHÔNG ĐƯỢC
+
+Không xây dựng Trình chỉnh sửa NPC.
+
+Không xây dựng Trình chỉnh sửa Nhiệm vụ.
+
+Không xây dựng Trình chỉnh sửa Vật phẩm.
+
+Không xây dựng Hệ thống Chiến đấu.
+
+Không xây dựng Hầm ngục.
+
+Chỉ xây dựng Trình chỉnh sửa Thế giới.
+
+===================================================
+
+YÊU CẦU
+
+TypeScript nghiêm ngặt
+
+Mẫu thiết kế Repository
+
+Mẫu thiết kế Service
+
+Phương pháp Dependency Injection
+
+Chỉ sử dụng PostgreSQL
+
+Không sử dụng mock
+
+Không sử dụng bộ nhớ trong
+
+Giữ nguyên các sprint trước đó
+
+====================================================
+
+SẢN PHẨM CẦN BÀN GIAO
+
+Trả lại toàn bộ Báo cáo Sprint.
+
+Bao gồm
+
+Tệp đã tạo
+
+Tệp đã sửa đổi
+
+Bảng cơ sở dữ liệu
+
+Kiểu liệt kê
+
+Kho lưu trữ
+
+Dịch vụ
+
+API REST
+
+Trang giao diện người dùng
+
+Thành phần
+
+Tiện ích bảng điều khiển
+
+Thay đổi thanh bên
+
+Tích hợp thời gian chạy
+
+Tích hợp đồ thị
+
+Nhập/Xuất
+
+Xác thực
+
+Kiểm tra kiểu dữ liệu
+
+Kết quả xây dựng
+
+Xác minh PostgreSQL
+
+Xác minh đầu cuối
+
+Danh sách kiểm tra chấp nhận
