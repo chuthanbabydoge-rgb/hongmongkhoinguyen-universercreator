@@ -1,0 +1,557 @@
+You are continuing the Universe Creator project.
+
+IMPORTANT
+
+This is CREATOR-05.
+
+CREATOR-01 through CREATOR-04 are COMPLETE.
+
+DO NOT rewrite existing architecture.
+
+DO NOT replace existing code.
+
+ONLY extend the project.
+
+======================================================
+
+PROJECT
+
+Universe Creator
+
+Sprint
+
+CREATOR-05
+
+Title
+
+Visual Scripting Engine
+
+======================================================
+
+GOAL
+
+Build the visual scripting system used by every editor inside Universe Creator.
+
+Everything later will use this engine.
+
+Quest Editor
+
+NPC Editor
+
+World Editor
+
+Boss Editor
+
+Dungeon Editor
+
+Dialogue Editor
+
+Behavior Tree
+
+AI
+
+Timeline
+
+etc.
+
+This sprint builds ONLY the scripting engine.
+
+NOT the individual editors.
+
+======================================================
+
+DATABASE
+
+Create Drizzle schema.
+
+PostgreSQL only.
+
+NO mock.
+
+Create enums
+
+graph_type
+
+node_type
+
+pin_type
+
+connection_type
+
+execution_state
+
+variable_scope
+
+======================================================
+
+Create tables
+
+creator_graphs
+
+creator_graph_nodes
+
+creator_graph_pins
+
+creator_graph_connections
+
+creator_graph_variables
+
+creator_graph_functions
+
+creator_graph_events
+
+creator_graph_macros
+
+creator_graph_comments
+
+creator_graph_groups
+
+creator_graph_execution_logs
+
+creator_graph_breakpoints
+
+creator_graph_templates
+
+creator_graph_history
+
+creator_graph_versions
+
+creator_graph_compiler_cache
+
+creator_graph_runtime
+
+creator_graph_snapshots
+
+creator_graph_preferences
+
+creator_graph_shortcuts
+
+======================================================
+
+BACKEND
+
+Create
+
+DrizzleGraphRepository
+
+GraphService
+
+GraphCompiler
+
+GraphRuntime
+
+ExecutionEngine
+
+GraphValidator
+
+======================================================
+
+GraphService supports
+
+createGraph()
+
+deleteGraph()
+
+duplicateGraph()
+
+loadGraph()
+
+saveGraph()
+
+validate()
+
+compile()
+
+execute()
+
+stop()
+
+pause()
+
+resume()
+
+======================================================
+
+NODES
+
+Support
+
+Start
+
+End
+
+Event
+
+Branch
+
+Switch
+
+Sequence
+
+Delay
+
+Loop
+
+While
+
+ForEach
+
+Math
+
+Compare
+
+Random
+
+Variable
+
+Set Variable
+
+Get Variable
+
+Function
+
+Macro
+
+Custom Event
+
+Log
+
+Print
+
+======================================================
+
+CONNECTIONS
+
+Execution connection
+
+Data connection
+
+Event connection
+
+Validation
+
+Cycle detection
+
+Broken link detection
+
+======================================================
+
+COMPILER
+
+Build graph
+
+↓
+
+Validate
+
+↓
+
+Topological sort
+
+↓
+
+Compile
+
+↓
+
+Runtime instructions
+
+======================================================
+
+RUNTIME
+
+Execution context
+
+Variables
+
+Stack
+
+Events
+
+State
+
+Execution log
+
+Performance timer
+
+======================================================
+
+REST API
+
+/api/graphs
+
+GET
+
+POST
+
+PATCH
+
+DELETE
+
+GET /:id
+
+POST /duplicate
+
+POST /compile
+
+POST /execute
+
+POST /pause
+
+POST /resume
+
+POST /stop
+
+GET /history
+
+GET /versions
+
+POST /restore
+
+GET /templates
+
+POST /validate
+
+======================================================
+
+FRONTEND
+
+React
+
+Create pages
+
+VisualScriptDashboard
+
+GraphEditor
+
+GraphBrowser
+
+GraphTemplates
+
+ExecutionConsole
+
+VariablesPanel
+
+FunctionsPanel
+
+MacroLibrary
+
+CompilerPanel
+
+RuntimeMonitor
+
+======================================================
+
+Create reusable components
+
+Canvas
+
+Node
+
+Connection
+
+Pin
+
+Toolbar
+
+MiniMap
+
+Inspector
+
+Properties
+
+NodeLibrary
+
+Search
+
+Breadcrumb
+
+Zoom
+
+Selection
+
+Grid
+
+======================================================
+
+EDITOR FEATURES
+
+Pan
+
+Zoom
+
+Drag
+
+Selection
+
+Box selection
+
+Multi select
+
+Copy
+
+Paste
+
+Delete
+
+Undo
+
+Redo
+
+Snap to grid
+
+======================================================
+
+NODE FEATURES
+
+Create
+
+Delete
+
+Rename
+
+Move
+
+Resize
+
+Collapse
+
+Expand
+
+Comment
+
+Duplicate
+
+======================================================
+
+VARIABLES
+
+Local
+
+Graph
+
+Global
+
+Constant
+
+Array
+
+Object
+
+======================================================
+
+VALIDATION
+
+Missing connection
+
+Duplicate execution
+
+Infinite loop detection
+
+Unused nodes
+
+Unused variables
+
+======================================================
+
+EXECUTION
+
+Run graph
+
+Step mode
+
+Stop
+
+Pause
+
+Resume
+
+Breakpoints
+
+Execution log
+
+======================================================
+
+SIDEBAR
+
+Add
+
+Visual Scripting
+
+under
+
+Creator Studio
+
+======================================================
+
+DASHBOARD
+
+Add widgets
+
+Recent Graphs
+
+Recent Executions
+
+Compiler Status
+
+======================================================
+
+REQUIREMENTS
+
+TypeScript strict
+
+Drizzle ORM
+
+PostgreSQL only
+
+No mock
+
+No fake implementation
+
+Do not rewrite previous sprints
+
+Keep architecture modular
+
+Repository pattern
+
+Service pattern
+
+Dependency Injection
+
+======================================================
+
+DELIVERABLE
+
+Return full sprint report.
+
+Include
+
+Files Created
+
+Files Modified
+
+Database tables
+
+Enums
+
+REST APIs
+
+Frontend pages
+
+Components
+
+Compiler architecture
+
+Runtime architecture
+
+Validation
+
+Acceptance checklist
+
+Typecheck result
+
+Build result
+
+PostgreSQL verification
+
+End-to-end verification
