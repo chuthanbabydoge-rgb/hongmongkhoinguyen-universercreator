@@ -43,6 +43,18 @@ import ExecutionConsole from "@/pages/execution-console";
 import MacroLibrary from "@/pages/macro-library";
 import CompilerPanel from "@/pages/compiler-panel";
 import RuntimeMonitor from "@/pages/runtime-monitor";
+import RuntimeDashboard from "@/pages/runtime-dashboard";
+import PlayMode from "@/pages/runtime-play";
+import SimulationCenter from "@/pages/simulation-center";
+import RuntimeProfiler from "@/pages/runtime-profiler";
+import RuntimeLogs from "@/pages/runtime-logs";
+import RuntimeInspector from "@/pages/runtime-inspector";
+import EntityExplorer from "@/pages/entity-explorer";
+import ComponentExplorer from "@/pages/component-explorer";
+import SystemMonitor from "@/pages/system-monitor";
+import EventMonitor from "@/pages/event-monitor";
+import DebugConsole from "@/pages/debug-console";
+import SnapshotManager from "@/pages/snapshot-manager";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -115,6 +127,18 @@ function Router() {
             <Route path="/macro-library" component={MacroLibrary} />
             <Route path="/compiler-panel" component={CompilerPanel} />
             <Route path="/runtime-monitor" component={RuntimeMonitor} />
+            <Route path="/runtime" component={RuntimeDashboard} />
+            <Route path="/runtime-play/:id" component={PlayMode} />
+            <Route path="/simulation-center" component={SimulationCenter} />
+            <Route path="/runtime-profiler/:id" component={RuntimeProfiler} />
+            <Route path="/runtime-logs/:id" component={RuntimeLogs} />
+            <Route path="/runtime-inspector/:id" component={RuntimeInspector} />
+            <Route path="/entity-explorer/:id" component={EntityExplorer} />
+            <Route path="/component-explorer/:id" component={ComponentExplorer} />
+            <Route path="/system-monitor/:id" component={SystemMonitor} />
+            <Route path="/event-monitor/:id" component={EventMonitor} />
+            <Route path="/debug-console/:id" component={DebugConsole} />
+            <Route path="/runtime-snapshots/:id" component={SnapshotManager} />
             <Route component={NotFound} />
           </Switch>
         </Layout>

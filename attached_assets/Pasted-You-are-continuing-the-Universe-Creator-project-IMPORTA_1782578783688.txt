@@ -1,0 +1,673 @@
+You are continuing the Universe Creator project.
+
+IMPORTANT
+
+This is CREATOR-06.
+
+CREATOR-01 through CREATOR-05 are COMPLETE.
+
+DO NOT rewrite existing architecture.
+
+DO NOT replace previous code.
+
+ONLY extend the project.
+
+====================================================
+
+PROJECT
+
+Universe Creator
+
+Sprint
+
+CREATOR-06
+
+Title
+
+Runtime Engine
+
+====================================================
+
+GOAL
+
+Build the Runtime Engine that executes every system created inside Universe Creator.
+
+Everything created by later editors must run through this engine.
+
+World Editor
+
+NPC Editor
+
+Quest Editor
+
+Boss Editor
+
+Dungeon Editor
+
+Dialogue Editor
+
+Visual Scripting
+
+Behavior Tree
+
+Timeline
+
+AI
+
+Simulation
+
+Play Mode
+
+====================================================
+
+DATABASE
+
+PostgreSQL
+
+Drizzle ORM
+
+NO MOCK
+
+Create schema
+
+runtime.ts
+
+====================================================
+
+Create enums
+
+runtime_state
+
+runtime_mode
+
+runtime_event_type
+
+runtime_log_level
+
+runtime_component_type
+
+runtime_resource_state
+
+====================================================
+
+Create tables
+
+creator_runtime_sessions
+
+creator_runtime_worlds
+
+creator_runtime_entities
+
+creator_runtime_components
+
+creator_runtime_systems
+
+creator_runtime_events
+
+creator_runtime_logs
+
+creator_runtime_resources
+
+creator_runtime_snapshots
+
+creator_runtime_checkpoints
+
+creator_runtime_performance
+
+creator_runtime_scheduler
+
+creator_runtime_jobs
+
+creator_runtime_timers
+
+creator_runtime_variables
+
+creator_runtime_memory
+
+creator_runtime_debug
+
+creator_runtime_errors
+
+creator_runtime_history
+
+creator_runtime_profiles
+
+====================================================
+
+BACKEND
+
+Create
+
+DrizzleRuntimeRepository
+
+RuntimeService
+
+RuntimeEngine
+
+WorldRuntime
+
+EntityManager
+
+ComponentManager
+
+SystemManager
+
+Scheduler
+
+TimerService
+
+EventDispatcher
+
+SimulationEngine
+
+PlayModeService
+
+DebugService
+
+ProfilerService
+
+====================================================
+
+ARCHITECTURE
+
+Graph Compiler
+
+↓
+
+Compiled Instructions
+
+↓
+
+Runtime Engine
+
+↓
+
+Entity Component System
+
+↓
+
+Simulation
+
+↓
+
+Play Mode
+
+====================================================
+
+ENGINE
+
+Support
+
+Initialize
+
+Load
+
+Unload
+
+Start
+
+Stop
+
+Pause
+
+Resume
+
+Restart
+
+Tick
+
+Shutdown
+
+====================================================
+
+ENTITY SYSTEM
+
+Entity
+
+UUID
+
+Tag
+
+Layer
+
+Parent
+
+Children
+
+Transform
+
+Enabled
+
+Destroyed
+
+====================================================
+
+COMPONENT SYSTEM
+
+Transform
+
+Renderer
+
+Collider
+
+RigidBody
+
+Script
+
+Health
+
+Inventory
+
+Quest
+
+Dialogue
+
+Animation
+
+Audio
+
+Navigation
+
+Custom
+
+====================================================
+
+SYSTEMS
+
+Physics
+
+Animation
+
+Audio
+
+Dialogue
+
+Quest
+
+Combat
+
+Navigation
+
+AI
+
+Weather
+
+DayNight
+
+Particles
+
+====================================================
+
+EVENTS
+
+Spawn
+
+Destroy
+
+Move
+
+Rotate
+
+Scale
+
+Collision
+
+Interaction
+
+Quest
+
+Dialogue
+
+Timer
+
+Custom
+
+====================================================
+
+SCHEDULER
+
+Frame update
+
+Fixed update
+
+Late update
+
+Background jobs
+
+Priority queue
+
+====================================================
+
+TIMERS
+
+Delay
+
+Interval
+
+Cooldown
+
+Countdown
+
+====================================================
+
+PLAY MODE
+
+Start Simulation
+
+Pause
+
+Resume
+
+Step Frame
+
+Reset World
+
+Reload
+
+Hot Reload
+
+====================================================
+
+SNAPSHOT
+
+Save runtime
+
+Restore runtime
+
+Checkpoint
+
+Rollback
+
+====================================================
+
+PERFORMANCE
+
+FPS
+
+Frame Time
+
+CPU Time
+
+Memory
+
+Entity Count
+
+Component Count
+
+Event Count
+
+====================================================
+
+DEBUG
+
+Console
+
+Logs
+
+Warnings
+
+Errors
+
+Exceptions
+
+Profiler
+
+Inspector
+
+====================================================
+
+REST API
+
+/api/runtime
+
+GET
+
+POST
+
+PATCH
+
+DELETE
+
+GET /dashboard
+
+POST /start
+
+POST /stop
+
+POST /pause
+
+POST /resume
+
+POST /restart
+
+POST /step
+
+POST /snapshot
+
+POST /restore
+
+GET /logs
+
+GET /performance
+
+GET /entities
+
+GET /components
+
+GET /systems
+
+GET /events
+
+GET /jobs
+
+GET /timers
+
+GET /history
+
+====================================================
+
+FRONTEND
+
+React
+
+Create pages
+
+RuntimeDashboard
+
+PlayMode
+
+SimulationCenter
+
+RuntimeProfiler
+
+RuntimeLogs
+
+RuntimeInspector
+
+EntityExplorer
+
+ComponentExplorer
+
+SystemMonitor
+
+EventMonitor
+
+DebugConsole
+
+SnapshotManager
+
+====================================================
+
+COMPONENTS
+
+HierarchyTree
+
+InspectorPanel
+
+ConsolePanel
+
+PerformanceChart
+
+EntityList
+
+ComponentList
+
+SystemList
+
+EventTimeline
+
+Toolbar
+
+PlayToolbar
+
+ProfilerWidget
+
+RuntimeStatus
+
+====================================================
+
+EDITOR FEATURES
+
+Play
+
+Pause
+
+Resume
+
+Step
+
+Reload
+
+Stop
+
+Entity Inspector
+
+Runtime Variables
+
+Performance Graph
+
+====================================================
+
+INTEGRATION
+
+Connect to
+
+CREATOR-03 Documents
+
+CREATOR-04 Asset Pipeline
+
+CREATOR-05 Graph Engine
+
+The Runtime Engine must execute compiled graphs.
+
+====================================================
+
+DO NOT
+
+Do not build World Editor.
+
+Do not build NPC Editor.
+
+Do not build Quest Editor.
+
+Do not build Dialogue Editor.
+
+Only build the Runtime Engine.
+
+====================================================
+
+SIDEBAR
+
+Add
+
+Runtime
+
+under
+
+Creator Studio
+
+====================================================
+
+DASHBOARD
+
+Add widgets
+
+Runtime Status
+
+Active Sessions
+
+Performance
+
+Simulation State
+
+====================================================
+
+REQUIREMENTS
+
+TypeScript strict
+
+Drizzle ORM
+
+Repository Pattern
+
+Service Pattern
+
+Dependency Injection
+
+PostgreSQL only
+
+No mock
+
+No fake implementation
+
+Keep previous sprints untouched
+
+====================================================
+
+DELIVERABLE
+
+Return full Sprint Report.
+
+Include
+
+Files Created
+
+Files Modified
+
+Database tables
+
+Enums
+
+Repository
+
+Services
+
+Runtime architecture
+
+Entity Component System
+
+Scheduler
+
+Simulation Engine
+
+REST APIs
+
+Frontend pages
+
+Components
+
+Dashboard widgets
+
+Sidebar changes
+
+Typecheck
+
+Build result
+
+PostgreSQL verification
+
+API verification
+
+End-to-end verification
+
+Acceptance checklist

@@ -30,6 +30,14 @@ import {
   BookOpen,
   Terminal,
   Monitor,
+  Server,
+  Gauge,
+  Zap,
+  Bug,
+  Camera,
+  Component,
+  Box,
+  Radio,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -106,6 +114,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         { href: "/execution-console", label: "Execution Console", icon: Terminal },
         { href: "/compiler-panel", label: "Compiler", icon: Play },
         { href: "/runtime-monitor", label: "Runtime Monitor", icon: Monitor },
+      ],
+    },
+    {
+      label: "Runtime",
+      items: [
+        { href: "/runtime", label: "Runtime Engine", icon: Server },
+        { href: "/simulation-center", label: "Simulation", icon: Radio },
       ],
     },
     {

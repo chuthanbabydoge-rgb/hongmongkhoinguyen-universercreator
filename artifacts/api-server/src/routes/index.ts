@@ -18,6 +18,7 @@ import notificationsRouter from "./notifications";
 import documentsRouter from "./documents";
 import assetPipelineRouter from "./asset-pipeline";
 import graphsRouter from "./graphs";
+import runtimeRouter from "./runtime";
 
 const router: IRouter = Router();
 
@@ -40,5 +41,6 @@ router.use(notificationsRouter);
 router.use(documentsRouter);
 router.use(assetPipelineRouter);
 router.use(graphsRouter);
+router.use(runtimeRouter);
 
 export default router;
