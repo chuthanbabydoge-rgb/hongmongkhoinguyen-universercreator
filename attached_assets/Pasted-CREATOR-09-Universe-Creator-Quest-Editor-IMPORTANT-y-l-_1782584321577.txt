@@ -1,0 +1,519 @@
+CREATOR-09 — Universe Creator — Quest Editor
+
+IMPORTANT
+
+Đây là sprint CREATOR-09 của project Universe Creator.
+
+KHÔNG tạo project mới.
+
+Tiếp tục trên project hiện tại.
+
+Không sửa các sprint trước.
+
+Không refactor CREATOR-01 → CREATOR-08.
+
+Chỉ bổ sung chức năng mới.
+
+Goal
+
+Xây dựng Quest Editor.
+
+Đây là editor dùng để tạo toàn bộ Quest trong Universe.
+
+Quest sau khi Publish sẽ được:
+
+Universe Hub
+Football Universe
+Animal Evolution
+Education
+Business
+Nation
+World
+
+dùng trực tiếp.
+
+Quest Editor phải là editor chuẩn của Universe Creator.
+
+Database
+
+Tạo file
+
+lib/db/src/schema/quest-editor.ts
+Enums
+quest_type
+
+main
+side
+daily
+weekly
+event
+story
+tutorial
+achievement
+guild
+world
+
+quest_status
+
+draft
+review
+published
+archived
+
+quest_objective_type
+
+kill
+collect
+talk
+escort
+explore
+craft
+use_item
+reach_location
+interact
+custom
+
+reward_type
+
+xp
+gold
+item
+skill
+title
+reputation
+pet
+mount
+currency
+
+condition_type
+
+level
+quest
+skill
+item
+reputation
+faction
+custom
+Tables
+
+Ít nhất 20 bảng
+
+creator_quests
+
+creator_quest_steps
+
+creator_quest_objectives
+
+creator_quest_conditions
+
+creator_quest_rewards
+
+creator_quest_dialogues
+
+creator_quest_npcs
+
+creator_quest_regions
+
+creator_quest_events
+
+creator_quest_scripts
+
+creator_quest_variables
+
+creator_quest_flags
+
+creator_quest_branches
+
+creator_quest_checkpoints
+
+creator_quest_history
+
+creator_quest_versions
+
+creator_quest_templates
+
+creator_quest_statistics
+
+creator_quest_exports
+
+creator_quest_imports
+
+JSONB cho metadata.
+
+Backend
+
+Tạo
+
+repositories/world/DrizzleQuestEditorRepository.ts
+
+services/QuestEditorService.ts
+
+services/QuestValidator.ts
+
+services/QuestExporter.ts
+
+services/QuestImporter.ts
+
+services/QuestRuntimeBridge.ts
+
+routes/quest-editor.ts
+Quest Validator
+
+Kiểm tra
+
+Missing Objective
+
+Missing Reward
+
+Infinite Branch
+
+Broken NPC
+
+Broken Region
+
+Broken Step
+
+Duplicate Objective
+
+Invalid Condition
+
+Circular Quest
+
+Broken Dialogue
+
+Warning nếu
+
+Không có reward
+
+Không có description
+
+Không có icon
+
+Không có thumbnail
+
+Quest Runtime Bridge
+
+Bridge sang Runtime Engine.
+
+Cho phép
+
+Preview Quest
+
+Run Quest
+
+Test Quest
+
+Simulate Quest
+
+Reset Quest
+Quest Export
+
+Export
+
+JSON
+
+Template
+
+Package
+Quest Import
+
+Import
+
+JSON
+
+Template
+
+Package
+REST API
+GET /api/quest-editor
+
+POST /api/quest-editor
+
+GET /api/quest-editor/:id
+
+PATCH /api/quest-editor/:id
+
+DELETE /api/quest-editor/:id
+
+POST /duplicate
+
+POST /fork
+
+POST /publish
+
+POST /archive
+
+POST /restore
+
+GET /templates
+
+POST /templates
+
+GET /statistics
+
+GET /history
+
+GET /versions
+
+POST /restore-version
+
+POST /validate
+
+POST /preview
+
+POST /simulate
+
+POST /export
+
+POST /import
+
+GET /steps
+
+POST /steps
+
+GET /objectives
+
+POST /objectives
+
+GET /conditions
+
+POST /conditions
+
+GET /rewards
+
+POST /rewards
+
+GET /dialogues
+
+POST /dialogues
+
+GET /branches
+
+POST /branches
+
+Khoảng 40–50 endpoints.
+
+JWT.
+
+Drizzle ORM.
+
+Không mock.
+
+Frontend
+
+Tạo khoảng 15 trang
+
+QuestDashboard
+
+QuestBrowser
+
+QuestEditor
+
+QuestTemplates
+
+QuestObjectives
+
+QuestConditions
+
+QuestRewards
+
+QuestDialogues
+
+QuestBranches
+
+QuestVariables
+
+QuestFlags
+
+QuestStatistics
+
+QuestHistory
+
+QuestImportExport
+
+QuestValidator
+Main Quest Editor
+
+Có các panel
+
+Explorer
+
+Canvas
+
+Properties
+
+Objectives
+
+Conditions
+
+Rewards
+
+Variables
+
+Preview
+
+Validation
+
+History
+Features
+
+Có
+
+Search
+
+Filter
+
+Duplicate
+
+Fork
+
+Publish
+
+Archive
+
+Restore
+
+Version
+
+Undo
+
+Redo
+
+Autosave
+
+Objective Editor
+
+Cho phép tạo
+
+Kill
+
+Collect
+
+Escort
+
+Talk
+
+Explore
+
+Reach
+
+Craft
+
+Use Item
+
+Interact
+
+Custom
+Reward Editor
+XP
+
+Gold
+
+Items
+
+Skills
+
+Titles
+
+Pet
+
+Mount
+
+Currency
+
+Reputation
+Branch Editor
+
+Visual Tree
+
+Start
+
+↓
+
+Objective
+
+↓
+
+Condition
+
+↓
+
+Dialogue
+
+↓
+
+Choice
+
+↓
+
+Branch
+
+↓
+
+Reward
+
+↓
+
+End
+Sidebar
+
+Thêm section
+
+Quest Editor
+
+menu
+
+Dashboard
+
+Browser
+
+Templates
+
+Statistics
+
+Import / Export
+App
+
+Đăng ký toàn bộ routes.
+
+Integration
+
+Không rewrite các sprint trước.
+
+Quest Editor phải tích hợp với
+
+Runtime Engine
+Visual Scripting
+Asset Pipeline
+Document System
+World Editor
+NPC Editor
+Build
+
+Sau khi hoàn thành phải:
+
+Push schema PostgreSQL
+Build API thành công
+Build Frontend thành công
+Không tạo TypeScript errors mới
+Không sửa code của các sprint trước ngoài wiring cần thiết
+Output
+
+Sau khi hoàn thành chỉ trả về:
+
+CREATOR-09 Sprint Report
+
+bao gồm:
+
+Files Created
+Files Modified
+Database (tables + enums)
+API Endpoints
+Frontend Pages
+Integration
+Validation
+Runtime Bridge
+Build Status
+Acceptance Checklist
+
+Không giải thích thêm
