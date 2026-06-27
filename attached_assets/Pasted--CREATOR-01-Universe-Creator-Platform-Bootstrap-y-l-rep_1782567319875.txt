@@ -1,0 +1,292 @@
+# CREATOR-01 — Universe Creator Platform Bootstrap
+
+Đây là repository MỚI.
+
+Tên project:
+
+universe-creator
+
+Đây KHÔNG phải Universe Hub.
+
+Đây là platform độc lập, ngang hàng với:
+
+* universe-account
+* universe-hub
+* universe-ai
+
+================================
+
+YÊU CẦU
+
+================================
+
+* Tạo project mới hoàn toàn.
+* TypeScript.
+* Node.js.
+* Express.
+* React.
+* Vite.
+* PostgreSQL.
+* Drizzle ORM.
+* JWT.
+* WebSocket.
+* Docker-ready.
+* Không dùng mock.
+* Build được ngay.
+* Không thêm tính năng editor phức tạp ở sprint đầu.
+
+================================
+
+MỤC TIÊU
+
+================================
+
+Đây là bootstrap của Universe Creator.
+
+Creator sẽ là nền tảng để tạo:
+
+* World
+* NPC
+* Quest
+* Boss
+* Dungeon
+* Item
+* Skill
+* Pet
+* Company
+* Education
+* Sports
+* Land
+* Nation
+
+================================
+
+MONOREPO
+
+================================
+
+Tạo cấu trúc:
+
+/creator-api
+
+/creator-editor
+
+/creator-runtime
+
+/creator-sdk
+
+/shared
+
+/docs
+
+/scripts
+
+================================
+
+creator-api
+
+================================
+
+Express
+
+JWT middleware
+
+Drizzle
+
+REST API
+
+WebSocket
+
+Health endpoint
+
+Swagger
+
+Modules:
+
+auth
+
+projects
+
+assets
+
+publish
+
+templates
+
+packages
+
+plugins
+
+================================
+
+creator-editor
+
+================================
+
+React
+
+Vite
+
+TanStack Query
+
+React Router
+
+Layout IDE
+
+Sidebar
+
+Explorer
+
+Inspector
+
+Console
+
+Toolbar
+
+Dashboard
+
+Project Browser
+
+Không cần editor lớn ở sprint này.
+
+================================
+
+creator-runtime
+
+================================
+
+Runtime engine
+
+Module loader
+
+Document loader
+
+Package loader
+
+Publish receiver
+
+================================
+
+creator-sdk
+
+================================
+
+TypeScript SDK
+
+Ví dụ
+
+createProject()
+
+publish()
+
+loadTemplate()
+
+uploadAsset()
+
+downloadPackage()
+
+================================
+
+DATABASE
+
+================================
+
+Khởi tạo schema nền:
+
+creator_users
+
+creator_projects
+
+creator_documents
+
+creator_assets
+
+creator_packages
+
+creator_templates
+
+creator_plugins
+
+creator_publish_jobs
+
+creator_logs
+
+creator_settings
+
+================================
+
+REST API
+
+================================
+
+/health
+
+/auth
+
+/projects
+
+/assets
+
+/templates
+
+/plugins
+
+/packages
+
+/publish
+
+/dashboard
+
+================================
+
+FRONTEND
+
+================================
+
+Dashboard
+
+Projects
+
+Assets
+
+Templates
+
+Packages
+
+Plugins
+
+Settings
+
+================================
+
+OUTPUT
+
+================================
+
+Sau khi hoàn thành:
+
+* Build backend
+* Build frontend
+* Chạy được
+* PostgreSQL hoạt động
+* Trả Sprint Report
+
+Format:
+
+CREATOR-01 Sprint Report
+
+Files Created
+
+Architecture
+
+Database
+
+Backend
+
+Frontend
+
+Routes
+
+Build Status
+
+Acceptance Checklist
