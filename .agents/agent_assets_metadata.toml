@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "OD0zUxQagvfoKngBikftf"
+uri = "file://README.md"
+type = "text"
+title = "Universe Creator — README.md"
