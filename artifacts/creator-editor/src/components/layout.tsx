@@ -45,6 +45,11 @@ import {
   Navigation,
   BarChart2,
   Download,
+  Users,
+  Smile,
+  MessageSquare,
+  Shield,
+  Swords,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -117,6 +122,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         { href: "/world-editor-dashboard", label: "World Editor", icon: Globe },
         { href: "/world-browser", label: "World Browser", icon: Library },
         { href: "/world-templates", label: "World Templates", icon: BookOpen },
+      ],
+    },
+    {
+      label: "NPC Editor",
+      items: [
+        { href: "/npc-dashboard", label: "NPC Dashboard", icon: Users },
+        { href: "/npc-browser", label: "NPC Browser", icon: Smile },
+        { href: "/npc-templates", label: "NPC Templates", icon: BookOpen },
+        { href: "/npc-faction-manager", label: "Factions", icon: Shield },
+        { href: "/npc-import-export", label: "Import / Export", icon: Download },
       ],
     },
     {

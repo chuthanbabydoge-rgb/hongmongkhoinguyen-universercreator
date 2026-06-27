@@ -69,6 +69,24 @@ import WorldPortalManager from "@/pages/world-portal-manager";
 import WorldNavigation from "@/pages/world-navigation";
 import WorldStatistics from "@/pages/world-statistics";
 import WorldImportExport from "@/pages/world-import-export";
+import NpcDashboard from "@/pages/npc-dashboard";
+import NpcBrowser from "@/pages/npc-browser";
+import NpcEditorPage from "@/pages/npc-editor-page";
+import NpcTemplates from "@/pages/npc-templates";
+import NpcBehaviorEditor from "@/pages/npc-behavior-editor";
+import NpcDialogueEditor from "@/pages/npc-dialogue-editor";
+import NpcScheduleEditor from "@/pages/npc-schedule-editor";
+import NpcInventoryEditor from "@/pages/npc-inventory-editor";
+import NpcEquipmentEditor from "@/pages/npc-equipment-editor";
+import NpcSkillEditor from "@/pages/npc-skill-editor";
+import NpcSpawnManager from "@/pages/npc-spawn-manager";
+import NpcPatrolEditor from "@/pages/npc-patrol-editor";
+import NpcRelationEditor from "@/pages/npc-relation-editor";
+import NpcFactionManager from "@/pages/npc-faction-manager";
+import NpcHistory from "@/pages/npc-history";
+import NpcStatistics from "@/pages/npc-statistics";
+import NpcImportExport from "@/pages/npc-import-export";
+import NpcPreview from "@/pages/npc-preview";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -168,6 +186,25 @@ function Router() {
             <Route path="/world-navigation/:id" component={WorldNavigation} />
             <Route path="/world-statistics/:id" component={WorldStatistics} />
             <Route path="/world-import-export/:id" component={WorldImportExport} />
+            {/* CREATOR-08: NPC Editor */}
+            <Route path="/npc-dashboard" component={NpcDashboard} />
+            <Route path="/npc-browser" component={NpcBrowser} />
+            <Route path="/npc-editor/:id" component={NpcEditorPage} />
+            <Route path="/npc-templates" component={NpcTemplates} />
+            <Route path="/npc-behavior/:id" component={NpcBehaviorEditor} />
+            <Route path="/npc-dialogue/:id" component={NpcDialogueEditor} />
+            <Route path="/npc-schedule/:id" component={NpcScheduleEditor} />
+            <Route path="/npc-inventory/:id" component={NpcInventoryEditor} />
+            <Route path="/npc-equipment/:id" component={NpcEquipmentEditor} />
+            <Route path="/npc-skills/:id" component={NpcSkillEditor} />
+            <Route path="/npc-spawn/:id" component={NpcSpawnManager} />
+            <Route path="/npc-patrol/:id" component={NpcPatrolEditor} />
+            <Route path="/npc-relations/:id" component={NpcRelationEditor} />
+            <Route path="/npc-faction-manager" component={NpcFactionManager} />
+            <Route path="/npc-history/:id" component={NpcHistory} />
+            <Route path="/npc-statistics/:id" component={NpcStatistics} />
+            <Route path="/npc-import-export" component={NpcImportExport} />
+            <Route path="/npc-preview/:id" component={NpcPreview} />
             <Route component={NotFound} />
           </Switch>
         </Layout>
