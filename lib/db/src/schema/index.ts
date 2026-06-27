@@ -6,3 +6,4 @@ export * from "./graphs";
 export * from "./runtime";
 export * from "./world-editor";
 export * from "./npc-editor";
+export * from "./quest-editor";

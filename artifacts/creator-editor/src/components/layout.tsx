@@ -50,6 +50,9 @@ import {
   MessageSquare,
   Shield,
   Swords,
+  Scroll,
+  CheckSquare,
+  ShieldAlert,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -132,6 +135,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         { href: "/npc-templates", label: "NPC Templates", icon: BookOpen },
         { href: "/npc-faction-manager", label: "Factions", icon: Shield },
         { href: "/npc-import-export", label: "Import / Export", icon: Download },
+      ],
+    },
+    {
+      label: "Quest Editor",
+      items: [
+        { href: "/quest-dashboard", label: "Dashboard", icon: Scroll },
+        { href: "/quest-browser", label: "Browser", icon: CheckSquare },
+        { href: "/quest-templates", label: "Templates", icon: BookOpen },
+        { href: "/quest-validator", label: "Validator", icon: ShieldAlert },
+        { href: "/quest-import-export", label: "Import / Export", icon: Download },
       ],
     },
     {

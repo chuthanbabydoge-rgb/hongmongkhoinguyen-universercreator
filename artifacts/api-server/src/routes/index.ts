@@ -21,6 +21,7 @@ import graphsRouter from "./graphs";
 import runtimeRouter from "./runtime";
 import worldEditorRouter from "./world-editor";
 import npcEditorRouter from "./npc-editor";
+import questEditorRouter from "./quest-editor";
 
 const router: IRouter = Router();
 
@@ -46,5 +47,6 @@ router.use(graphsRouter);
 router.use(runtimeRouter);
 router.use(worldEditorRouter);
 router.use(npcEditorRouter);
+router.use(questEditorRouter);
 
 export default router;

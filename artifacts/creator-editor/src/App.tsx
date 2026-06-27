@@ -87,6 +87,21 @@ import NpcHistory from "@/pages/npc-history";
 import NpcStatistics from "@/pages/npc-statistics";
 import NpcImportExport from "@/pages/npc-import-export";
 import NpcPreview from "@/pages/npc-preview";
+import QuestDashboard from "@/pages/quest-dashboard";
+import QuestBrowser from "@/pages/quest-browser";
+import QuestEditorPage from "@/pages/quest-editor-page";
+import QuestTemplates from "@/pages/quest-templates";
+import QuestObjectives from "@/pages/quest-objectives";
+import QuestConditions from "@/pages/quest-conditions";
+import QuestRewards from "@/pages/quest-rewards";
+import QuestDialogues from "@/pages/quest-dialogues";
+import QuestBranches from "@/pages/quest-branches";
+import QuestVariables from "@/pages/quest-variables";
+import QuestFlags from "@/pages/quest-flags";
+import QuestStatistics from "@/pages/quest-statistics";
+import QuestHistory from "@/pages/quest-history";
+import QuestImportExport from "@/pages/quest-import-export";
+import QuestValidatorPage from "@/pages/quest-validator-page";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -205,6 +220,22 @@ function Router() {
             <Route path="/npc-statistics/:id" component={NpcStatistics} />
             <Route path="/npc-import-export" component={NpcImportExport} />
             <Route path="/npc-preview/:id" component={NpcPreview} />
+            {/* CREATOR-09: Quest Editor */}
+            <Route path="/quest-dashboard" component={QuestDashboard} />
+            <Route path="/quest-browser" component={QuestBrowser} />
+            <Route path="/quest-editor/:id" component={QuestEditorPage} />
+            <Route path="/quest-templates" component={QuestTemplates} />
+            <Route path="/quest-objectives/:id" component={QuestObjectives} />
+            <Route path="/quest-conditions/:id" component={QuestConditions} />
+            <Route path="/quest-rewards/:id" component={QuestRewards} />
+            <Route path="/quest-dialogues/:id" component={QuestDialogues} />
+            <Route path="/quest-branches/:id" component={QuestBranches} />
+            <Route path="/quest-variables/:id" component={QuestVariables} />
+            <Route path="/quest-flags/:id" component={QuestFlags} />
+            <Route path="/quest-statistics/:id" component={QuestStatistics} />
+            <Route path="/quest-history/:id" component={QuestHistory} />
+            <Route path="/quest-import-export" component={QuestImportExport} />
+            <Route path="/quest-validator" component={QuestValidatorPage} />
             <Route component={NotFound} />
           </Switch>
         </Layout>
