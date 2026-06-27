@@ -19,6 +19,7 @@ import documentsRouter from "./documents";
 import assetPipelineRouter from "./asset-pipeline";
 import graphsRouter from "./graphs";
 import runtimeRouter from "./runtime";
+import worldEditorRouter from "./world-editor";
 
 const router: IRouter = Router();
 
@@ -42,5 +43,6 @@ router.use(documentsRouter);
 router.use(assetPipelineRouter);
 router.use(graphsRouter);
 router.use(runtimeRouter);
+router.use(worldEditorRouter);
 
 export default router;

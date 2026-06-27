@@ -38,6 +38,13 @@ import {
   Component,
   Box,
   Radio,
+  Globe,
+  MapPin,
+  Sun,
+  Cloud,
+  Navigation,
+  BarChart2,
+  Download,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -102,6 +109,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         { href: "/templates", label: "Templates", icon: LayoutTemplate },
         { href: "/plugins", label: "Plugins", icon: Blocks },
         { href: "/packages", label: "Packages", icon: PackageSearch },
+      ],
+    },
+    {
+      label: "World Editor",
+      items: [
+        { href: "/world-editor-dashboard", label: "World Editor", icon: Globe },
+        { href: "/world-browser", label: "World Browser", icon: Library },
+        { href: "/world-templates", label: "World Templates", icon: BookOpen },
       ],
     },
     {

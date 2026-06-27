@@ -55,6 +55,20 @@ import SystemMonitor from "@/pages/system-monitor";
 import EventMonitor from "@/pages/event-monitor";
 import DebugConsole from "@/pages/debug-console";
 import SnapshotManager from "@/pages/snapshot-manager";
+import WorldDashboard from "@/pages/world-dashboard";
+import WorldBrowser from "@/pages/world-browser";
+import WorldEditorPage from "@/pages/world-editor";
+import WorldTemplates from "@/pages/world-templates";
+import WorldRegions from "@/pages/world-regions";
+import WorldLayers from "@/pages/world-layers";
+import WorldEnvironment from "@/pages/world-environment";
+import WorldWeather from "@/pages/world-weather";
+import WorldLighting from "@/pages/world-lighting";
+import WorldSpawnManager from "@/pages/world-spawn-manager";
+import WorldPortalManager from "@/pages/world-portal-manager";
+import WorldNavigation from "@/pages/world-navigation";
+import WorldStatistics from "@/pages/world-statistics";
+import WorldImportExport from "@/pages/world-import-export";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -139,6 +153,21 @@ function Router() {
             <Route path="/event-monitor/:id" component={EventMonitor} />
             <Route path="/debug-console/:id" component={DebugConsole} />
             <Route path="/runtime-snapshots/:id" component={SnapshotManager} />
+            {/* CREATOR-07: World Editor */}
+            <Route path="/world-editor-dashboard" component={WorldDashboard} />
+            <Route path="/world-browser" component={WorldBrowser} />
+            <Route path="/world-editor/:id" component={WorldEditorPage} />
+            <Route path="/world-templates" component={WorldTemplates} />
+            <Route path="/world-regions/:id" component={WorldRegions} />
+            <Route path="/world-layers/:id" component={WorldLayers} />
+            <Route path="/world-environment/:id" component={WorldEnvironment} />
+            <Route path="/world-weather/:id" component={WorldWeather} />
+            <Route path="/world-lighting/:id" component={WorldLighting} />
+            <Route path="/world-spawn-manager/:id" component={WorldSpawnManager} />
+            <Route path="/world-portal-manager/:id" component={WorldPortalManager} />
+            <Route path="/world-navigation/:id" component={WorldNavigation} />
+            <Route path="/world-statistics/:id" component={WorldStatistics} />
+            <Route path="/world-import-export/:id" component={WorldImportExport} />
             <Route component={NotFound} />
           </Switch>
         </Layout>
