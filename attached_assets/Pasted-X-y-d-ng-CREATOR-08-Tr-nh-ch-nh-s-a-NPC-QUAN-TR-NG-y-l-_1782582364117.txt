@@ -1,0 +1,374 @@
+Xây dựng CREATOR-08 — Trình chỉnh sửa NPC.
+
+QUAN TRỌNG
+
+Đây là Sprint CREATOR-08 của nền tảng Universe Creator độc lập.
+
+KHÔNG được viết lại các sprint trước đó.
+
+CREATOR-01 → CREATOR-07 đã HOÀN THÀNH và HOẠT ĐỘNG.
+
+Chỉ tiếp tục phần kiến ​​trúc.
+
+====================================================
+
+MỤC TIÊU
+
+Xây dựng một trình chỉnh sửa NPC chuyên nghiệp tương tự như Unreal Engine + Roblox Studio.
+
+Trình chỉnh sửa này KHÔNG phải là công cụ chơi game.
+
+Đây là một công cụ tạo nội dung.
+
+Mọi thứ đều sử dụng PostgreSQL + Drizzle.
+
+KHÔNG SỬ DỤNG DỮ LIỆU GIẢ.
+
+====================================================
+
+CƠ SỞ DỮ LIỆU
+
+Tạo
+
+lib/db/src/schema/npc-editor.ts
+
+Tạo 7 kiểu liệt kê
+
+npc_type
+npc_state
+npc_behavior
+npc_dialogue_type
+npc_relation
+npc_spawn_mode
+npc_animation_state
+
+Tạo 20 bảng
+
+NPC
+Hồ sơ NPC
+Thuộc tính NPC
+Thống kê NPC
+Kỹ năng NPC
+Kho đồ NPC
+Trang bị NPC
+Hành vi NPC
+Cây hành vi NPC
+Hội thoại NPC
+Các nút hội thoại NPC
+Lựa chọn hội thoại NPC
+Điểm xuất hiện NPC
+Đường tuần tra NPC
+Mối quan hệ NPC
+Các phe phái NPC
+Lịch trình NPC
+Phiên bản NPC
+Lịch sử NPC
+Mẫu NPC
+
+Xuất lược đồ.
+
+===================================================
+
+HỆ THỐNG PHỤ TRÁCH
+
+Tạo
+
+repositories/DrizzleNpcEditorRepository.ts
+
+services/
+
+NpcEditorService
+
+NpcSerializer
+
+NpcValidator
+
+NpcImporter
+
+NpcExporter
+
+NpcRuntimeBridge
+
+====================================================
+
+API REST
+
+/api/npc-editor/*
+
+Triển khai hơn 50 điểm cuối
+
+Bảng điều khiển
+
+CRUD NPC
+
+Mẫu
+
+Sao chép
+
+Phân nhánh
+
+Lưu trữ
+
+Xuất bản
+
+Cây hành vi
+
+Cây hội thoại
+
+Lịch trình
+
+Kho đồ
+
+Trang bị
+
+Kỹ năng
+
+Điểm xuất hiện
+
+Đường tuần tra
+
+Mối quan hệ
+
+Phe phái
+
+Phiên bản
+
+Lịch sử
+
+Nhập khẩu
+
+Xuất khẩu
+
+Xem trước
+
+Xác thực
+
+=======================================================
+
+XÁC THỰC
+
+Xác thực
+
+Tên NPC trùng lặp
+
+Thiếu điểm xuất hiện
+
+Hội thoại bị lỗi
+
+Thiếu hành vi
+
+Đường tuần tra không hợp lệ
+
+Mối quan hệ vòng tròn
+
+Thiếu phe phái
+
+Không hợp lệ thiết bị
+
+===================================================
+
+NHẬP/XUẤT
+
+JSON
+
+Gói NPC
+
+Gói mẫu
+
+=====================================================
+
+THỜI GIAN CHẠY
+
+NPCRuntimeBridge
+
+Xem trước NPC
+
+Xem trước tạo NPC
+
+Xem trước hành vi
+
+Xem trước hội thoại
+
+Xem trước hoạt ảnh
+
+=====================================================
+
+GIAO DIỆN NGƯỜI DÙNG
+
+Tạo Trang
+
+Bảng điều khiển NPC
+
+Trình duyệt NPC
+
+Trình chỉnh sửa NPC
+
+Mẫu NPC
+
+Trình chỉnh sửa hành vi NPC
+
+Trình chỉnh sửa hội thoại NPC
+
+Trình chỉnh sửa lịch trình NPC
+
+Trình chỉnh sửa kho NPC
+
+Trình chỉnh sửa trang bị NPC
+
+Trình chỉnh sửa kỹ năng NPC
+
+Trình quản lý tạo NPC
+
+Trình chỉnh sửa tuần tra NPC
+
+Trình chỉnh sửa quan hệ NPC
+
+Trình quản lý phe phái NPC
+
+Lịch sử NPC
+
+Thống kê NPC
+
+Nhập/xuất NPC
+
+Xem trước NPC
+
+=========== =========================================
+
+CÁC THÀNH PHẦN
+
+NpcInspector
+
+BehaviorTreeView
+
+DialogueGraph
+
+InventoryGrid
+
+EquipmentSlots
+
+SkillTree
+
+ScheduleTimeline
+
+SpawnPointEditor
+
+PatrolPathEditor
+
+RelationGraph
+
+FactionPanel
+
+PreviewViewport
+
+====================================================
+
+THANH BÊN
+
+Thêm Mục
+
+Trình chỉnh sửa NPC
+
+Bảng điều khiển
+
+Trình duyệt NPC
+
+Mẫu
+
+Hành vi
+
+Đối thoại
+
+Lịch trình
+
+Kho đồ
+
+Trang bị
+
+Kỹ năng
+
+Tạo ra
+
+Tuần tra
+
+Quan hệ
+
+Phe phái
+
+Xem trước
+
+Nhập xuất
+
+Lịch sử
+
+Thống kê
+
+=======================================================
+
+ĐƯỜNG DẪN ỨNG DỤNG
+
+Đăng ký tất cả các trang.
+
+=====================================================
+
+KHO LƯU TRỮ
+
+Sử dụng mẫu Kho lưu trữ.
+
+====================================================
+
+KHÔNG SỬ DỤNG MOCK
+
+Tất cả dữ liệu được lưu trữ trong PostgreSQL.
+
+====================================================
+
+KIỂM TRA KIỂU DỮ LIỆU
+
+Không có lỗi TypeScript mới nào.
+
+===================================================
+
+KHÔNG ĐƯỢC CHẠM VÀO
+
+NGƯỜI TẠO-01
+
+NGƯỜI TẠO-02
+
+NGƯỜI TẠO-03
+
+NGƯỜI TẠO-04
+
+NGƯỜI TẠO-05
+
+NGƯỜI TẠO-06
+
+NGƯỜI TẠO-07
+
+====================================================
+
+SẢN PHẨM CẦN BÀN GIAO
+
+Báo cáo Sprint bao gồm
+
+Cơ sở dữ liệu
+
+Kiểu liệt kê
+
+Bảng
+
+Tệp tin Backend
+
+Trang Frontend
+
+Điểm cuối REST
+
+Xác thực
+
+Nhập xuất
+
+Cầu nối thời gian chạy
+
+Trạng thái xây dựng
+
+Danh sách kiểm tra chấp nhận
