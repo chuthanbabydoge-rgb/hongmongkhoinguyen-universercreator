@@ -24,6 +24,12 @@ import {
   Cpu,
   Library,
   FolderOpen,
+  GitBranch,
+  Play,
+  Code2,
+  BookOpen,
+  Terminal,
+  Monitor,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -88,6 +94,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         { href: "/templates", label: "Templates", icon: LayoutTemplate },
         { href: "/plugins", label: "Plugins", icon: Blocks },
         { href: "/packages", label: "Packages", icon: PackageSearch },
+      ],
+    },
+    {
+      label: "Visual Scripting",
+      items: [
+        { href: "/visual-scripting", label: "Visual Scripting", icon: GitBranch },
+        { href: "/graph-browser", label: "Graph Browser", icon: Library },
+        { href: "/graph-templates", label: "Graph Templates", icon: BookOpen },
+        { href: "/macro-library", label: "Macro Library", icon: Code2 },
+        { href: "/execution-console", label: "Execution Console", icon: Terminal },
+        { href: "/compiler-panel", label: "Compiler", icon: Play },
+        { href: "/runtime-monitor", label: "Runtime Monitor", icon: Monitor },
       ],
     },
     {

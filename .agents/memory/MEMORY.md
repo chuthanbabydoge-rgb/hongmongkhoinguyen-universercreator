@@ -1,2 +1,3 @@
 - [Creator project workflows](creator-workflows.md) — Both services need specific PORT/BASE_PATH env vars to start; workflow commands are documented here.
 - [Asset Pipeline prefix](asset-pipeline-prefix.md) — CREATOR-04 asset pipeline uses /api/pipeline prefix (not /api/assets) to avoid conflict with CREATOR-01 basic assets route.
+- [Visual Scripting engine](visual-scripting-schema.md) — CREATOR-05 graph schema in lib/db/src/schema/graphs.ts (20 tables, 6 enums); backend in artifacts/api-server/src/{repositories,services}/graph-*.ts; frontend pages under /visual-scripting, /graph-editor/:id, /graph-browser, etc.

@@ -35,6 +35,14 @@ import AssetCollections from "@/pages/asset-collections";
 import AssetFolders from "@/pages/asset-folders";
 import UploadCenter from "@/pages/upload-center";
 import ProcessingQueue from "@/pages/processing-queue";
+import VisualScriptDashboard from "@/pages/visual-script-dashboard";
+import GraphEditor from "@/pages/graph-editor";
+import GraphBrowser from "@/pages/graph-browser";
+import GraphTemplates from "@/pages/graph-templates";
+import ExecutionConsole from "@/pages/execution-console";
+import MacroLibrary from "@/pages/macro-library";
+import CompilerPanel from "@/pages/compiler-panel";
+import RuntimeMonitor from "@/pages/runtime-monitor";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -99,6 +107,14 @@ function Router() {
             <Route path="/asset-folders" component={AssetFolders} />
             <Route path="/upload-center" component={UploadCenter} />
             <Route path="/processing-queue" component={ProcessingQueue} />
+            <Route path="/visual-scripting" component={VisualScriptDashboard} />
+            <Route path="/graph-editor/:id" component={GraphEditor} />
+            <Route path="/graph-browser" component={GraphBrowser} />
+            <Route path="/graph-templates" component={GraphTemplates} />
+            <Route path="/execution-console" component={ExecutionConsole} />
+            <Route path="/macro-library" component={MacroLibrary} />
+            <Route path="/compiler-panel" component={CompilerPanel} />
+            <Route path="/runtime-monitor" component={RuntimeMonitor} />
             <Route component={NotFound} />
           </Switch>
         </Layout>
