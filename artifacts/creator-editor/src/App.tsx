@@ -28,6 +28,13 @@ import DocumentDetail from "@/pages/document-detail";
 import DocumentHistory from "@/pages/document-history";
 import Folders from "@/pages/folders";
 import Bookmarks from "@/pages/bookmarks";
+import AssetDashboard from "@/pages/asset-dashboard";
+import AssetBrowser from "@/pages/asset-browser";
+import AssetDetail from "@/pages/asset-detail";
+import AssetCollections from "@/pages/asset-collections";
+import AssetFolders from "@/pages/asset-folders";
+import UploadCenter from "@/pages/upload-center";
+import ProcessingQueue from "@/pages/processing-queue";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -85,6 +92,13 @@ function Router() {
             <Route path="/documents/:id" component={DocumentDetail} />
             <Route path="/folders" component={Folders} />
             <Route path="/bookmarks" component={Bookmarks} />
+            <Route path="/asset-pipeline" component={AssetDashboard} />
+            <Route path="/asset-browser" component={AssetBrowser} />
+            <Route path="/asset-detail/:id" component={AssetDetail} />
+            <Route path="/asset-collections" component={AssetCollections} />
+            <Route path="/asset-folders" component={AssetFolders} />
+            <Route path="/upload-center" component={UploadCenter} />
+            <Route path="/processing-queue" component={ProcessingQueue} />
             <Route component={NotFound} />
           </Switch>
         </Layout>

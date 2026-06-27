@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { useGetDashboard, getGetDashboardQueryKey } from "@workspace/api-client-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { FolderGit2, Upload, FileText, Send, Activity, Box, Building2, Bell, Star, Mail, Bookmark, BookmarkCheck } from "lucide-react";
+import { FolderGit2, Upload, FileText, Send, Activity, Box, Building2, Bell, Star, Mail, Bookmark, BookmarkCheck, Layers, RefreshCw, CheckCircle, Clock, XCircle, HardDrive } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
@@ -99,6 +99,32 @@ function useBookmarkedDocuments() {
   });
 }
 
+interface PipelineAssetItem { id: number; name: string; type: string; status: string; size: number | null; }
+interface ProcessingJobItem { id: number; assetId: number; step: string; status: string; }
+
+function useRecentAssets() {
+  return useQuery<{ items: PipelineAssetItem[]; total: number }>({
+    queryKey: ["/api/pipeline", { sort: "newest", limit: 5 }],
+    queryFn: async () => {
+      const res = await fetch(`${BASE}/api/pipeline?sort=newest&limit=5`, { headers: { Authorization: `Bearer ${token()}` } });
+      if (!res.ok) return { items: [], total: 0 };
+      return res.json();
+    },
+  });
+}
+
+function useRecentProcessingJobs() {
+  return useQuery<{ items: ProcessingJobItem[] }>({
+    queryKey: ["/api/pipeline/jobs", { limit: 5 }],
+    queryFn: async () => {
+      const res = await fetch(`${BASE}/api/pipeline/jobs?limit=5`, { headers: { Authorization: `Bearer ${token()}` } });
+      if (!res.ok) return { items: [] };
+      return res.json();
+    },
+    refetchInterval: 5000,
+  });
+}
+
 const DOC_EMOJIS: Record<string, string> = {
   world: "🌍", npc: "👤", quest: "📜", boss: "🐉", dungeon: "🏰",
   item: "⚔️", skill: "✨", pet: "🐾", mount: "🐴", dialogue: "💬",
@@ -119,7 +145,10 @@ export default function Dashboard() {
   const { data: invitesData } = useInvitations();
   const { data: recentDocs } = useRecentDocuments();
   const { data: bookmarkedDocs } = useBookmarkedDocuments();
+  const { data: recentAssets } = useRecentAssets();
+  const { data: processingAssets } = useRecentProcessingJobs();
 
+  const storageBytes = recentAssets?.items?.reduce((s, a) => s + (a.size ?? 0), 0) ?? 0;
   const pendingInvites = invitesData?.items?.filter(i => i.status === "pending") ?? [];
 
   if (isLoading) {
@@ -441,6 +470,125 @@ export default function Dashboard() {
             )}
           </CardContent>
         </Card>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <Card className="lg:col-span-2 bg-card/50 backdrop-blur border-border/50">
+          <CardHeader className="pb-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Upload className="w-4 h-4 text-chart-3" />
+                <CardTitle className="text-sm">Recent Uploads</CardTitle>
+              </div>
+              <Link href="/asset-browser">
+                <Button variant="ghost" size="sm" className="h-6 text-xs text-muted-foreground">Browser →</Button>
+              </Link>
+            </div>
+          </CardHeader>
+          <CardContent>
+            {!recentAssets?.items?.length ? (
+              <Link href="/upload-center">
+                <div className="text-center py-6 text-xs text-muted-foreground border border-dashed border-border rounded-lg cursor-pointer hover:bg-secondary/10 transition-colors">
+                  No assets yet. Upload your first asset →
+                </div>
+              </Link>
+            ) : (
+              <div className="space-y-2">
+                {recentAssets.items.map((asset) => {
+                  const statusColors: Record<string, string> = {
+                    ready: "text-green-400", failed: "text-red-400",
+                    processing: "text-yellow-400", pending: "text-muted-foreground",
+                  };
+                  const StatusDot = asset.status === "processing" ? RefreshCw
+                    : asset.status === "ready" ? CheckCircle
+                    : asset.status === "failed" ? XCircle : Clock;
+                  return (
+                    <Link key={asset.id} href={`/asset-detail/${asset.id}`}>
+                      <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-secondary/20 transition-colors cursor-pointer">
+                        <div className="w-8 h-8 rounded-lg bg-secondary/50 flex items-center justify-center shrink-0">
+                          <Layers className="w-4 h-4 text-muted-foreground" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-sm font-medium truncate max-w-[200px]">{asset.name}</div>
+                          <div className="text-xs text-muted-foreground capitalize">{asset.type}</div>
+                        </div>
+                        <StatusDot className={`w-3.5 h-3.5 shrink-0 ${statusColors[asset.status] ?? "text-muted-foreground"} ${asset.status === "processing" ? "animate-spin" : ""}`} />
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        <div className="space-y-4">
+          <Card className="bg-card/50 backdrop-blur border-border/50">
+            <CardHeader className="pb-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <RefreshCw className="w-4 h-4 text-yellow-400" />
+                  <CardTitle className="text-sm">Processing Queue</CardTitle>
+                  {(processingAssets?.items?.filter(j => j.status === "processing").length ?? 0) > 0 && (
+                    <Badge className="h-5 px-1.5 text-xs bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">
+                      {processingAssets?.items?.filter(j => j.status === "processing").length}
+                    </Badge>
+                  )}
+                </div>
+                <Link href="/processing-queue">
+                  <Button variant="ghost" size="sm" className="h-6 text-xs text-muted-foreground">All →</Button>
+                </Link>
+              </div>
+            </CardHeader>
+            <CardContent>
+              {!processingAssets?.items?.length ? (
+                <div className="text-center py-4 text-xs text-muted-foreground">No active jobs</div>
+              ) : (
+                <div className="space-y-2">
+                  {processingAssets.items.slice(0, 5).map((job) => {
+                    const jobColors: Record<string, string> = {
+                      ready: "text-green-400", failed: "text-red-400",
+                      processing: "text-yellow-400", pending: "text-muted-foreground",
+                    };
+                    const JobIcon = job.status === "processing" ? RefreshCw
+                      : job.status === "ready" ? CheckCircle
+                      : job.status === "failed" ? XCircle : Clock;
+                    return (
+                      <div key={job.id} className="flex items-center gap-2 p-2 rounded-lg bg-secondary/10">
+                        <JobIcon className={`w-3.5 h-3.5 shrink-0 ${jobColors[job.status] ?? ""} ${job.status === "processing" ? "animate-spin" : ""}`} />
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs font-medium capitalize">{job.step.replace(/_/g, " ")}</div>
+                          <div className="text-xs text-muted-foreground/60">Asset #{job.assetId}</div>
+                        </div>
+                        <Badge variant="outline" className="text-xs capitalize">{job.status}</Badge>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          <Card className="bg-card/50 backdrop-blur border-border/50">
+            <CardHeader className="pb-3">
+              <div className="flex items-center gap-2">
+                <HardDrive className="w-4 h-4 text-chart-2" />
+                <CardTitle className="text-sm">Storage Usage</CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold font-mono tracking-tighter">
+                {storageBytes < 1024 * 1024
+                  ? `${(storageBytes / 1024).toFixed(1)} KB`
+                  : `${(storageBytes / 1024 / 1024).toFixed(1)} MB`}
+              </div>
+              <p className="text-xs text-muted-foreground mt-1">{recentAssets?.total ?? 0} total assets</p>
+              <Link href="/asset-pipeline">
+                <Button variant="ghost" className="w-full mt-3 h-7 text-xs text-muted-foreground">View Pipeline →</Button>
+              </Link>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );

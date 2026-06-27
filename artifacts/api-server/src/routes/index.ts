@@ -16,6 +16,7 @@ import starsRouter from "./stars";
 import activityRouter from "./activity";
 import notificationsRouter from "./notifications";
 import documentsRouter from "./documents";
+import assetPipelineRouter from "./asset-pipeline";
 
 const router: IRouter = Router();
 
@@ -36,5 +37,6 @@ router.use(starsRouter);
 router.use(activityRouter);
 router.use(notificationsRouter);
 router.use(documentsRouter);
+router.use(assetPipelineRouter);
 
 export default router;

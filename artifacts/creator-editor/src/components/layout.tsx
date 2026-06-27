@@ -19,6 +19,11 @@ import {
   FileText,
   Folder,
   Bookmark,
+  Layers,
+  Upload,
+  Cpu,
+  Library,
+  FolderOpen,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -91,6 +96,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         { href: "/documents", label: "All Documents", icon: FileText },
         { href: "/folders", label: "Folders", icon: Folder },
         { href: "/bookmarks", label: "Bookmarks", icon: Bookmark },
+      ],
+    },
+    {
+      label: "Assets",
+      items: [
+        { href: "/asset-pipeline", label: "Asset Pipeline", icon: Layers },
+        { href: "/asset-browser", label: "Browser", icon: Library },
+        { href: "/upload-center", label: "Upload Center", icon: Upload },
+        { href: "/asset-collections", label: "Collections", icon: ImageIcon },
+        { href: "/asset-folders", label: "Asset Folders", icon: FolderOpen },
+        { href: "/processing-queue", label: "Processing", icon: Cpu },
       ],
     },
     {

@@ -1,0 +1,638 @@
+CREATOR-04 — Universe Creator Asset Pipeline
+
+IMPORTANT
+
+Không rewrite CREATOR-01, CREATOR-02, CREATOR-03.
+
+Chỉ mở rộng hệ thống hiện có.
+
+Đọc toàn bộ codebase trước khi build.
+
+PostgreSQL + Drizzle ORM.
+
+Không mock.
+
+Không in-memory.
+
+Mục tiêu
+
+Xây Asset Pipeline cho toàn bộ Universe Creator.
+
+Đây là nơi quản lý:
+
+Images
+Audio
+Video
+3D Models
+Documents
+Icons
+Textures
+Materials
+Animations
+Prefabs
+
+Sau này:
+
+World Editor
+NPC Editor
+Quest Editor
+Company Editor
+
+đều dùng Asset Pipeline này.
+
+Database
+
+Tạo
+
+creator_asset_folders
+
+creator_asset_collections
+
+creator_asset_versions
+
+creator_asset_tags
+
+creator_asset_metadata
+
+creator_asset_dependencies
+
+creator_asset_references
+
+creator_asset_processing_jobs
+
+creator_asset_thumbnails
+
+creator_asset_imports
+
+creator_asset_exports
+
+creator_asset_usage
+
+Enums
+
+AssetType
+
+IMAGE
+
+AUDIO
+
+VIDEO
+
+MODEL
+
+TEXTURE
+
+ICON
+
+DOCUMENT
+
+FONT
+
+SCRIPT
+
+MATERIAL
+
+ANIMATION
+
+PREFAB
+ProcessingStatus
+
+PENDING
+
+UPLOADING
+
+PROCESSING
+
+READY
+
+FAILED
+ThumbnailType
+
+SMALL
+
+MEDIUM
+
+LARGE
+ImportSource
+
+UPLOAD
+
+URL
+
+PACKAGE
+
+MARKETPLACE
+Asset Model
+
+Mỗi Asset có
+
+id
+
+projectId
+
+folderId
+
+type
+
+name
+
+slug
+
+description
+
+filename
+
+mimeType
+
+extension
+
+size
+
+checksum
+
+width
+
+height
+
+duration
+
+polygonCount
+
+thumbnail
+
+preview
+
+status
+
+metadata (jsonb)
+
+createdBy
+
+updatedBy
+
+createdAt
+
+updatedAt
+
+metadata dùng jsonb.
+
+Processing Pipeline
+
+Workflow
+
+Upload
+
+↓
+
+Virus Scan
+
+↓
+
+Checksum
+
+↓
+
+Metadata Extract
+
+↓
+
+Thumbnail
+
+↓
+
+Optimize
+
+↓
+
+Compress
+
+↓
+
+Ready
+
+Mỗi bước phải lưu log.
+
+Repository
+
+Tạo
+
+CreatorAssetRepository
+
+Methods
+
+upload()
+
+delete()
+
+move()
+
+copy()
+
+rename()
+
+restore()
+
+createVersion()
+
+search()
+
+findUsage()
+
+generateThumbnail()
+
+optimize()
+
+export()
+
+import()
+Service
+
+Tạo
+
+CreatorAssetService
+
+Business logic
+
+Upload
+
+Folder
+
+Collections
+
+Versions
+
+Optimization
+
+Thumbnail
+
+Import
+
+Export
+
+Dependency
+
+Usage
+
+REST API
+GET    /api/assets
+
+POST   /api/assets
+
+GET    /api/assets/:id
+
+PATCH  /api/assets/:id
+
+DELETE /api/assets/:id
+
+POST   /api/assets/:id/copy
+
+POST   /api/assets/:id/move
+
+POST   /api/assets/:id/restore
+
+GET    /api/assets/search
+
+GET    /api/assets/folders
+
+POST   /api/assets/folders
+
+PATCH  /api/assets/folders/:id
+
+DELETE /api/assets/folders/:id
+
+GET    /api/assets/collections
+
+POST   /api/assets/collections
+
+POST   /api/assets/import
+
+POST   /api/assets/export
+
+GET    /api/assets/:id/versions
+
+POST   /api/assets/:id/version
+
+GET    /api/assets/:id/usage
+
+GET    /api/assets/:id/dependencies
+
+GET    /api/assets/jobs
+
+GET    /api/assets/thumbnails
+Upload
+
+Hỗ trợ
+
+Drag & Drop
+
+Multiple Upload
+
+Folder Upload
+
+Progress
+
+Cancel Upload
+
+Retry
+Thumbnail
+
+Sinh thumbnail tự động
+
+Images
+
+↓
+
+PNG
+
+JPG
+
+WEBP
+
+3D Models
+
+↓
+
+Preview
+
+Video
+
+↓
+
+Frame Preview
+
+Audio
+
+↓
+
+Waveform
+
+Search
+
+Search theo
+
+Keyword
+
+Type
+
+Tag
+
+Folder
+
+Size
+
+Author
+
+Project
+
+Date
+
+Sort
+
+Newest
+
+Oldest
+
+Largest
+
+Smallest
+
+Alphabet
+
+Recently Used
+Versioning
+
+Mỗi asset
+
+↓
+
+Version
+
+v1
+
+v2
+
+v3
+
+Restore được.
+
+Dependency
+
+Ví dụ
+
+World
+
+↓
+
+Texture
+
+↓
+
+Material
+
+↓
+
+Image
+
+Asset biết đang được document nào sử dụng.
+
+Usage Tracking
+
+Ví dụ
+
+Texture_A
+
+↓
+
+World A
+
+↓
+
+NPC B
+
+↓
+
+Boss C
+
+Asset không được xoá nếu còn đang dùng.
+
+Frontend
+
+Tạo
+
+Asset Dashboard
+
+Asset Browser
+
+Asset Detail
+
+Collections
+
+Folders
+
+Upload Center
+
+Import Center
+
+Processing Queue
+
+Versions
+
+Usage
+Components
+AssetGrid
+
+AssetList
+
+UploadDropzone
+
+AssetPreview
+
+ThumbnailCard
+
+VersionTimeline
+
+ProcessingQueue
+
+DependencyGraph
+Hooks
+useAssets()
+
+useAsset()
+
+useUpload()
+
+useFolders()
+
+useCollections()
+
+useProcessingJobs()
+
+useAssetVersions()
+
+useUsage()
+
+useSearchAssets()
+Sidebar
+
+Thêm
+
+Assets
+
+Uploads
+
+Collections
+
+Processing
+Dashboard
+
+Widgets
+
+Recent Uploads
+
+Processing Queue
+
+Storage Usage
+
+Popular Assets
+
+Recently Used
+Permissions
+
+Reuse
+
+requireProjectPermission()
+
+VIEW
+
+EDIT
+
+ADMIN
+
+OWNER
+
+Activity
+
+Log
+
+Asset Uploaded
+
+Asset Deleted
+
+Asset Moved
+
+Asset Restored
+
+Thumbnail Generated
+
+Version Created
+Notifications
+
+Notify
+
+Upload Complete
+
+Processing Failed
+
+Optimization Complete
+
+Import Complete
+
+Export Complete
+Acceptance Criteria
+PostgreSQL only
+Drizzle ORM
+JSONB metadata
+No mock
+Không rewrite CREATOR-01~03
+Upload hoạt động
+Folder hoạt động
+Collections hoạt động
+Versioning hoạt động
+Thumbnail hoạt động
+Processing Queue hoạt động
+Dependency Tracking hoạt động
+Usage Tracking hoạt động
+Import/Export hoạt động
+Search hoạt động
+Frontend routing đầy đủ
+Sidebar cập nhật
+Dashboard widgets
+TypeScript strict
+Build thành công
+Output bắt buộc
+
+Sau khi hoàn thành chỉ trả về:
+
+CREATOR-04 Sprint Report
+
+Files Created
+
+Files Modified
+
+Database
+
+Enums
+
+Repositories
+
+Services
+
+REST APIs
+
+Processing Pipeline
+
+Frontend
+
+Hooks
+
+Components
+
+Dashboard
+
+Sidebar
+
+Activity
+
+Notifications
+
+Acceptance Checklist

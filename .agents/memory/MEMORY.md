@@ -1,1 +1,2 @@
 - [Creator project workflows](creator-workflows.md) — Both services need specific PORT/BASE_PATH env vars to start; workflow commands are documented here.
+- [Asset Pipeline prefix](asset-pipeline-prefix.md) — CREATOR-04 asset pipeline uses /api/pipeline prefix (not /api/assets) to avoid conflict with CREATOR-01 basic assets route.
