@@ -102,6 +102,21 @@ import QuestStatistics from "@/pages/quest-statistics";
 import QuestHistory from "@/pages/quest-history";
 import QuestImportExport from "@/pages/quest-import-export";
 import QuestValidatorPage from "@/pages/quest-validator-page";
+import ItemDashboard from "@/pages/item-dashboard";
+import ItemBrowser from "@/pages/item-browser";
+import ItemEditorPage from "@/pages/item-editor-page";
+import ItemTemplates from "@/pages/item-templates";
+import ItemStatsEditor from "@/pages/item-stats-editor";
+import ItemEffectsEditor from "@/pages/item-effects-editor";
+import ItemCraftingEditor from "@/pages/item-crafting-editor";
+import ItemLootEditor from "@/pages/item-loot-editor";
+import ItemInventoryEditor from "@/pages/item-inventory-editor";
+import ItemPricingEditor from "@/pages/item-pricing-editor";
+import ItemRestrictionsEditor from "@/pages/item-restrictions-editor";
+import ItemVisualEditor from "@/pages/item-visual-editor";
+import ItemHistory from "@/pages/item-history";
+import ItemImportExport from "@/pages/item-import-export";
+import ItemSimulator from "@/pages/item-simulator";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -236,6 +251,22 @@ function Router() {
             <Route path="/quest-history/:id" component={QuestHistory} />
             <Route path="/quest-import-export" component={QuestImportExport} />
             <Route path="/quest-validator" component={QuestValidatorPage} />
+            {/* CREATOR-10: Item Editor */}
+            <Route path="/item-dashboard" component={ItemDashboard} />
+            <Route path="/item-browser" component={ItemBrowser} />
+            <Route path="/item-editor/:id" component={ItemEditorPage} />
+            <Route path="/item-templates" component={ItemTemplates} />
+            <Route path="/item-stats/:id" component={ItemStatsEditor} />
+            <Route path="/item-effects/:id" component={ItemEffectsEditor} />
+            <Route path="/item-crafting/:id" component={ItemCraftingEditor} />
+            <Route path="/item-loot-tables" component={ItemLootEditor} />
+            <Route path="/item-inventory" component={ItemInventoryEditor} />
+            <Route path="/item-pricing/:id" component={ItemPricingEditor} />
+            <Route path="/item-restrictions/:id" component={ItemRestrictionsEditor} />
+            <Route path="/item-visuals/:id" component={ItemVisualEditor} />
+            <Route path="/item-history/:id" component={ItemHistory} />
+            <Route path="/item-import-export" component={ItemImportExport} />
+            <Route path="/item-simulator" component={ItemSimulator} />
             <Route component={NotFound} />
           </Switch>
         </Layout>

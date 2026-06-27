@@ -53,6 +53,15 @@ import {
   Scroll,
   CheckSquare,
   ShieldAlert,
+  Package,
+  Zap,
+  Hammer,
+  Dices,
+  Grid3X3,
+  Coins,
+  ShieldOff,
+  Palette,
+  Wand2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -145,6 +154,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         { href: "/quest-templates", label: "Templates", icon: BookOpen },
         { href: "/quest-validator", label: "Validator", icon: ShieldAlert },
         { href: "/quest-import-export", label: "Import / Export", icon: Download },
+      ],
+    },
+    {
+      label: "Item Editor",
+      items: [
+        { href: "/item-dashboard", label: "Dashboard", icon: Package },
+        { href: "/item-browser", label: "Browser", icon: CheckSquare },
+        { href: "/item-templates", label: "Templates", icon: BookOpen },
+        { href: "/item-loot-tables", label: "Loot Tables", icon: Dices },
+        { href: "/item-inventory", label: "Inventory", icon: Grid3X3 },
+        { href: "/item-simulator", label: "Simulator", icon: Wand2 },
+        { href: "/item-import-export", label: "Import / Export", icon: Download },
       ],
     },
     {

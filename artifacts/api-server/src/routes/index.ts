@@ -22,6 +22,7 @@ import runtimeRouter from "./runtime";
 import worldEditorRouter from "./world-editor";
 import npcEditorRouter from "./npc-editor";
 import questEditorRouter from "./quest-editor";
+import itemEditorRouter from "./item-editor";
 
 const router: IRouter = Router();
 
@@ -48,5 +49,6 @@ router.use(runtimeRouter);
 router.use(worldEditorRouter);
 router.use(npcEditorRouter);
 router.use(questEditorRouter);
+router.use(itemEditorRouter);
 
 export default router;

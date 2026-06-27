@@ -1,0 +1,219 @@
+You are building CREATOR-10 — Universe Creator Item Editor.
+
+IMPORTANT
+- CREATOR-01 → CREATOR-09 are COMPLETE.
+- DO NOT modify existing systems.
+- ONLY extend system.
+
+====================================================
+
+GOAL
+
+Build a full Item Editor system for Universe Creator.
+
+Items are core gameplay primitives:
+Weapons, Armor, Consumables, Materials, Currency items, Quest items, Crafting items.
+
+All items must integrate with:
+- NPC Editor (inventory/equipment)
+- Quest Editor (rewards/objectives)
+- World Editor (spawn/loot)
+- Asset Pipeline (icons/models/textures)
+- Runtime Engine (simulation)
+
+====================================================
+
+DATABASE
+
+Create schema:
+
+lib/db/src/schema/item-editor.ts
+
+Enums:
+
+item_type
+item_rarity
+item_category
+item_binding_type
+item_stack_type
+item_quality
+
+Tables (20+):
+
+creator_items
+creator_item_stats
+creator_item_attributes
+creator_item_effects
+creator_item_equipment_slots
+creator_item_crafting_recipes
+creator_item_components
+creator_item_loot_tables
+creator_item_drops
+creator_item_inventories
+creator_item_templates
+creator_item_versions
+creator_item_history
+creator_item_tags
+creator_item_pricing
+creator_item_trade_rules
+creator_item_usage_rules
+creator_item_restrictions
+creator_item_visuals
+creator_item_exports
+creator_item_imports
+
+====================================================
+
+BACKEND
+
+Create:
+
+DrizzleItemRepository
+ItemEditorService
+ItemValidator
+ItemExporter
+ItemImporter
+ItemRuntimeBridge
+
+====================================================
+
+REST API
+
+/api/item-editor/*
+
+~50 endpoints:
+
+CRUD items
+Templates
+Duplicate / Fork
+Publish / Archive / Restore
+Stats / Effects / Attributes
+Crafting recipes
+Loot tables
+Inventory logic
+Validation
+Import / Export
+Preview / Simulate
+
+====================================================
+
+VALIDATION
+
+- Missing stats
+- Invalid rarity
+- Broken crafting recipe
+- Circular dependency in components
+- Invalid loot table
+- Missing asset reference
+- Stack overflow rules invalid
+
+====================================================
+
+RUNTIME BRIDGE
+
+ItemRuntimeBridge:
+
+- simulate item usage
+- preview combat effect
+- test crafting result
+- inventory simulation
+
+====================================================
+
+FRONTEND
+
+Pages:
+
+ItemDashboard
+ItemBrowser
+ItemEditor
+ItemTemplates
+ItemStatsEditor
+ItemEffectsEditor
+ItemCraftingEditor
+ItemLootEditor
+ItemInventoryEditor
+ItemPricingEditor
+ItemRestrictionsEditor
+ItemVisualEditor
+ItemHistory
+ItemImportExport
+ItemSimulator
+
+====================================================
+
+UI COMPONENTS
+
+ItemInspector
+StatPanel
+EffectBuilder
+CraftingGraph
+LootTableEditor
+InventoryGrid
+PreviewViewport
+RarityBadge
+AttributeEditor
+
+====================================================
+
+SIDEBAR
+
+Add:
+
+Item Editor
+
+Dashboard
+Browser
+Templates
+Stats
+Effects
+Crafting
+Loot Tables
+Inventory
+Pricing
+Restrictions
+Import Export
+Simulator
+History
+
+====================================================
+
+INTEGRATION
+
+Must integrate with:
+
+- NPC Inventory (CREATOR-08)
+- Quest Rewards (CREATOR-09)
+- World Loot Spawns (CREATOR-07)
+- Asset Pipeline (CREATOR-04)
+- Runtime Engine (CREATOR-06)
+- Visual Scripting (CREATOR-05)
+
+====================================================
+
+RULES
+
+- PostgreSQL only
+- Drizzle ORM
+- No mock data
+- No in-memory state
+- TypeScript strict
+- Do not modify previous CREATOR modules
+
+====================================================
+
+OUTPUT
+
+Return:
+
+CREATOR-10 Sprint Report
+
+Include:
+- DB schema
+- Backend services
+- REST APIs
+- Frontend pages
+- Runtime bridge
+- Validation system
+- Integration points
+- Build status
