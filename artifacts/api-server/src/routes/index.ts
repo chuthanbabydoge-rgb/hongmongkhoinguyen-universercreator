@@ -24,6 +24,7 @@ import npcEditorRouter from "./npc-editor";
 import questEditorRouter from "./quest-editor";
 import itemEditorRouter from "./item-editor";
 import skillsRouter from "./skills";
+import combatRouter from "./combat";
 
 const router: IRouter = Router();
 
@@ -52,5 +53,6 @@ router.use(npcEditorRouter);
 router.use(questEditorRouter);
 router.use(itemEditorRouter);
 router.use(skillsRouter);
+router.use(combatRouter);
 
 export default router;

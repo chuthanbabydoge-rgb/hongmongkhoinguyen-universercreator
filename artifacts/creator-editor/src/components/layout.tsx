@@ -179,6 +179,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       ],
     },
     {
+      label: "Combat Editor",
+      items: [
+        { href: "/combat-dashboard", label: "Dashboard", icon: Swords },
+        { href: "/combat-browser", label: "Browser", icon: Shield },
+        { href: "/combat-templates", label: "Templates", icon: BookOpen },
+        { href: "/combat-validator", label: "Validator", icon: ShieldAlert },
+        { href: "/combat-simulator", label: "Simulator", icon: Play },
+        { href: "/combat-import-export", label: "Import / Export", icon: Download },
+      ],
+    },
+    {
       label: "Visual Scripting",
       items: [
         { href: "/visual-scripting", label: "Visual Scripting", icon: GitBranch },

@@ -133,6 +133,22 @@ import SkillHistory from "@/pages/skill-history";
 import SkillImportExport from "@/pages/skill-import-export";
 import SkillValidatorPage from "@/pages/skill-validator-page";
 import SkillSimulator from "@/pages/skill-simulator";
+import CombatDashboard from "@/pages/combat-dashboard";
+import CombatBrowser from "@/pages/combat-browser";
+import CombatEditorPage from "@/pages/combat-editor-page";
+import CombatSimulator from "@/pages/combat-simulator";
+import CombatValidatorPage from "@/pages/combat-validator-page";
+import CombatImportExport from "@/pages/combat-import-export";
+import CombatTemplates from "@/pages/combat-templates";
+import CombatHistory from "@/pages/combat-history";
+import CombatDamageEditor from "@/pages/combat-damage-editor";
+import CombatDefenseEditor from "@/pages/combat-defense-editor";
+import CombatResistanceEditor from "@/pages/combat-resistance-editor";
+import CombatCriticalEditor from "@/pages/combat-critical-editor";
+import CombatComboEditor from "@/pages/combat-combo-editor";
+import CombatStatusEditor from "@/pages/combat-status-editor";
+import CombatAggroEditor from "@/pages/combat-aggro-editor";
+import CombatRespawnEditor from "@/pages/combat-respawn-editor";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -300,6 +316,23 @@ function Router() {
             <Route path="/skill-import-export" component={SkillImportExport} />
             <Route path="/skill-validator" component={SkillValidatorPage} />
             <Route path="/skill-simulator" component={SkillSimulator} />
+            {/* CREATOR-12: Combat Editor */}
+            <Route path="/combat-dashboard" component={CombatDashboard} />
+            <Route path="/combat-browser" component={CombatBrowser} />
+            <Route path="/combat-editor/:id" component={CombatEditorPage} />
+            <Route path="/combat-simulator" component={CombatSimulator} />
+            <Route path="/combat-validator" component={CombatValidatorPage} />
+            <Route path="/combat-import-export" component={CombatImportExport} />
+            <Route path="/combat-templates" component={CombatTemplates} />
+            <Route path="/combat-history" component={CombatHistory} />
+            <Route path="/combat-damage/:id" component={CombatDamageEditor} />
+            <Route path="/combat-defense/:id" component={CombatDefenseEditor} />
+            <Route path="/combat-resistance/:id" component={CombatResistanceEditor} />
+            <Route path="/combat-critical/:id" component={CombatCriticalEditor} />
+            <Route path="/combat-combo/:id" component={CombatComboEditor} />
+            <Route path="/combat-status/:id" component={CombatStatusEditor} />
+            <Route path="/combat-aggro/:id" component={CombatAggroEditor} />
+            <Route path="/combat-respawn/:id" component={CombatRespawnEditor} />
             <Route component={NotFound} />
           </Switch>
         </Layout>
