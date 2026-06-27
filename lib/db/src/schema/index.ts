@@ -8,3 +8,4 @@ export * from "./world-editor";
 export * from "./npc-editor";
 export * from "./quest-editor";
 export * from "./item-editor";
+export * from "./skills";

@@ -117,6 +117,22 @@ import ItemVisualEditor from "@/pages/item-visual-editor";
 import ItemHistory from "@/pages/item-history";
 import ItemImportExport from "@/pages/item-import-export";
 import ItemSimulator from "@/pages/item-simulator";
+import SkillDashboard from "@/pages/skill-dashboard";
+import SkillBrowser from "@/pages/skill-browser";
+import SkillEditorPage from "@/pages/skill-editor-page";
+import SkillTemplates from "@/pages/skill-templates";
+import SkillEffectsEditor from "@/pages/skill-effects-editor";
+import SkillBuffEditor from "@/pages/skill-buff-editor";
+import SkillDebuffEditor from "@/pages/skill-debuff-editor";
+import SkillProjectileEditor from "@/pages/skill-projectile-editor";
+import SkillAnimationEditor from "@/pages/skill-animation-editor";
+import SkillCooldownEditor from "@/pages/skill-cooldown-editor";
+import SkillCostEditor from "@/pages/skill-cost-editor";
+import SkillStatistics from "@/pages/skill-statistics";
+import SkillHistory from "@/pages/skill-history";
+import SkillImportExport from "@/pages/skill-import-export";
+import SkillValidatorPage from "@/pages/skill-validator-page";
+import SkillSimulator from "@/pages/skill-simulator";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -267,6 +283,23 @@ function Router() {
             <Route path="/item-history/:id" component={ItemHistory} />
             <Route path="/item-import-export" component={ItemImportExport} />
             <Route path="/item-simulator" component={ItemSimulator} />
+            {/* CREATOR-11: Skill Editor */}
+            <Route path="/skill-dashboard" component={SkillDashboard} />
+            <Route path="/skill-browser" component={SkillBrowser} />
+            <Route path="/skill-editor/:id" component={SkillEditorPage} />
+            <Route path="/skill-templates" component={SkillTemplates} />
+            <Route path="/skill-effects/:id" component={SkillEffectsEditor} />
+            <Route path="/skill-buffs/:id" component={SkillBuffEditor} />
+            <Route path="/skill-debuffs/:id" component={SkillDebuffEditor} />
+            <Route path="/skill-projectile/:id" component={SkillProjectileEditor} />
+            <Route path="/skill-animation/:id" component={SkillAnimationEditor} />
+            <Route path="/skill-cooldown/:id" component={SkillCooldownEditor} />
+            <Route path="/skill-cost/:id" component={SkillCostEditor} />
+            <Route path="/skill-statistics/:id" component={SkillStatistics} />
+            <Route path="/skill-history/:id" component={SkillHistory} />
+            <Route path="/skill-import-export" component={SkillImportExport} />
+            <Route path="/skill-validator" component={SkillValidatorPage} />
+            <Route path="/skill-simulator" component={SkillSimulator} />
             <Route component={NotFound} />
           </Switch>
         </Layout>

@@ -1,0 +1,586 @@
+You are continuing the Universe Creator project.
+
+IMPORTANT
+
+This is CREATOR-11.
+
+DO NOT rewrite any previous sprint.
+
+DO NOT refactor existing modules.
+
+DO NOT change existing APIs.
+
+Only ADD the Skill Editor module.
+
+Must follow existing architecture exactly.
+
+====================================================
+GOAL
+====================================================
+
+Build a complete Skill Editor.
+
+This editor is used by:
+
+- NPC Editor
+- Item Editor
+- Quest Editor
+- Boss Editor (future)
+- Pet Editor (future)
+- Runtime Engine
+- Visual Scripting
+- Universe Hub
+
+Skills are reusable assets.
+
+Examples:
+
+Fireball
+
+Ice Spear
+
+Heal
+
+Dash
+
+Shield
+
+Passive Aura
+
+Combo Attack
+
+Ultimate
+
+====================================================
+DATABASE
+====================================================
+
+Create
+
+lib/db/src/schema/skills.ts
+
+Create 7 enums
+
+skill_type
+
+ACTIVE
+PASSIVE
+TOGGLE
+ULTIMATE
+AURA
+REACTION
+SUMMON
+
+skill_target
+
+SELF
+ALLY
+ENEMY
+AREA
+POINT
+DIRECTION
+
+damage_type
+
+PHYSICAL
+MAGIC
+TRUE
+HEAL
+
+cast_type
+
+INSTANT
+CAST
+CHANNEL
+
+resource_type
+
+MANA
+ENERGY
+STAMINA
+RAGE
+NONE
+
+effect_type
+
+BUFF
+DEBUFF
+DOT
+HOT
+CONTROL
+SUMMON
+TRIGGER
+
+cooldown_type
+
+GLOBAL
+LOCAL
+
+----------------------------------------------------
+
+Create 20 tables
+
+creator_skills
+
+creator_skill_levels
+
+creator_skill_costs
+
+creator_skill_cooldowns
+
+creator_skill_effects
+
+creator_skill_buffs
+
+creator_skill_debuffs
+
+creator_skill_projectiles
+
+creator_skill_hitboxes
+
+creator_skill_animations
+
+creator_skill_audio
+
+creator_skill_visuals
+
+creator_skill_requirements
+
+creator_skill_tags
+
+creator_skill_versions
+
+creator_skill_history
+
+creator_skill_templates
+
+creator_skill_statistics
+
+creator_skill_exports
+
+creator_skill_imports
+
+Push schema to PostgreSQL.
+
+====================================================
+BACKEND
+====================================================
+
+Create repository
+
+DrizzleSkillRepository
+
+Create
+
+SkillEditorService
+
+Support
+
+CRUD
+
+duplicate
+
+fork
+
+publish
+
+archive
+
+restore
+
+clone template
+
+====================================================
+VALIDATOR
+====================================================
+
+Create
+
+SkillValidator
+
+Validate
+
+missing cooldown
+
+negative mana
+
+invalid range
+
+invalid radius
+
+broken asset
+
+missing animation
+
+missing icon
+
+duplicate effect ids
+
+invalid level scaling
+
+circular trigger
+
+warnings
+
+missing audio
+
+no description
+
+no icon
+
+high mana cost
+
+====================================================
+IMPORT / EXPORT
+====================================================
+
+Create
+
+SkillExporter
+
+Support
+
+JSON
+
+Template
+
+Package
+
+Create SHA256 checksum.
+
+Create
+
+SkillImporter
+
+Support
+
+JSON
+
+Template
+
+Package
+
+====================================================
+RUNTIME
+====================================================
+
+Create
+
+SkillRuntimeBridge
+
+Support
+
+preview cast
+
+simulate damage
+
+simulate heal
+
+simulate cooldown
+
+simulate combo
+
+simulate passive
+
+simulate aura
+
+====================================================
+REST API
+====================================================
+
+Create
+
+routes/skills.ts
+
+Around 55 endpoints
+
+/api/skills
+
+CRUD
+
+duplicate
+
+fork
+
+publish
+
+archive
+
+restore
+
+templates
+
+history
+
+versions
+
+statistics
+
+validate
+
+preview
+
+simulate
+
+export
+
+import
+
+====================================================
+FRONTEND
+====================================================
+
+Create pages
+
+SkillDashboard
+
+SkillBrowser
+
+SkillEditor
+
+SkillTemplates
+
+SkillEffectsEditor
+
+SkillBuffEditor
+
+SkillDebuffEditor
+
+SkillProjectileEditor
+
+SkillAnimationEditor
+
+SkillCooldownEditor
+
+SkillCostEditor
+
+SkillStatistics
+
+SkillHistory
+
+SkillImportExport
+
+SkillValidator
+
+SkillSimulator
+
+====================================================
+EDITOR
+====================================================
+
+Skill Editor tabs
+
+General
+
+Levels
+
+Cost
+
+Cooldown
+
+Effects
+
+Buffs
+
+Debuffs
+
+Projectile
+
+Animation
+
+Audio
+
+Visual FX
+
+Requirements
+
+Statistics
+
+History
+
+====================================================
+SIMULATOR
+====================================================
+
+Realtime simulator
+
+Select level
+
+Select target
+
+Change stats
+
+Press Cast
+
+Display
+
+damage
+
+heal
+
+cooldown
+
+mana
+
+buffs
+
+debuffs
+
+timeline
+
+====================================================
+INTEGRATION
+====================================================
+
+CREATOR-04
+
+Asset Pipeline
+
+animation
+
+audio
+
+VFX
+
+icons
+
+----------------------------------------------------
+
+CREATOR-05
+
+Visual Scripting
+
+graph reference
+
+trigger graph
+
+----------------------------------------------------
+
+CREATOR-06
+
+Runtime Engine
+
+simulate casting
+
+----------------------------------------------------
+
+CREATOR-07
+
+World Editor
+
+place skill triggers
+
+----------------------------------------------------
+
+CREATOR-08
+
+NPC Editor
+
+NPC learns skills
+
+skill sets
+
+----------------------------------------------------
+
+CREATOR-09
+
+Quest Editor
+
+quest rewards
+
+required skills
+
+----------------------------------------------------
+
+CREATOR-10
+
+Item Editor
+
+item grants skill
+
+skill requirements
+
+====================================================
+FRONTEND
+====================================================
+
+Register routes.
+
+Add
+
+Skill Editor
+
+section
+
+Sidebar
+
+Dashboard
+
+Browser
+
+Templates
+
+Simulator
+
+====================================================
+ACCEPTANCE
+====================================================
+
+✔ 20 PostgreSQL tables
+
+✔ 7 enums
+
+✔ Drizzle repository
+
+✔ SkillEditorService
+
+✔ SkillValidator
+
+✔ SkillExporter
+
+✔ SkillImporter
+
+✔ SkillRuntimeBridge
+
+✔ ~55 REST APIs
+
+✔ 16 frontend pages
+
+✔ Sidebar integration
+
+✔ Runtime integration
+
+✔ Visual Script integration
+
+✔ World integration
+
+✔ NPC integration
+
+✔ Item integration
+
+✔ Quest integration
+
+✔ PostgreSQL only
+
+✔ Drizzle ORM only
+
+✔ TypeScript strict
+
+✔ No mocks
+
+✔ No rewrite previous sprint
+
+At the end generate a complete
+
+CREATOR-11 Sprint Report
+
+including
+
+- files created
+- database
+- backend
+- frontend
+- API
+- integrations
+- build status
+- acceptance checklist.

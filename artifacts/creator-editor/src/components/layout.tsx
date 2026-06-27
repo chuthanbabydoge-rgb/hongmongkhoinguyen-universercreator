@@ -168,6 +168,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       ],
     },
     {
+      label: "Skill Editor",
+      items: [
+        { href: "/skill-dashboard", label: "Dashboard", icon: Zap },
+        { href: "/skill-browser", label: "Browser", icon: Swords },
+        { href: "/skill-templates", label: "Templates", icon: BookOpen },
+        { href: "/skill-validator", label: "Validator", icon: ShieldAlert },
+        { href: "/skill-simulator", label: "Simulator", icon: Play },
+        { href: "/skill-import-export", label: "Import / Export", icon: Download },
+      ],
+    },
+    {
       label: "Visual Scripting",
       items: [
         { href: "/visual-scripting", label: "Visual Scripting", icon: GitBranch },
