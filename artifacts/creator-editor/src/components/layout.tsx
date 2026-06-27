@@ -54,7 +54,6 @@ import {
   CheckSquare,
   ShieldAlert,
   Package,
-  Zap,
   Hammer,
   Dices,
   Grid3X3,

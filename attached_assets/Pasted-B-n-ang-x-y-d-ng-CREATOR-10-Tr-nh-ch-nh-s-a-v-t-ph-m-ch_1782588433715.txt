@@ -1,0 +1,232 @@
+Bạn đang xây dựng CREATOR-10 — Trình chỉnh sửa vật phẩm cho Universe Creator.
+
+QUAN TRỌNG
+- CREATOR-01 → CREATOR-09 đã HOÀN THÀNH.
+
+- KHÔNG được sửa đổi các hệ thống hiện có.
+
+- CHỈ mở rộng hệ thống.
+
+====================================================
+
+MỤC TIÊU
+
+Xây dựng một hệ thống chỉnh sửa vật phẩm hoàn chỉnh cho Universe Creator.
+
+Vật phẩm là các yếu tố cơ bản của trò chơi:
+
+Vũ khí, Giáp, Vật phẩm tiêu hao, Nguyên liệu, Vật phẩm tiền tệ, Vật phẩm nhiệm vụ, Vật phẩm chế tạo.
+
+Tất cả các mục phải tích hợp với:
+
+- Trình chỉnh sửa NPC (kho đồ/trang bị)
+
+- Trình chỉnh sửa nhiệm vụ (phần thưởng/mục tiêu)
+
+- Trình chỉnh sửa thế giới (tạo/vật phẩm rơi)
+
+- Hệ thống xử lý tài sản (biểu tượng/mô hình/kết cấu)
+
+- Công cụ thời gian chạy (mô phỏng)
+
+====================================================
+
+CƠ SỞ DỮ LIỆU
+
+Tạo lược đồ:
+
+lib/db/src/schema/item-editor.ts
+
+Các kiểu liệt kê:
+
+item_type
+item_rarity
+item_category
+item_binding_type
+item_stack_type
+item_quality
+
+Bảng (20+):
+
+vật phẩm của người tạo
+thống kê vật phẩm của người tạo
+thuộc tính vật phẩm của người tạo
+hiệu ứng vật phẩm của người tạo
+ô trang bị vật phẩm của người tạo
+công thức chế tạo vật phẩm của người tạo
+thành phần vật phẩm của người tạo
+bảng vật phẩm rơi ra của người tạo
+vật phẩm rơi ra của người tạo
+kho vật phẩm của người tạo
+mẫu vật phẩm của người tạo
+phiên bản vật phẩm của người tạo
+lịch sử vật phẩm của người tạo
+thẻ vật phẩm của người tạo
+giá vật phẩm của người tạo quy tắc giao dịch
+quy tắc sử dụng vật phẩm của người tạo
+hạn chế vật phẩm của người tạo
+hình ảnh vật phẩm của người tạo
+xuất vật phẩm của người tạo
+nhập vật phẩm của người tạo
+
+====================================================
+
+HỆ THỐNG PHỤ TRÁCH
+
+Tạo:
+
+Kho lưu trữ vật phẩm Drizzle
+Dịch vụ chỉnh sửa vật phẩm
+Trình xác thực vật phẩm
+Trình xuất vật phẩm
+Trình nhập vật phẩm
+Cầu nối thời gian chạy vật phẩm
+
+====================================================
+
+REST API
+
+/api/item-editor/*
+
+~50 điểm cuối:
+
+Tạo, đọc, sửa, chỉnh sửa (CRUD) vật phẩm
+
+Mẫu
+Sao chép / Phân nhánh
+Xuất bản / Lưu trữ / Khôi phục
+Thống kê / Hiệu ứng / Thuộc tính
+Công thức chế tạo
+Bảng vật phẩm rơi ra
+Logic kho đồ
+Kiểm tra tính hợp lệ
+Nhập / Xuất
+Xem trước / Mô phỏng
+
+=====================================================
+
+KIỂM TRA TÍNH HÓA
+
+- Thiếu thống kê
+- Độ hiếm không hợp lệ
+- Công thức chế tạo bị lỗi
+- Phụ thuộc vòng tròn trong các thành phần
+- Bảng vật phẩm rơi ra không hợp lệ
+- Thiếu tham chiếu tài sản
+- Quy tắc tràn ngăn xếp không hợp lệ
+
+=====================================================
+
+THỜI GIAN CHẠY CẦU NỐI
+
+Cầu nối thời gian chạy vật phẩm:
+
+- Mô phỏng việc sử dụng vật phẩm
+- Xem trước hiệu ứng chiến đấu
+- Kiểm tra kết quả chế tạo
+- Mô phỏng kho đồ
+
+=====================================================
+
+GIAO DIỆN NGƯỜI DÙNG
+
+Các trang:
+
+Bảng điều khiển vật phẩm
+Trình duyệt vật phẩm
+Trình chỉnh sửa vật phẩm
+Mẫu vật phẩm
+Trình chỉnh sửa thống kê vật phẩm
+Trình chỉnh sửa hiệu ứng vật phẩm
+Trình chỉnh sửa chế tạo vật phẩm
+Trình chỉnh sửa vật phẩm rơi ra
+Trình chỉnh sửa kho đồ
+Trình chỉnh sửa giá vật phẩm
+Trình chỉnh sửa hạn chế vật phẩm
+Trình chỉnh sửa hình ảnh vật phẩm
+Lịch sử vật phẩm
+Nhập xuất vật phẩm
+Trình mô phỏng vật phẩm
+
+=====================================================
+
+Giao diện người dùng CÁC THÀNH PHẦN
+
+Trình kiểm tra vật phẩm
+Bảng thống kê
+Trình tạo hiệu ứng
+Đồ thị chế tạo
+Trình chỉnh sửa bảng vật phẩm rơi
+Lưới kho đồ
+Khung xem trước
+Huy hiệu độ hiếm
+Trình chỉnh sửa thuộc tính
+
+====================================================
+
+THANH BÊN
+
+Thêm:
+
+Trình chỉnh sửa vật phẩm
+
+Bảng điều khiển
+Trình duyệt
+Mẫu
+Thống kê
+Hiệu ứng
+Chế tạo
+Bảng vật phẩm rơi
+Kho đồ
+Giá cả
+Hạn chế
+Nhập xuất
+Trình mô phỏng
+Lịch sử
+
+=====================================================
+
+TÍCH HỢP
+
+Phải tích hợp với:
+
+- Kho đồ NPC (CREATOR-08)
+- Phần thưởng nhiệm vụ (CREATOR-09)
+
+- Vị trí xuất hiện vật phẩm trong thế giới (CREATOR-07)
+
+- Quy trình xử lý tài sản (CREATOR-04)
+
+- Công cụ thời gian chạy (CREATOR-06)
+
+- Lập trình trực quan (CREATOR-05)
+
+====================================================
+
+QUY TẮC
+
+- Chỉ dùng PostgreSQL
+- ORM Drizzle
+- Không sử dụng dữ liệu giả lập
+- Không sử dụng trạng thái trong bộ nhớ
+- TypeScript nghiêm ngặt
+- Không sửa đổi CREATOR trước đó các mô-đun
+
+===================================================
+
+ĐẦU RA
+
+Trả về:
+
+Báo cáo Sprint CREATOR-10
+
+Bao gồm:
+
+- Lược đồ cơ sở dữ liệu
+- Dịch vụ phụ trợ
+- API REST
+- Trang giao diện người dùng
+- Cầu nối thời gian chạy
+- Hệ thống xác thực
+- Các điểm tích hợp
+- Trạng thái bản dựng
