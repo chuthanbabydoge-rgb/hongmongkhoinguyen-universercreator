@@ -149,6 +149,22 @@ import CombatComboEditor from "@/pages/combat-combo-editor";
 import CombatStatusEditor from "@/pages/combat-status-editor";
 import CombatAggroEditor from "@/pages/combat-aggro-editor";
 import CombatRespawnEditor from "@/pages/combat-respawn-editor";
+import PetDashboard from "@/pages/pet/pet-dashboard";
+import PetBrowser from "@/pages/pet/pet-browser";
+import PetEditorPage from "@/pages/pet/pet-editor-page";
+import PetSpeciesEditor from "@/pages/pet/pet-species-editor";
+import PetGrowthEditor from "@/pages/pet/pet-growth-editor";
+import PetStatsEditor from "@/pages/pet/pet-stats-editor";
+import PetEquipmentEditor from "@/pages/pet/pet-equipment-editor";
+import PetSkillEditor from "@/pages/pet/pet-skill-editor";
+import PetEvolutionEditor from "@/pages/pet/pet-evolution-editor";
+import PetBreedingEditor from "@/pages/pet/pet-breeding-editor";
+import PetTemplates from "@/pages/pet/pet-templates";
+import PetHistory from "@/pages/pet/pet-history";
+import PetStatistics from "@/pages/pet/pet-statistics";
+import PetImportExport from "@/pages/pet/pet-import-export";
+import PetValidator from "@/pages/pet/pet-validator";
+import PetSimulator from "@/pages/pet/pet-simulator";
 import DungeonDashboard from "@/pages/dungeon/dungeon-dashboard";
 import DungeonBrowser from "@/pages/dungeon/dungeon-browser";
 import DungeonEditorPage from "@/pages/dungeon/dungeon-editor-page";
@@ -350,6 +366,23 @@ function Router() {
             <Route path="/combat-aggro/:id" component={CombatAggroEditor} />
             <Route path="/combat-respawn/:id" component={CombatRespawnEditor} />
             {/* CREATOR-13: Dungeon Editor */}
+            {/* CREATOR-14: Pet Editor */}
+            <Route path="/pet-dashboard" component={PetDashboard} />
+            <Route path="/pet-browser" component={PetBrowser} />
+            <Route path="/pet-editor/:id" component={PetEditorPage} />
+            <Route path="/pet-species-editor" component={PetSpeciesEditor} />
+            <Route path="/pet-growth-editor/:id" component={PetGrowthEditor} />
+            <Route path="/pet-stats-editor/:id" component={PetStatsEditor} />
+            <Route path="/pet-equipment-editor/:id" component={PetEquipmentEditor} />
+            <Route path="/pet-skill-editor/:id" component={PetSkillEditor} />
+            <Route path="/pet-evolution-editor/:id" component={PetEvolutionEditor} />
+            <Route path="/pet-breeding-editor/:id" component={PetBreedingEditor} />
+            <Route path="/pet-templates" component={PetTemplates} />
+            <Route path="/pet-history/:id" component={PetHistory} />
+            <Route path="/pet-statistics/:id" component={PetStatistics} />
+            <Route path="/pet-import-export" component={PetImportExport} />
+            <Route path="/pet-validator" component={PetValidator} />
+            <Route path="/pet-simulator" component={PetSimulator} />
             <Route path="/dungeon-dashboard" component={DungeonDashboard} />
             <Route path="/dungeon-browser" component={DungeonBrowser} />
             <Route path="/dungeon-editor/:id" component={DungeonEditorPage} />

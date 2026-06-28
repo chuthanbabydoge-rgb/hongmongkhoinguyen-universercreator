@@ -1,0 +1,375 @@
+CREATOR-14 — Pet Editor
+Mục tiêu
+
+Xây dựng Pet Editor hoàn chỉnh cho Universe Creator.
+
+Pet là entity độc lập có thể:
+
+Summon
+Follow
+Fight
+Level
+EXP
+Evolution
+Equipment
+Skills
+Growth
+Personality
+Loyalty
+Hunger
+Breeding
+Runtime Simulation
+
+Không được sửa code của CREATOR-01 → CREATOR-13. Chỉ mở rộng hệ thống.
+
+Database
+
+Tạo file
+
+lib/db/src/schema/pets.ts
+
+Tạo khoảng 20 tables
+
+creator_pets
+
+creator_pet_species
+
+creator_pet_levels
+
+creator_pet_stats
+
+creator_pet_growth
+
+creator_pet_skills
+
+creator_pet_equipment
+
+creator_pet_loyalty
+
+creator_pet_hunger
+
+creator_pet_personality
+
+creator_pet_evolution
+
+creator_pet_breeding
+
+creator_pet_spawn_rules
+
+creator_pet_templates
+
+creator_pet_versions
+
+creator_pet_history
+
+creator_pet_statistics
+
+creator_pet_exports
+
+creator_pet_imports
+
+creator_pet_runtime
+
+Tạo enums
+
+pet_type
+
+pet_rarity
+
+pet_state
+
+pet_growth_type
+
+pet_personality
+
+pet_food_type
+
+pet_size
+
+Export schema vào
+
+lib/db/src/schema/index.ts
+
+Push toàn bộ schema lên PostgreSQL.
+
+Repository
+
+Tạo
+
+artifacts/api-server/src/repositories/pet-repository.ts
+
+CRUD đầy đủ bằng Drizzle ORM.
+
+Không dùng mock.
+
+Service
+
+Tạo
+
+pet-editor-service.ts
+
+Bao gồm
+
+create
+update
+duplicate
+fork
+publish
+archive
+restore
+Validator
+pet-validator.ts
+
+Kiểm tra
+
+circular evolution
+duplicate skills
+invalid growth
+missing species
+invalid stats
+broken assets
+invalid food
+invalid equipment
+Exporter
+pet-exporter.ts
+
+Export
+
+JSON
+Template
+Package
+
+SHA256 checksum.
+
+Importer
+pet-importer.ts
+
+Import
+
+JSON
+Template
+Package
+Runtime Bridge
+pet-runtime-bridge.ts
+
+Simulation
+
+spawnPet()
+
+despawnPet()
+
+summon()
+
+dismiss()
+
+feed()
+
+gainExp()
+
+levelUp()
+
+evolve()
+
+breed()
+
+simulateCombat()
+
+simulateGrowth()
+
+simulateLoyalty()
+REST API
+
+Tạo khoảng 55 endpoints
+
+/api/pets/*
+
+Bao gồm
+
+CRUD
+
+Species
+
+Growth
+
+Stats
+
+Skills
+
+Equipment
+
+Evolution
+
+Breeding
+
+Templates
+
+Import
+
+Export
+
+History
+
+Versions
+
+Statistics
+
+Validation
+
+Simulation
+
+Frontend
+
+Tạo khoảng 16 pages
+
+PetDashboard
+
+PetBrowser
+
+PetEditor
+
+PetSpeciesEditor
+
+PetGrowthEditor
+
+PetStatsEditor
+
+PetEquipmentEditor
+
+PetSkillEditor
+
+PetEvolutionEditor
+
+PetBreedingEditor
+
+PetTemplates
+
+PetHistory
+
+PetStatistics
+
+PetImportExport
+
+PetValidator
+
+PetSimulator
+
+Đăng ký toàn bộ routes.
+
+Pet Editor
+
+Editor dạng tab
+
+General
+
+Species
+
+Stats
+
+Growth
+
+Skills
+
+Equipment
+
+Evolution
+
+Breeding
+
+Behavior
+
+Runtime
+
+History
+
+Settings
+
+Autosave.
+
+TanStack Query v5.
+
+Không dùng local state làm database.
+
+Sidebar
+
+Thêm section
+
+Pet Editor
+
+Menu
+
+Dashboard
+
+Browser
+
+Templates
+
+Simulator
+
+Validator
+
+Import / Export
+Integration
+Asset Pipeline
+iconAssetId
+
+portraitAssetId
+
+modelAssetId
+
+animationAssetId
+
+audioAssetId
+Skill Editor
+
+Pet học skill bằng ID.
+
+Combat Editor
+
+Pet tham gia combat.
+
+Runtime Engine
+
+Summon
+
+Despawn
+
+Simulation
+
+NPC Editor
+
+NPC có pet companion.
+
+Item Editor
+
+Food
+
+Evolution Stone
+
+Pet Equipment
+
+Visual Scripting
+
+Pet trigger
+
+OnSpawn
+
+OnAttack
+
+OnFeed
+
+OnLevelUp
+
+OnEvolution
+
+OnDeath
+Build
+
+Đăng ký router
+
+routes/index.ts
+
+Đăng ký App routes.
+
+Đăng ký Sidebar.
+
+Đảm bảo build thành công.

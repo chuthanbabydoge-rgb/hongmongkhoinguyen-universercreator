@@ -26,6 +26,7 @@ import itemEditorRouter from "./item-editor";
 import skillsRouter from "./skills";
 import combatRouter from "./combat";
 import dungeonsRouter from "./dungeons";
+import petsRouter from "./pets";
 
 const router: IRouter = Router();
 
@@ -56,5 +57,6 @@ router.use(itemEditorRouter);
 router.use(skillsRouter);
 router.use(combatRouter);
 router.use(dungeonsRouter);
+router.use(petsRouter);
 
 export default router;

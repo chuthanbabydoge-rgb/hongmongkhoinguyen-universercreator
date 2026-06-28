@@ -190,6 +190,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       ],
     },
     {
+      label: "Pet Editor",
+      items: [
+        { href: "/pet-dashboard", label: "Dashboard", icon: Layers },
+        { href: "/pet-browser", label: "Browser", icon: Globe },
+        { href: "/pet-templates", label: "Templates", icon: BookOpen },
+        { href: "/pet-simulator", label: "Simulator", icon: Play },
+        { href: "/pet-validator", label: "Validator", icon: ShieldAlert },
+        { href: "/pet-import-export", label: "Import / Export", icon: Download },
+      ],
+    },
+    {
       label: "Dungeon Editor",
       items: [
         { href: "/dungeon-dashboard", label: "Dashboard", icon: Layers },

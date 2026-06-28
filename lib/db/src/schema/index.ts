@@ -11,3 +11,4 @@ export * from "./item-editor";
 export * from "./skills";
 export * from "./combat";
 export * from "./dungeons";
+export * from "./pets";
