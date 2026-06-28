@@ -181,6 +181,24 @@ import BossStatistics from "@/pages/boss/boss-statistics";
 import BossImportExport from "@/pages/boss/boss-import-export";
 import BossValidatorPage from "@/pages/boss/boss-validator";
 import BossRuntime from "@/pages/boss/boss-runtime";
+import CityDashboard from "@/pages/city/city-dashboard";
+import CityBrowser from "@/pages/city/city-browser";
+import CityEditorPage from "@/pages/city/city-editor-page";
+import CityDistrictEditor from "@/pages/city/city-district-editor";
+import CityZoneEditor from "@/pages/city/city-zone-editor";
+import CityRoadEditor from "@/pages/city/city-road-editor";
+import CityBuildingManager from "@/pages/city/city-building-manager";
+import CityUtilityManager from "@/pages/city/city-utility-manager";
+import CityTransportManager from "@/pages/city/city-transport-manager";
+import CityPopulationManager from "@/pages/city/city-population-manager";
+import CityServiceManager from "@/pages/city/city-service-manager";
+import CitySpawnManager from "@/pages/city/city-spawn-manager";
+import CitySimulator from "@/pages/city/city-simulator";
+import CityHistory from "@/pages/city/city-history";
+import CityImportExport from "@/pages/city/city-import-export";
+import CityValidatorPage from "@/pages/city/city-validator";
+import CityTemplates from "@/pages/city/city-templates";
+import CityStatistics from "@/pages/city/city-statistics";
 import DungeonDashboard from "@/pages/dungeon/dungeon-dashboard";
 import DungeonBrowser from "@/pages/dungeon/dungeon-browser";
 import DungeonEditorPage from "@/pages/dungeon/dungeon-editor-page";
@@ -432,6 +450,25 @@ function Router() {
             <Route path="/boss-import-export" component={BossImportExport} />
             <Route path="/boss-validator" component={BossValidatorPage} />
             <Route path="/boss-runtime/:id" component={BossRuntime} />
+            {/* CREATOR-16: City Editor */}
+            <Route path="/city-dashboard" component={CityDashboard} />
+            <Route path="/city-browser" component={CityBrowser} />
+            <Route path="/city-editor/:id" component={CityEditorPage} />
+            <Route path="/city-district-editor/:id" component={CityDistrictEditor} />
+            <Route path="/city-zone-editor/:id" component={CityZoneEditor} />
+            <Route path="/city-road-editor/:id" component={CityRoadEditor} />
+            <Route path="/city-building-manager/:id" component={CityBuildingManager} />
+            <Route path="/city-utility-manager/:id" component={CityUtilityManager} />
+            <Route path="/city-transport-manager/:id" component={CityTransportManager} />
+            <Route path="/city-population-manager/:id" component={CityPopulationManager} />
+            <Route path="/city-service-manager/:id" component={CityServiceManager} />
+            <Route path="/city-spawn-manager/:id" component={CitySpawnManager} />
+            <Route path="/city-simulator" component={CitySimulator} />
+            <Route path="/city-history/:id" component={CityHistory} />
+            <Route path="/city-import-export" component={CityImportExport} />
+            <Route path="/city-validator" component={CityValidatorPage} />
+            <Route path="/city-templates" component={CityTemplates} />
+            <Route path="/city-statistics" component={CityStatistics} />
             <Route component={NotFound} />
           </Switch>
         </Layout>

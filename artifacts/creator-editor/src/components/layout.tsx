@@ -223,6 +223,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       ],
     },
     {
+      label: "City Editor",
+      items: [
+        { href: "/city-dashboard", label: "Dashboard", icon: Building2 },
+        { href: "/city-browser", label: "Browser", icon: Globe },
+        { href: "/city-templates", label: "Templates", icon: BookOpen },
+        { href: "/city-simulator", label: "Simulator", icon: Play },
+        { href: "/city-statistics", label: "Statistics", icon: BarChart2 },
+        { href: "/city-validator", label: "Validator", icon: ShieldAlert },
+        { href: "/city-import-export", label: "Import / Export", icon: Download },
+      ],
+    },
+    {
       label: "Visual Scripting",
       items: [
         { href: "/visual-scripting", label: "Visual Scripting", icon: GitBranch },

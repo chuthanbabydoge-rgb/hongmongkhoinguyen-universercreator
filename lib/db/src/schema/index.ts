@@ -13,4 +13,5 @@ export * from "./combat";
 export * from "./dungeons";
 export * from "./pets";
 export * from "./bosses";
+export * from "./cities";
 export * from "./world-system";
