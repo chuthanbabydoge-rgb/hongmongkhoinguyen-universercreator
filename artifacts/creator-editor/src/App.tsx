@@ -181,6 +181,22 @@ import BossStatistics from "@/pages/boss/boss-statistics";
 import BossImportExport from "@/pages/boss/boss-import-export";
 import BossValidatorPage from "@/pages/boss/boss-validator";
 import BossRuntime from "@/pages/boss/boss-runtime";
+import BuildingDashboard from "@/pages/building/building-dashboard";
+import BuildingBrowser from "@/pages/building/building-browser";
+import BuildingEditorPage from "@/pages/building/building-editor";
+import FloorEditor from "@/pages/building/floor-editor";
+import RoomEditor from "@/pages/building/room-editor";
+import DoorEditor from "@/pages/building/door-editor";
+import WindowEditor from "@/pages/building/window-editor";
+import FurnitureEditor from "@/pages/building/furniture-editor";
+import UtilityEditor from "@/pages/building/utility-editor";
+import NpcManager from "@/pages/building/npc-manager";
+import SecurityManager from "@/pages/building/security-manager";
+import SpawnManager from "@/pages/building/spawn-manager";
+import BuildingSimulator from "@/pages/building/building-simulator";
+import BuildingHistory from "@/pages/building/building-history";
+import BuildingImportExport from "@/pages/building/building-import-export";
+import BuildingValidatorPage from "@/pages/building/building-validator";
 import CityDashboard from "@/pages/city/city-dashboard";
 import CityBrowser from "@/pages/city/city-browser";
 import CityEditorPage from "@/pages/city/city-editor-page";
@@ -450,6 +466,23 @@ function Router() {
             <Route path="/boss-import-export" component={BossImportExport} />
             <Route path="/boss-validator" component={BossValidatorPage} />
             <Route path="/boss-runtime/:id" component={BossRuntime} />
+            {/* CREATOR-17: Building Editor */}
+            <Route path="/building-dashboard" component={BuildingDashboard} />
+            <Route path="/building-browser" component={BuildingBrowser} />
+            <Route path="/building-editor/:id" component={BuildingEditorPage} />
+            <Route path="/floor-editor/:id" component={FloorEditor} />
+            <Route path="/room-editor/:id" component={RoomEditor} />
+            <Route path="/door-editor/:id" component={DoorEditor} />
+            <Route path="/window-editor/:id" component={WindowEditor} />
+            <Route path="/furniture-editor/:id" component={FurnitureEditor} />
+            <Route path="/utility-editor/:id" component={UtilityEditor} />
+            <Route path="/npc-manager/:id" component={NpcManager} />
+            <Route path="/security-manager/:id" component={SecurityManager} />
+            <Route path="/spawn-manager/:id" component={SpawnManager} />
+            <Route path="/building-simulator/:id" component={BuildingSimulator} />
+            <Route path="/building-history/:id" component={BuildingHistory} />
+            <Route path="/building-import-export/:id" component={BuildingImportExport} />
+            <Route path="/building-validator/:id" component={BuildingValidatorPage} />
             {/* CREATOR-16: City Editor */}
             <Route path="/city-dashboard" component={CityDashboard} />
             <Route path="/city-browser" component={CityBrowser} />

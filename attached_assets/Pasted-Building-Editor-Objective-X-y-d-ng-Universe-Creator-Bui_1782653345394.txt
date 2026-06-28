@@ -1,0 +1,434 @@
+Building Editor
+Objective
+
+Xây dựng Universe Creator – Building Editor hoàn chỉnh.
+
+Building Editor là hệ thống tạo và quản lý mọi công trình trong Universe.
+
+Một Building có thể là:
+
+House
+Apartment
+Office
+Shop
+Factory
+School
+Hospital
+Government
+Stadium
+Dungeon Entrance
+Custom Building
+
+Không rewrite các sprint trước.
+
+Chỉ bổ sung.
+
+DATABASE
+
+Tạo
+
+lib/db/src/schema/buildings.ts
+7 enums
+building_type
+
+building_status
+
+building_category
+
+building_material
+
+building_access_type
+
+building_power_state
+
+building_security_level
+20 tables
+creator_buildings
+
+creator_building_floors
+
+creator_building_rooms
+
+creator_building_doors
+
+creator_building_windows
+
+creator_building_utilities
+
+creator_building_furniture
+
+creator_building_npcs
+
+creator_building_permissions
+
+creator_building_security
+
+creator_building_spawnpoints
+
+creator_building_events
+
+creator_building_templates
+
+creator_building_versions
+
+creator_building_history
+
+creator_building_statistics
+
+creator_building_exports
+
+creator_building_imports
+
+creator_building_runtime
+
+creator_building_bookmarks
+
+Push schema vào PostgreSQL.
+
+Export trong
+
+lib/db/src/schema/index.ts
+BACKEND
+
+Tạo
+
+repositories/building-repository.ts
+
+Drizzle ORM CRUD đầy đủ.
+
+Services
+BuildingEditorService
+
+Hỗ trợ
+
+create
+
+update
+
+delete
+
+duplicate
+
+fork
+
+publish
+
+archive
+
+restore
+BuildingValidator
+
+Kiểm tra
+
+duplicate rooms
+invalid floor references
+broken doors
+orphan furniture
+invalid utilities
+overlapping rooms
+invalid spawn points
+missing exits
+warnings
+BuildingExporter
+
+Export
+
+JSON
+
+Template
+
+Package
+
+SHA256 checksum.
+
+BuildingImporter
+
+Import
+
+JSON
+
+Template
+
+Package
+BuildingRuntimeBridge
+
+Simulation
+
+Open Close Building
+
+Power
+
+Water
+
+Lighting
+
+Security
+
+NPC Activity
+
+Furniture Interaction
+
+Emergency
+
+Fire
+
+Elevator
+
+Visitors
+
+Building Streaming
+REST API
+
+Tạo
+
+routes/buildings.ts
+
+Khoảng
+
+60+
+
+endpoints.
+
+Prefix
+
+/buildings/*
+
+(Không dùng /api/buildings trong router. Express đã mount /api ở cấp trên.)
+
+Bao gồm
+
+CRUD
+
+Floors
+
+Rooms
+
+Doors
+
+Windows
+
+Furniture
+
+Utilities
+
+NPCs
+
+Permissions
+
+Security
+
+Templates
+
+History
+
+Statistics
+
+Import
+
+Export
+
+Validate
+
+Simulation
+
+Đăng ký trong
+
+routes/index.ts
+FRONTEND
+
+Tạo
+
+pages/
+16 pages
+building-dashboard
+
+building-browser
+
+building-editor
+
+floor-editor
+
+room-editor
+
+door-editor
+
+window-editor
+
+furniture-editor
+
+utility-editor
+
+npc-manager
+
+security-manager
+
+spawn-manager
+
+building-simulator
+
+building-history
+
+building-import-export
+
+building-validator
+Main Editor Tabs
+General
+
+Floors
+
+Rooms
+
+Doors
+
+Windows
+
+Furniture
+
+Utilities
+
+NPCs
+
+Security
+
+Permissions
+
+Spawn
+
+Statistics
+
+Simulation
+
+History
+SIDEBAR
+
+Thêm section
+
+Building Editor
+
+Menu
+
+Dashboard
+
+Browser
+
+Templates
+
+Simulator
+
+Validator
+
+Import / Export
+INTEGRATION
+CREATOR-04 Asset Pipeline
+Model
+
+Texture
+
+Material
+
+Audio
+
+Icons
+CREATOR-05 Visual Scripting
+buildingGraphId
+
+interactionGraphId
+CREATOR-06 Runtime Engine
+Streaming
+
+Interaction
+
+Power
+
+Simulation
+CREATOR-07 World Editor
+
+Building placement.
+
+CREATOR-08 NPC Editor
+
+NPC residences.
+
+Schedules.
+
+Indoor AI.
+
+CREATOR-09 Quest Editor
+
+Quest locations.
+
+Indoor objectives.
+
+CREATOR-10 Item Editor
+
+Furniture items.
+
+Containers.
+
+Storage.
+
+Loot.
+
+CREATOR-11 Skill Editor
+
+Training rooms.
+
+Guild halls.
+
+Magic rooms.
+
+CREATOR-12 Combat Editor
+
+Safe rooms.
+
+PvP interiors.
+
+Combat restrictions.
+
+CREATOR-13 Dungeon Editor
+
+Dungeon entrances.
+
+Interior instances.
+
+CREATOR-14 Pet Editor
+
+Pet houses.
+
+Stable.
+
+Pet interaction.
+
+CREATOR-16 City Editor
+
+Buildings belong to Cities.
+
+District references.
+
+Road access.
+
+Utility connections.
+
+ACCEPTANCE CRITERIA
+✅ 7 enums.
+✅ 20 PostgreSQL tables.
+✅ Drizzle ORM only.
+✅ BuildingRepository.
+✅ BuildingEditorService.
+✅ BuildingValidator.
+✅ BuildingImporter.
+✅ BuildingExporter.
+✅ BuildingRuntimeBridge.
+✅ ~60 REST endpoints (/buildings/*).
+✅ 16 React pages.
+✅ Sidebar integration.
+✅ App routing hoàn chỉnh.
+✅ Không sửa logic các sprint trước.
+✅ Không mock.
+✅ Không in-memory.
+✅ TypeScript strict.
+✅ Build thành công.
+✅ API Server chạy.
+✅ Creator Editor chạy.
+✅ PostgreSQL schema được push thành công.
+✅ Sau khi hoàn thành, trả về CREATOR-17 Sprint Report theo đúng format các sprint trước
