@@ -233,6 +233,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       ],
     },
     {
+      label: "Transportation Editor",
+      items: [
+        { href: "/transport-dashboard", label: "Dashboard", icon: Navigation },
+        { href: "/transport-browser", label: "Browser", icon: Globe },
+        { href: "/transport-simulator/0", label: "Simulator", icon: Play },
+        { href: "/transport-validator/0", label: "Validator", icon: ShieldAlert },
+        { href: "/transport-import-export/0", label: "Import / Export", icon: Download },
+      ],
+    },
+    {
       label: "Land Editor",
       items: [
         { href: "/land-dashboard", label: "Dashboard", icon: MapPin },

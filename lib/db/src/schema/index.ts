@@ -17,3 +17,4 @@ export * from "./cities";
 export * from "./buildings";
 export * from "./world-system";
 export * from "./land-editor";
+export * from "./transportation";

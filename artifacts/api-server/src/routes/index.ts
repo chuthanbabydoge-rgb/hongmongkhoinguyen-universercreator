@@ -32,6 +32,7 @@ import citiesRouter from "./cities";
 import buildingsRouter from "./buildings";
 import worldSystemRouter from "./world-system";
 import landsRouter from "./lands";
+import transportationRouter from "./transportation";
 
 const router: IRouter = Router();
 
@@ -68,5 +69,6 @@ router.use(citiesRouter);
 router.use(buildingsRouter);
 router.use(worldSystemRouter);
 router.use(landsRouter);
+router.use(transportationRouter);
 
 export default router;

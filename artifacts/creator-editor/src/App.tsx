@@ -249,6 +249,24 @@ import LandHistory from "@/pages/land/land-history";
 import LandImportExport from "@/pages/land/land-import-export";
 import LandValidatorPage from "@/pages/land/land-validator";
 
+// CREATOR-19: Transportation Editor
+import TransportDashboard from "@/pages/transportation/transport-dashboard";
+import TransportBrowser from "@/pages/transportation/transport-browser";
+import TransportEditor from "@/pages/transportation/transport-editor";
+import RoadEditorPage from "@/pages/transportation/road-editor";
+import RouteEditorPage from "@/pages/transportation/route-editor";
+import StationEditorPage from "@/pages/transportation/station-editor";
+import VehicleManager from "@/pages/transportation/vehicle-manager";
+import TrafficSignalEditor from "@/pages/transportation/traffic-signal-editor";
+import RailwayEditor from "@/pages/transportation/railway-editor";
+import AirportEditor from "@/pages/transportation/airport-editor";
+import PortEditor from "@/pages/transportation/port-editor";
+import ParkingManager from "@/pages/transportation/parking-manager";
+import TransportSimulator from "@/pages/transportation/transport-simulator";
+import TransportHistory from "@/pages/transportation/transport-history";
+import TransportImportExport from "@/pages/transportation/transport-import-export";
+import TransportValidator from "@/pages/transportation/transport-validator";
+
 const queryClient = new QueryClient();
 
 setAuthTokenGetter(() => localStorage.getItem("creator_token") ?? "");
@@ -536,6 +554,25 @@ function Router() {
             <Route path="/land-history/:id" component={LandHistory} />
             <Route path="/land-import-export/:id" component={LandImportExport} />
             <Route path="/land-validator/:id" component={LandValidatorPage} />
+
+            {/* CREATOR-19: Transportation Editor */}
+            <Route path="/transport-dashboard" component={TransportDashboard} />
+            <Route path="/transport-browser" component={TransportBrowser} />
+            <Route path="/transport-editor/:id" component={TransportEditor} />
+            <Route path="/road-editor/:id" component={RoadEditorPage} />
+            <Route path="/route-editor/:id" component={RouteEditorPage} />
+            <Route path="/station-editor/:id" component={StationEditorPage} />
+            <Route path="/vehicle-manager/:id" component={VehicleManager} />
+            <Route path="/traffic-signal-editor/:id" component={TrafficSignalEditor} />
+            <Route path="/railway-editor/:id" component={RailwayEditor} />
+            <Route path="/airport-editor/:id" component={AirportEditor} />
+            <Route path="/port-editor/:id" component={PortEditor} />
+            <Route path="/parking-manager/:id" component={ParkingManager} />
+            <Route path="/transport-simulator/:id" component={TransportSimulator} />
+            <Route path="/transport-history/:id" component={TransportHistory} />
+            <Route path="/transport-import-export/:id" component={TransportImportExport} />
+            <Route path="/transport-validator/:id" component={TransportValidator} />
+
             <Route component={NotFound} />
           </Switch>
         </Layout>
