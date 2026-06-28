@@ -232,6 +232,22 @@ import TrapEditor from "@/pages/dungeon/trap-editor";
 import PuzzleEditor from "@/pages/dungeon/puzzle-editor";
 import RewardEditor from "@/pages/dungeon/reward-editor";
 import NotFound from "@/pages/not-found";
+import LandDashboard from "@/pages/land/land-dashboard";
+import LandBrowser from "@/pages/land/land-browser";
+import LandEditorPage from "@/pages/land/land-editor";
+import ParcelEditor from "@/pages/land/parcel-editor";
+import BoundaryEditor from "@/pages/land/boundary-editor";
+import OwnershipManager from "@/pages/land/ownership-manager";
+import ZoneEditor from "@/pages/land/zone-editor";
+import TerrainEditor from "@/pages/land/terrain-editor";
+import RoadManager from "@/pages/land/road-manager";
+import UtilityManager from "@/pages/land/utility-manager";
+import TeleportManager from "@/pages/land/teleport-manager";
+import BuildingPlacement from "@/pages/land/building-placement";
+import LandSimulator from "@/pages/land/land-simulator";
+import LandHistory from "@/pages/land/land-history";
+import LandImportExport from "@/pages/land/land-import-export";
+import LandValidatorPage from "@/pages/land/land-validator";
 
 const queryClient = new QueryClient();
 
@@ -502,6 +518,24 @@ function Router() {
             <Route path="/city-validator" component={CityValidatorPage} />
             <Route path="/city-templates" component={CityTemplates} />
             <Route path="/city-statistics" component={CityStatistics} />
+            {/* CREATOR-18: Land Editor */}
+            <Route path="/land-dashboard" component={LandDashboard} />
+            <Route path="/land-browser" component={LandBrowser} />
+            <Route path="/land-editor/:id" component={LandEditorPage} />
+            <Route path="/land-parcel-editor/:id" component={ParcelEditor} />
+            <Route path="/land-boundary-editor/:id" component={BoundaryEditor} />
+            <Route path="/land-ownership-manager/:id" component={OwnershipManager} />
+            <Route path="/land-zone-editor/:id" component={ZoneEditor} />
+            <Route path="/land-terrain-editor/:id" component={TerrainEditor} />
+            <Route path="/land-road-manager/:id" component={RoadManager} />
+            <Route path="/land-utility-manager/:id" component={UtilityManager} />
+            <Route path="/land-teleport-manager/:id" component={TeleportManager} />
+            <Route path="/land-building-placement/:id" component={BuildingPlacement} />
+            <Route path="/land-simulator" component={LandSimulator} />
+            <Route path="/land-simulator/:id" component={LandSimulator} />
+            <Route path="/land-history/:id" component={LandHistory} />
+            <Route path="/land-import-export/:id" component={LandImportExport} />
+            <Route path="/land-validator/:id" component={LandValidatorPage} />
             <Route component={NotFound} />
           </Switch>
         </Layout>

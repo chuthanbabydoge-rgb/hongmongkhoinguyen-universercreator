@@ -233,6 +233,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       ],
     },
     {
+      label: "Land Editor",
+      items: [
+        { href: "/land-dashboard", label: "Dashboard", icon: MapPin },
+        { href: "/land-browser", label: "Browser", icon: Globe },
+        { href: "/land-simulator", label: "Simulator", icon: Play },
+        { href: "/land-validator/0", label: "Validator", icon: ShieldAlert },
+        { href: "/land-import-export/0", label: "Import / Export", icon: Download },
+      ],
+    },
+    {
       label: "City Editor",
       items: [
         { href: "/city-dashboard", label: "Dashboard", icon: Building2 },
