@@ -190,6 +190,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       ],
     },
     {
+      label: "Dungeon Editor",
+      items: [
+        { href: "/dungeon-dashboard", label: "Dashboard", icon: Layers },
+        { href: "/dungeon-browser", label: "Browser", icon: Globe },
+        { href: "/dungeon-templates", label: "Templates", icon: BookOpen },
+        { href: "/dungeon-simulator", label: "Simulator", icon: Play },
+        { href: "/dungeon-import-export", label: "Import / Export", icon: Download },
+      ],
+    },
+    {
       label: "Visual Scripting",
       items: [
         { href: "/visual-scripting", label: "Visual Scripting", icon: GitBranch },

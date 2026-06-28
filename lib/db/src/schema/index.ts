@@ -10,3 +10,4 @@ export * from "./quest-editor";
 export * from "./item-editor";
 export * from "./skills";
 export * from "./combat";
+export * from "./dungeons";

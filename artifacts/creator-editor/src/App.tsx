@@ -149,6 +149,22 @@ import CombatComboEditor from "@/pages/combat-combo-editor";
 import CombatStatusEditor from "@/pages/combat-status-editor";
 import CombatAggroEditor from "@/pages/combat-aggro-editor";
 import CombatRespawnEditor from "@/pages/combat-respawn-editor";
+import DungeonDashboard from "@/pages/dungeon/dungeon-dashboard";
+import DungeonBrowser from "@/pages/dungeon/dungeon-browser";
+import DungeonEditorPage from "@/pages/dungeon/dungeon-editor-page";
+import DungeonTemplates from "@/pages/dungeon/dungeon-templates";
+import DungeonSimulator from "@/pages/dungeon/dungeon-simulator";
+import DungeonStatistics from "@/pages/dungeon/dungeon-statistics";
+import DungeonHistory from "@/pages/dungeon/dungeon-history";
+import DungeonImportExport from "@/pages/dungeon/dungeon-import-export";
+import RoomEditor from "@/pages/dungeon/room-editor";
+import ConnectionEditor from "@/pages/dungeon/connection-editor";
+import SpawnEditor from "@/pages/dungeon/spawn-editor";
+import BossEditor from "@/pages/dungeon/boss-editor";
+import MonsterEditor from "@/pages/dungeon/monster-editor";
+import TrapEditor from "@/pages/dungeon/trap-editor";
+import PuzzleEditor from "@/pages/dungeon/puzzle-editor";
+import RewardEditor from "@/pages/dungeon/reward-editor";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -333,6 +349,23 @@ function Router() {
             <Route path="/combat-status/:id" component={CombatStatusEditor} />
             <Route path="/combat-aggro/:id" component={CombatAggroEditor} />
             <Route path="/combat-respawn/:id" component={CombatRespawnEditor} />
+            {/* CREATOR-13: Dungeon Editor */}
+            <Route path="/dungeon-dashboard" component={DungeonDashboard} />
+            <Route path="/dungeon-browser" component={DungeonBrowser} />
+            <Route path="/dungeon-editor/:id" component={DungeonEditorPage} />
+            <Route path="/dungeon-templates" component={DungeonTemplates} />
+            <Route path="/dungeon-simulator" component={DungeonSimulator} />
+            <Route path="/dungeon-statistics/:id" component={DungeonStatistics} />
+            <Route path="/dungeon-history/:id" component={DungeonHistory} />
+            <Route path="/dungeon-import-export" component={DungeonImportExport} />
+            <Route path="/dungeon-room-editor/:id" component={RoomEditor} />
+            <Route path="/dungeon-connection-editor/:id" component={ConnectionEditor} />
+            <Route path="/dungeon-spawn-editor/:id" component={SpawnEditor} />
+            <Route path="/dungeon-boss-editor/:id" component={BossEditor} />
+            <Route path="/dungeon-monster-editor/:id" component={MonsterEditor} />
+            <Route path="/dungeon-trap-editor/:id" component={TrapEditor} />
+            <Route path="/dungeon-puzzle-editor/:id" component={PuzzleEditor} />
+            <Route path="/dungeon-reward-editor/:id" component={RewardEditor} />
             <Route component={NotFound} />
           </Switch>
         </Layout>

@@ -1,0 +1,439 @@
+CREATOR-13 — Dungeon Editor
+
+Build CREATOR-13: Dungeon Editor for Universe Creator.
+
+This sprint adds a complete Dungeon authoring system integrated with all previous Creator modules.
+
+IMPORTANT
+DO NOT modify or refactor previous sprints.
+Only add new modules.
+PostgreSQL + Drizzle ORM only.
+TypeScript strict.
+No mock data.
+No in-memory database.
+Keep existing architecture.
+React + TanStack Query.
+Build must succeed.
+DATABASE
+
+Create
+
+lib/db/src/schema/dungeons.ts
+Create 8 enums
+dungeon_type
+
+dungeon_status
+
+room_type
+
+spawn_type
+
+trap_type
+
+reward_type
+
+difficulty
+
+reset_type
+Create 20 tables
+creator_dungeons
+
+creator_dungeon_rooms
+
+creator_dungeon_connections
+
+creator_dungeon_spawnpoints
+
+creator_dungeon_bosses
+
+creator_dungeon_monsters
+
+creator_dungeon_traps
+
+creator_dungeon_puzzles
+
+creator_dungeon_rewards
+
+creator_dungeon_checkpoints
+
+creator_dungeon_requirements
+
+creator_dungeon_events
+
+creator_dungeon_scripts
+
+creator_dungeon_templates
+
+creator_dungeon_versions
+
+creator_dungeon_history
+
+creator_dungeon_statistics
+
+creator_dungeon_exports
+
+creator_dungeon_imports
+
+creator_dungeon_runtime
+
+Export schema.
+
+Push PostgreSQL schema.
+
+BACKEND
+
+Create
+
+repositories/dungeon-repository.ts
+
+Implement full CRUD.
+
+Create
+
+services/dungeon-editor-service.ts
+
+Features
+
+createDungeon
+updateDungeon
+duplicateDungeon
+forkDungeon
+publishDungeon
+archiveDungeon
+restoreDungeon
+deleteDungeon
+
+Manage
+
+rooms
+connections
+spawn points
+monsters
+bosses
+puzzles
+traps
+rewards
+checkpoints
+requirements
+VALIDATOR
+
+Create
+
+services/dungeon-validator.ts
+
+Validation
+
+Errors
+
+isolated room
+broken connection
+boss without spawn
+invalid spawn
+missing rewards
+duplicate checkpoint
+invalid difficulty
+circular graph
+unreachable exit
+invalid reset configuration
+
+Warnings
+
+too many monsters
+reward imbalance
+boss without loot
+unused puzzle
+oversized room
+EXPORTER
+
+Create
+
+services/dungeon-exporter.ts
+
+Support
+
+JSON
+Template
+Package
+
+Generate SHA256 checksum.
+
+IMPORTER
+
+Create
+
+services/dungeon-importer.ts
+
+Import
+
+JSON
+Template
+Package
+
+Import all child resources.
+
+RUNTIME BRIDGE
+
+Create
+
+services/dungeon-runtime-bridge.ts
+
+Simulation methods
+
+previewDungeon()
+simulateRun()
+simulateBoss()
+simulateSpawn()
+simulatePuzzle()
+simulateTrap()
+simulateLoot()
+simulateCheckpoint()
+simulateRespawn()
+resetDungeon()
+REST API
+
+Create
+
+routes/dungeons.ts
+
+Around 60 endpoints.
+
+Include
+
+CRUD
+Publish
+Archive
+Restore
+Duplicate
+Templates
+Rooms
+Connections
+Spawn Points
+Monsters
+Bosses
+Traps
+Puzzles
+Rewards
+Requirements
+Checkpoints
+Versions
+History
+Statistics
+Validate
+Import
+Export
+Simulation
+
+Prefix
+
+/api/dungeons/*
+
+Register router.
+
+FRONTEND
+
+Create folder
+
+artifacts/creator-editor/src/pages/dungeon/
+
+Create 16 pages
+
+DungeonDashboard
+
+DungeonBrowser
+
+DungeonEditor
+
+DungeonTemplates
+
+RoomEditor
+
+ConnectionEditor
+
+SpawnEditor
+
+BossEditor
+
+MonsterEditor
+
+TrapEditor
+
+PuzzleEditor
+
+RewardEditor
+
+DungeonStatistics
+
+DungeonHistory
+
+DungeonImportExport
+
+DungeonSimulator
+MAIN DUNGEON EDITOR
+
+Tabbed editor
+
+General
+
+Rooms
+
+Connections
+
+Spawn
+
+Bosses
+
+Monsters
+
+Traps
+
+Puzzle
+
+Rewards
+
+Requirements
+
+History
+
+Simulation
+
+Settings
+
+Support
+
+autosave
+version snapshots
+publish
+restore
+DUNGEON SIMULATOR
+
+Realtime simulator
+
+Support
+
+dungeon preview
+monster spawn
+boss battle preview
+trap trigger
+checkpoint restore
+loot preview
+reset dungeon
+
+Timeline view.
+
+SIDEBAR
+
+Add
+
+Dungeon Editor
+
+Dashboard
+
+Browser
+
+Templates
+
+Simulator
+
+Validator
+
+Import / Export
+INTEGRATION
+
+Integrate with previous Creator modules.
+
+CREATOR-07
+
+World reference
+Region reference
+Portal reference
+
+CREATOR-08
+
+Boss references NPC
+Monster references NPC
+
+CREATOR-09
+
+Quest objectives reference Dungeon
+Quest trigger Dungeon completion
+
+CREATOR-10
+
+Reward Items
+Loot Tables
+Chests
+
+CREATOR-11
+
+Boss Skills
+Monster Skills
+Trap Skills
+
+CREATOR-12
+
+Combat Rules
+Damage Formula
+Status Effects
+Aggro Rules
+
+CREATOR-06
+
+Runtime simulation
+
+CREATOR-05
+
+Puzzle Graph
+Boss AI Graph
+Trigger Graph
+
+CREATOR-04
+
+Dungeon assets
+Music
+SFX
+Icons
+Meshes
+Textures
+ACCEPTANCE CHECKLIST
+20 PostgreSQL tables
+8 enums
+Drizzle ORM
+Full Repository
+Dungeon Editor Service
+Validator
+Importer
+Exporter
+Runtime Bridge
+~60 REST endpoints
+16 React pages
+Sidebar integration
+Autosave
+Version History
+JSON Import
+Template Import
+Package Import
+JSON Export
+Template Export
+Package Export
+Realtime Dungeon Simulator
+Full integration with CREATOR-04 → CREATOR-12
+No mock data
+No breaking changes
+TypeScript strict
+PostgreSQL only
+API Server builds successfully
+Creator Editor builds successfully
+OUTPUT FORMAT
+
+When finished, output a complete CREATOR-13 Sprint Report in the same format as previous sprints, including:
+
+Database
+Enums
+Tables
+Backend files
+REST endpoints
+Frontend pages
+Sidebar
+Integration points
+Build status
+Acceptance checklist.
