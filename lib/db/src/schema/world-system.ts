@@ -1,10 +1,35 @@
 import { pgTable, serial, integer, text, boolean, real, timestamp, jsonb, pgEnum } from "drizzle-orm/pg-core";
+import {
+  worldWeatherEnum,
+  creatorWorldChunks,
+  creatorWorldRegions,
+  creatorWorldSpawnpoints,
+  creatorWorldWeather,
+  creatorWorldPortals,
+  creatorWorldRuntime,
+  creatorWorldStatistics,
+  creatorWorldHistory,
+  creatorWorldVersions,
+  creatorWorldExports,
+  creatorWorldImports,
+} from "./world-editor";
+
+export {
+  creatorWorldChunks,
+  creatorWorldRegions,
+  creatorWorldSpawnpoints,
+  creatorWorldWeather,
+  creatorWorldPortals,
+  creatorWorldRuntime,
+  creatorWorldStatistics,
+  creatorWorldHistory,
+  creatorWorldVersions,
+  creatorWorldExports,
+  creatorWorldImports,
+};
 
 export const worldRuntimeStateEnum = pgEnum("world_runtime_state", [
   "offline", "loading", "running", "paused", "saving", "stopping", "error", "maintenance",
-]);
-export const worldWeatherEnum = pgEnum("world_weather", [
-  "sunny", "cloudy", "rain", "storm", "snow", "fog", "wind", "sandstorm", "blizzard", "heatwave",
 ]);
 export const worldTimeCycleEnum = pgEnum("world_time_cycle", [
   "sunrise", "morning", "noon", "afternoon", "evening", "sunset", "night", "midnight",
@@ -31,7 +56,7 @@ export const creatorWorldInstances = pgTable("creator_world_instances", {
   slug: text("slug"),
   description: text("description"),
   runtimeState: worldRuntimeStateEnum("runtime_state").notNull().default("offline"),
-  currentWeather: worldWeatherEnum("current_weather").notNull().default("sunny"),
+  currentWeather: worldWeatherEnum("current_weather").notNull().default("clear"),
   currentTimeCycle: worldTimeCycleEnum("current_time_cycle").notNull().default("morning"),
   streamMode: worldStreamModeEnum("stream_mode").notNull().default("distance"),
   timeScale: real("time_scale").notNull().default(1.0),
@@ -59,49 +84,6 @@ export const creatorWorldInstances = pgTable("creator_world_instances", {
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
-export const creatorWorldChunks = pgTable("creator_world_chunks", {
-  id: serial("id").primaryKey(),
-  worldInstanceId: integer("world_instance_id").notNull(),
-  chunkX: integer("chunk_x").notNull(),
-  chunkY: integer("chunk_y").notNull(),
-  chunkZ: integer("chunk_z").notNull().default(0),
-  chunkState: chunkStateEnum("chunk_state").notNull().default("unloaded"),
-  loadPriority: integer("load_priority").notNull().default(0),
-  activeEntities: integer("active_entities").notNull().default(0),
-  memoryBytes: integer("memory_bytes").notNull().default(0),
-  terrainData: jsonb("terrain_data"),
-  entityData: jsonb("entity_data"),
-  lightingData: jsonb("lighting_data"),
-  lastAccessedAt: timestamp("last_accessed_at"),
-  loadedAt: timestamp("loaded_at"),
-  metadata: jsonb("metadata"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
-});
-
-export const creatorWorldRegions = pgTable("creator_world_regions", {
-  id: serial("id").primaryKey(),
-  worldInstanceId: integer("world_instance_id").notNull(),
-  name: text("name").notNull(),
-  regionType: text("region_type").notNull().default("open"),
-  boundsMinX: real("bounds_min_x").notNull().default(0),
-  boundsMinY: real("bounds_min_y").notNull().default(0),
-  boundsMaxX: real("bounds_max_x").notNull().default(100),
-  boundsMaxY: real("bounds_max_y").notNull().default(100),
-  isActive: boolean("is_active").notNull().default(true),
-  isStreamable: boolean("is_streamable").notNull().default(true),
-  weatherOverride: worldWeatherEnum("weather_override"),
-  timeOverride: worldTimeCycleEnum("time_override"),
-  ambientMusicRef: text("ambient_music_ref"),
-  pvpEnabled: boolean("pvp_enabled").notNull().default(false),
-  levelMin: integer("level_min").notNull().default(1),
-  levelMax: integer("level_max").notNull().default(999),
-  entryCondition: text("entry_condition"),
-  metadata: jsonb("metadata"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
-});
-
 export const creatorWorldStreaming = pgTable("creator_world_streaming", {
   id: serial("id").primaryKey(),
   worldInstanceId: integer("world_instance_id").notNull(),
@@ -117,25 +99,6 @@ export const creatorWorldStreaming = pgTable("creator_world_streaming", {
   streamingQueue: jsonb("streaming_queue"),
   metadata: jsonb("metadata"),
   recordedAt: timestamp("recorded_at").notNull().defaultNow(),
-});
-
-export const creatorWorldSpawnpoints = pgTable("creator_world_spawnpoints", {
-  id: serial("id").primaryKey(),
-  worldInstanceId: integer("world_instance_id").notNull(),
-  name: text("name").notNull(),
-  spawnType: text("spawn_type").notNull().default("player"),
-  positionX: real("position_x").notNull().default(0),
-  positionY: real("position_y").notNull().default(0),
-  positionZ: real("position_z").notNull().default(0),
-  rotationY: real("rotation_y").notNull().default(0),
-  regionId: integer("region_id"),
-  entityRef: text("entity_ref"),
-  maxConcurrent: integer("max_concurrent").notNull().default(1),
-  respawnDelay: integer("respawn_delay").notNull().default(30),
-  isActive: boolean("is_active").notNull().default(true),
-  triggerCondition: text("trigger_condition"),
-  metadata: jsonb("metadata"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
 export const creatorWorldTeleports = pgTable("creator_world_teleports", {
@@ -158,27 +121,6 @@ export const creatorWorldTeleports = pgTable("creator_world_teleports", {
   vfxRef: text("vfx_ref"),
   metadata: jsonb("metadata"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
-});
-
-export const creatorWorldWeather = pgTable("creator_world_weather", {
-  id: serial("id").primaryKey(),
-  worldInstanceId: integer("world_instance_id").notNull(),
-  currentWeather: worldWeatherEnum("current_weather").notNull().default("sunny"),
-  nextWeather: worldWeatherEnum("next_weather"),
-  transitionDuration: real("transition_duration").notNull().default(60),
-  intensity: real("intensity").notNull().default(1.0),
-  windSpeed: real("wind_speed").notNull().default(0),
-  windDirection: real("wind_direction").notNull().default(0),
-  temperature: real("temperature").notNull().default(20),
-  humidity: real("humidity").notNull().default(50),
-  forecast: jsonb("forecast"),
-  particleRef: text("particle_ref"),
-  sfxRef: text("sfx_ref"),
-  vfxRef: text("vfx_ref"),
-  scheduledChanges: jsonb("scheduled_changes"),
-  isManualOverride: boolean("is_manual_override").notNull().default(false),
-  metadata: jsonb("metadata"),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
 export const creatorWorldDaynight = pgTable("creator_world_daynight", {
@@ -250,52 +192,6 @@ export const creatorWorldCheckpoints = pgTable("creator_world_checkpoints", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
-export const creatorWorldPortals = pgTable("creator_world_portals", {
-  id: serial("id").primaryKey(),
-  worldInstanceId: integer("world_instance_id").notNull(),
-  name: text("name").notNull(),
-  portalType: portalTypeEnum("portal_type").notNull().default("world_gate"),
-  fromX: real("from_x").notNull().default(0),
-  fromY: real("from_y").notNull().default(0),
-  fromZ: real("from_z").notNull().default(0),
-  toWorldInstanceId: integer("to_world_instance_id"),
-  toDungeonRef: text("to_dungeon_ref"),
-  toX: real("to_x").notNull().default(0),
-  toY: real("to_y").notNull().default(0),
-  toZ: real("to_z").notNull().default(0),
-  requiredLevel: integer("required_level").notNull().default(1),
-  requiredQuest: text("required_quest"),
-  isActive: boolean("is_active").notNull().default(true),
-  isBidirectional: boolean("is_bidirectional").notNull().default(true),
-  meshAssetRef: text("mesh_asset_ref"),
-  sfxRef: text("sfx_ref"),
-  vfxRef: text("vfx_ref"),
-  metadata: jsonb("metadata"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
-});
-
-export const creatorWorldRuntime = pgTable("creator_world_runtime", {
-  id: serial("id").primaryKey(),
-  worldInstanceId: integer("world_instance_id").notNull(),
-  sessionId: text("session_id").notNull(),
-  runtimeState: worldRuntimeStateEnum("runtime_state").notNull().default("offline"),
-  startedAt: timestamp("started_at"),
-  stoppedAt: timestamp("stopped_at"),
-  uptimeSeconds: integer("uptime_seconds").notNull().default(0),
-  tickRate: real("tick_rate").notNull().default(20),
-  currentTick: integer("current_tick").notNull().default(0),
-  activeChunks: integer("active_chunks").notNull().default(0),
-  activeEntities: integer("active_entities").notNull().default(0),
-  activePlayers: integer("active_players").notNull().default(0),
-  cpuUsage: real("cpu_usage").notNull().default(0),
-  memoryMb: real("memory_mb").notNull().default(0),
-  eventLog: jsonb("event_log"),
-  errorLog: jsonb("error_log"),
-  metadata: jsonb("metadata"),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
-});
-
 export const creatorWorldPlayers = pgTable("creator_world_players", {
   id: serial("id").primaryKey(),
   worldInstanceId: integer("world_instance_id").notNull(),
@@ -329,64 +225,4 @@ export const creatorWorldNpcs = pgTable("creator_world_npcs", {
   aiState: text("ai_state").notNull().default("idle"),
   spawnedAt: timestamp("spawned_at").notNull().defaultNow(),
   metadata: jsonb("metadata"),
-});
-
-export const creatorWorldStatistics = pgTable("creator_world_statistics", {
-  id: serial("id").primaryKey(),
-  worldInstanceId: integer("world_instance_id").notNull(),
-  totalSessionsRun: integer("total_sessions_run").notNull().default(0),
-  totalUptimeSeconds: integer("total_uptime_seconds").notNull().default(0),
-  totalPlayersHosted: integer("total_players_hosted").notNull().default(0),
-  peakConcurrentPlayers: integer("peak_concurrent_players").notNull().default(0),
-  totalChunksLoaded: integer("total_chunks_loaded").notNull().default(0),
-  totalWeatherChanges: integer("total_weather_changes").notNull().default(0),
-  totalPortalTraversals: integer("total_portal_traversals").notNull().default(0),
-  totalEventsTriggered: integer("total_events_triggered").notNull().default(0),
-  totalCheckpointsSaved: integer("total_checkpoints_saved").notNull().default(0),
-  averageTickRate: real("average_tick_rate"),
-  averageMemoryMb: real("average_memory_mb"),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
-});
-
-export const creatorWorldHistory = pgTable("creator_world_history", {
-  id: serial("id").primaryKey(),
-  worldInstanceId: integer("world_instance_id").notNull(),
-  action: text("action").notNull(),
-  field: text("field"),
-  oldValue: text("old_value"),
-  newValue: text("new_value"),
-  changedBy: integer("changed_by").notNull(),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
-
-export const creatorWorldVersions = pgTable("creator_world_versions", {
-  id: serial("id").primaryKey(),
-  worldInstanceId: integer("world_instance_id").notNull(),
-  version: integer("version").notNull(),
-  label: text("label"),
-  snapshot: jsonb("snapshot").notNull(),
-  changelog: text("changelog"),
-  createdBy: integer("created_by").notNull(),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
-
-export const creatorWorldExports = pgTable("creator_world_exports", {
-  id: serial("id").primaryKey(),
-  worldInstanceId: integer("world_instance_id").notNull(),
-  exportType: text("export_type").notNull().default("json"),
-  payload: jsonb("payload").notNull(),
-  checksum: text("checksum").notNull(),
-  exportedBy: integer("exported_by").notNull(),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
-
-export const creatorWorldImports = pgTable("creator_world_imports", {
-  id: serial("id").primaryKey(),
-  worldInstanceId: integer("world_instance_id").notNull(),
-  importType: text("import_type").notNull().default("json"),
-  sourceData: jsonb("source_data").notNull(),
-  importedBy: integer("imported_by").notNull(),
-  status: text("status").notNull().default("success"),
-  errors: jsonb("errors"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
 });
