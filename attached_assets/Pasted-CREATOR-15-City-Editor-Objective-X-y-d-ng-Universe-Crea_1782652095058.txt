@@ -1,0 +1,435 @@
+CREATOR-15 — City Editor
+Objective
+
+Xây dựng Universe Creator – City Editor hoàn chỉnh.
+
+City Editor là nơi tạo toàn bộ thành phố trong Universe.
+
+Một City sẽ quản lý:
+
+Districts
+Zones
+Roads
+Buildings
+Utilities
+Population
+Economy
+Transportation
+Spawn
+Services
+
+Không rewrite các sprint trước.
+
+Chỉ bổ sung.
+
+DATABASE
+
+Tạo
+
+lib/db/src/schema/cities.ts
+7 enums
+city_type
+
+city_status
+
+district_type
+
+zone_type
+
+road_type
+
+utility_type
+
+city_service
+20 tables
+creator_cities
+
+creator_city_settings
+
+creator_city_districts
+
+creator_city_zones
+
+creator_city_roads
+
+creator_city_intersections
+
+creator_city_buildings
+
+creator_city_utilities
+
+creator_city_transport
+
+creator_city_population
+
+creator_city_services
+
+creator_city_spawnpoints
+
+creator_city_landmarks
+
+creator_city_templates
+
+creator_city_versions
+
+creator_city_history
+
+creator_city_statistics
+
+creator_city_exports
+
+creator_city_imports
+
+creator_city_runtime
+
+Push schema vào PostgreSQL.
+
+Export trong
+
+schema/index.ts
+BACKEND
+
+Tạo
+
+repositories/city-repository.ts
+
+Drizzle CRUD đầy đủ.
+
+Services
+CityEditorService
+
+Hỗ trợ
+
+create
+
+update
+
+delete
+
+duplicate
+
+fork
+
+publish
+
+archive
+
+restore
+CityValidator
+
+Kiểm tra
+
+duplicate districts
+disconnected roads
+overlapping zones
+invalid spawn
+missing utilities
+invalid building references
+orphan transport
+warnings
+CityExporter
+
+Export
+
+JSON
+
+Template
+
+Package
+
+SHA256 checksum.
+
+CityImporter
+
+Import
+
+JSON
+
+Template
+
+Package
+CityRuntimeBridge
+
+Simulation
+
+Spawn Citizens
+
+Traffic
+
+Electricity
+
+Water
+
+Transportation
+
+Day Night
+
+Population
+
+Services
+
+Emergency
+
+Economy
+
+Weather
+
+Streaming
+REST API
+
+Tạo
+
+routes/cities.ts
+
+Khoảng
+
+60 endpoints
+
+Prefix
+
+/ api/cities/*
+
+Bao gồm
+
+CRUD
+
+Districts
+
+Zones
+
+Roads
+
+Buildings
+
+Utilities
+
+Population
+
+Transport
+
+Spawn
+
+Templates
+
+History
+
+Statistics
+
+Import
+
+Export
+
+Validate
+
+Simulation
+
+Đăng ký router trong
+
+routes/index.ts
+FRONTEND
+
+Tạo
+
+pages/
+16 pages
+city-dashboard
+
+city-browser
+
+city-editor
+
+district-editor
+
+zone-editor
+
+road-editor
+
+building-manager
+
+utility-manager
+
+transport-manager
+
+population-manager
+
+service-manager
+
+spawn-manager
+
+city-simulator
+
+city-history
+
+city-import-export
+
+city-validator
+Main Editor Tabs
+General
+
+Districts
+
+Zones
+
+Roads
+
+Buildings
+
+Utilities
+
+Transport
+
+Population
+
+Services
+
+Spawn
+
+Statistics
+
+Simulation
+
+History
+SIDEBAR
+
+Thêm
+
+City Editor
+
+Menu
+
+Dashboard
+
+Browser
+
+Templates
+
+Simulator
+
+Validator
+
+Import / Export
+INTEGRATION
+CREATOR-04
+
+Asset Pipeline
+
+City icons
+
+Map
+
+MiniMap
+
+Building icons
+
+Audio
+CREATOR-05
+
+Visual Scripting
+
+cityGraphId
+
+eventGraphId
+CREATOR-06
+
+Runtime
+
+Streaming
+
+Traffic
+
+Population
+
+Simulation
+CREATOR-07
+
+World Editor
+
+City placement trong World.
+
+CREATOR-08
+
+NPC Editor
+
+NPC residences.
+
+Schedules.
+
+Citizens.
+
+CREATOR-09
+
+Quest Editor
+
+Quest locations.
+
+Quest districts.
+
+CREATOR-10
+
+Item Editor
+
+Shop inventory.
+
+Loot.
+
+Market items.
+
+CREATOR-11
+
+Skill Editor
+
+Training centers.
+
+Schools.
+
+Guild skills.
+
+CREATOR-12
+
+Combat Editor
+
+Safe zones.
+
+PvP zones.
+
+Combat restrictions.
+
+CREATOR-13
+
+Dungeon Editor
+
+Dungeon entrances.
+
+CREATOR-14
+
+Pet Editor
+
+Pet shops.
+
+Stable.
+
+Mount services.
+
+ACCEPTANCE CRITERIA
+7 enums.
+20 PostgreSQL tables.
+Drizzle ORM only.
+Full Repository.
+CityEditorService.
+CityValidator.
+CityImporter.
+CityExporter.
+CityRuntimeBridge.
+~60 REST endpoints (/api/cities/*).
+16 React pages.
+Sidebar tích hợp.
+App routing hoàn chỉnh.
+Không sửa logic các sprint trước.
+Không mock.
+Không in-memory.
+TypeScript strict.
+Build thành công.
+API Server chạy.
+Creator Editor chạy.
+PostgreSQL schema được push thành công.
+Báo cáo kết quả dưới dạng CREATOR-15 Sprint Report giống các sprint trước
