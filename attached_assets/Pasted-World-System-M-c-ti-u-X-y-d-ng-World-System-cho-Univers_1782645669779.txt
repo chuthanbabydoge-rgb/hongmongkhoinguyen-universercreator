@@ -1,0 +1,411 @@
+World System
+Mục tiêu
+
+Xây dựng World System cho Universe Creator.
+
+Đây là runtime quản lý toàn bộ World sau khi World Editor publish.
+
+Không sửa code CREATOR-01 → CREATOR-15. Chỉ mở rộng hệ thống.
+
+World System chịu trách nhiệm:
+
+World loading
+Region streaming
+Chunk loading
+Scene management
+Day/Night
+Weather
+World Events
+Teleport
+Spawn
+Save State
+World Runtime
+Multi-world support
+Database
+
+Tạo
+
+lib/db/src/schema/world-system.ts
+
+Tạo khoảng 20 tables
+
+creator_world_instances
+
+creator_world_chunks
+
+creator_world_regions
+
+creator_world_streaming
+
+creator_world_spawnpoints
+
+creator_world_teleports
+
+creator_world_weather
+
+creator_world_daynight
+
+creator_world_events
+
+creator_world_states
+
+creator_world_checkpoints
+
+creator_world_portals
+
+creator_world_runtime
+
+creator_world_players
+
+creator_world_npcs
+
+creator_world_statistics
+
+creator_world_history
+
+creator_world_versions
+
+creator_world_exports
+
+creator_world_imports
+
+Enums
+
+world_runtime_state
+
+world_weather
+
+world_time_cycle
+
+world_stream_mode
+
+world_event_type
+
+portal_type
+
+chunk_state
+
+Export schema.
+
+Push PostgreSQL.
+
+Repository
+
+Tạo
+
+world-system-repository.ts
+
+CRUD toàn bộ bằng Drizzle ORM.
+
+Service
+
+Tạo
+
+world-system-service.ts
+
+Bao gồm
+
+createWorld
+startWorld
+stopWorld
+duplicate
+archive
+publish
+restore
+Runtime Engine
+
+Tạo
+
+world-runtime-engine.ts
+
+Manager
+
+WorldManager
+
+SceneManager
+
+ChunkManager
+
+StreamingManager
+
+RegionManager
+
+PortalManager
+
+WeatherManager
+
+DayNightManager
+
+SpawnManager
+
+CheckpointManager
+
+EventManager
+
+SaveManager
+Streaming
+
+Hỗ trợ
+
+Load Chunk
+
+Unload Chunk
+
+Region Streaming
+
+Distance Streaming
+
+Portal Streaming
+
+Memory Cache
+Weather System
+
+Preset
+
+Sunny
+
+Cloudy
+
+Rain
+
+Storm
+
+Snow
+
+Fog
+
+Wind
+
+API
+
+changeWeather()
+
+forecast()
+
+simulateWeather()
+Day Night System
+Sunrise
+
+Morning
+
+Noon
+
+Evening
+
+Sunset
+
+Night
+
+Midnight
+
+API
+
+setTime()
+
+pauseTime()
+
+resumeTime()
+
+speedMultiplier()
+Portal System
+Portal
+
+Dungeon Entrance
+
+City Gate
+
+Teleport
+
+World Gate
+Spawn System
+Player Spawn
+
+NPC Spawn
+
+Boss Spawn
+
+Pet Spawn
+
+Vehicle Spawn
+
+Object Spawn
+Save State
+World Snapshot
+
+Checkpoint
+
+Rollback
+
+Restore
+Runtime Simulation
+simulateDay()
+
+simulateWeather()
+
+simulateStreaming()
+
+simulatePortal()
+
+simulateRespawn()
+
+simulateCheckpoint()
+REST API
+
+Khoảng 60 endpoints
+
+/api/world-system/*
+
+Bao gồm
+
+CRUD
+
+Streaming
+
+Weather
+
+Time
+
+Spawn
+
+Teleport
+
+Checkpoint
+
+Events
+
+Simulation
+
+Statistics
+
+History
+
+Export
+
+Import
+
+Versions
+
+Frontend
+
+Tạo khoảng 16 pages
+
+WorldSystemDashboard
+
+WorldBrowser
+
+WorldRuntime
+
+StreamingCenter
+
+ChunkManager
+
+RegionManager
+
+PortalManager
+
+SpawnManager
+
+WeatherCenter
+
+DayNightCenter
+
+CheckpointCenter
+
+SimulationCenter
+
+Statistics
+
+History
+
+ImportExport
+
+WorldValidator
+Sidebar
+
+Thêm section
+
+World System
+
+Menu
+
+Dashboard
+
+Runtime
+
+Streaming
+
+Weather
+
+Simulation
+
+Import / Export
+Integration
+World Editor
+
+Load published worlds.
+
+Runtime Engine
+
+World Runtime.
+
+NPC Editor
+
+Spawn NPC.
+
+Boss Editor
+
+Spawn Boss.
+
+Pet Editor
+
+Spawn Pet.
+
+Combat Editor
+
+Combat Zones.
+
+Dungeon Editor
+
+Dungeon Entrances.
+
+Asset Pipeline
+
+Skybox
+
+Terrain
+
+Environment
+
+Weather FX
+
+Visual Scripting
+
+Events
+
+OnWorldLoaded
+
+OnChunkLoaded
+
+OnWeatherChanged
+
+OnTimeChanged
+
+OnTeleport
+
+OnCheckpoint
+
+OnWorldSaved
+Acceptance Criteria
+Không sửa code CREATOR-01 → CREATOR-15.
+PostgreSQL + Drizzle ORM.
+Khoảng 20 DB tables + enums được tạo và push thành công.
+Repository, Service, Runtime Engine và Managers hoàn chỉnh.
+Khoảng 60 REST endpoints tại /api/world-system/*.
+16 React pages được tạo và route đầy đủ.
+Sidebar có mục World System.
+Tích hợp với World Editor, Runtime Engine, NPC, Boss, Pet, Combat, Dungeon và Asset Pipeline.
+TypeScript strict, không phát sinh lỗi mới.
+API Server và Creator Editor build thành công.
+Cuối sprint xuất CREATOR-16 Sprint Report theo đúng format các sprint trước.
+
+Lưu ý: Nếu mục tiêu cuối cùng là một engine tương tự Roblox Studio/Unity, thì việc chuyển từ các "Editor" sang các "System" (World System, NPC System, Quest System, Combat System...) là hướng phát triển hợp lý. Các Editor tạo dữ liệu, còn các System chịu trách nhiệm vận hành dữ liệu đó trong runtime
