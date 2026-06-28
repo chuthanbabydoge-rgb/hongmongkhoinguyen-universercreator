@@ -1,0 +1,366 @@
+CREATOR-15 — Boss Editor
+Mục tiêu
+
+Xây dựng Boss Editor hoàn chỉnh cho Universe Creator.
+
+Boss là một thực thể mạnh hơn NPC, hỗ trợ:
+
+Boss nhiều phase
+Combat AI (reference)
+Skills
+Ultimate
+Rage Mode
+Weak Point
+Loot
+Spawn Rule
+Arena
+Enrage Timer
+Cinematic
+Runtime Simulation
+
+Không sửa code của CREATOR-01 → CREATOR-14. Chỉ mở rộng hệ thống.
+
+Database
+
+Tạo
+
+lib/db/src/schema/bosses.ts
+
+Tạo khoảng 20 tables
+
+creator_bosses
+
+creator_boss_phases
+
+creator_boss_skills
+
+creator_boss_patterns
+
+creator_boss_attacks
+
+creator_boss_weakpoints
+
+creator_boss_enrage
+
+creator_boss_loot
+
+creator_boss_rewards
+
+creator_boss_spawn_rules
+
+creator_boss_arenas
+
+creator_boss_cinematics
+
+creator_boss_dialogues
+
+creator_boss_templates
+
+creator_boss_versions
+
+creator_boss_history
+
+creator_boss_statistics
+
+creator_boss_exports
+
+creator_boss_imports
+
+creator_boss_runtime
+
+Enums
+
+boss_type
+
+boss_rarity
+
+boss_state
+
+boss_phase
+
+boss_reward_type
+
+boss_spawn_type
+
+boss_difficulty
+
+Export schema.
+
+Push PostgreSQL.
+
+Repository
+
+Tạo
+
+boss-repository.ts
+
+CRUD toàn bộ bằng Drizzle ORM.
+
+Service
+boss-editor-service.ts
+
+Bao gồm
+
+create
+update
+duplicate
+fork
+publish
+archive
+restore
+Validator
+boss-validator.ts
+
+Kiểm tra
+
+missing phases
+duplicate skills
+invalid arena
+invalid loot
+invalid rewards
+broken assets
+circular phase transitions
+invalid weak points
+Exporter
+boss-exporter.ts
+
+Export
+
+JSON
+Template
+Package
+
+SHA256 checksum.
+
+Importer
+boss-importer.ts
+
+Import
+
+JSON
+Template
+Package
+Runtime Bridge
+boss-runtime-bridge.ts
+
+Simulation
+
+spawnBoss()
+
+despawnBoss()
+
+enterCombat()
+
+exitCombat()
+
+changePhase()
+
+triggerUltimate()
+
+triggerEnrage()
+
+spawnMinions()
+
+dropLoot()
+
+simulateBattle()
+
+simulateRaid()
+
+resetBoss()
+REST API
+
+Tạo khoảng 60 endpoints
+
+/api/bosses/*
+
+Bao gồm
+
+CRUD
+
+Phase
+
+Arena
+
+Loot
+
+Rewards
+
+Spawn Rules
+
+Weak Points
+
+Patterns
+
+Templates
+
+Import
+
+Export
+
+History
+
+Versions
+
+Validation
+
+Simulation
+
+Statistics
+
+Frontend
+
+Tạo khoảng 16 pages
+
+BossDashboard
+
+BossBrowser
+
+BossEditor
+
+BossPhaseEditor
+
+BossSkillEditor
+
+BossPatternEditor
+
+BossArenaEditor
+
+BossLootEditor
+
+BossRewardEditor
+
+BossSimulator
+
+BossTemplates
+
+BossHistory
+
+BossStatistics
+
+BossImportExport
+
+BossValidator
+
+BossRuntime
+Boss Editor
+
+Editor dạng tabs
+
+General
+
+Stats
+
+Combat
+
+Phases
+
+Skills
+
+Patterns
+
+Arena
+
+Loot
+
+Rewards
+
+Spawn
+
+Cinematics
+
+Runtime
+
+History
+
+Settings
+
+Autosave.
+
+TanStack Query v5.
+
+Sidebar
+
+Thêm section
+
+Boss Editor
+
+Menu
+
+Dashboard
+
+Browser
+
+Templates
+
+Simulator
+
+Validator
+
+Import / Export
+Integration
+NPC Editor
+
+Boss kế thừa dữ liệu NPC.
+
+Skill Editor
+
+Boss sử dụng Skill ID.
+
+Combat Editor
+
+Boss dùng Combat Rules.
+
+Dungeon Editor
+
+Dungeon tham chiếu Boss ID.
+
+World Editor
+
+Boss Spawn Regions.
+
+Asset Pipeline
+portraitAssetId
+
+modelAssetId
+
+animationAssetId
+
+audioAssetId
+
+cinematicAssetId
+Runtime Engine
+
+Boss Runtime
+
+Raid Simulation
+
+Visual Scripting
+
+Events
+
+OnSpawn
+
+OnCombatStart
+
+OnPhaseChange
+
+OnUltimate
+
+OnEnrage
+
+OnDeath
+
+OnLootDrop
+Acceptance Criteria
+Không sửa code CREATOR-01 → CREATOR-14.
+PostgreSQL + Drizzle ORM.
+Khoảng 20 DB tables + enums được tạo và push thành công.
+Repository, Service, Validator, Importer, Exporter và Runtime Bridge hoàn chỉnh.
+Khoảng 60 REST endpoints tại /api/bosses/*.
+16 React pages được tạo và route đầy đủ.
+Sidebar có mục Boss Editor.
+Tích hợp với NPC Editor, Skill Editor, Combat Editor, Dungeon Editor, World Editor, Runtime Engine và Asset Pipeline.
+TypeScript strict, không phát sinh lỗi mới.
+API Server và Creator Editor build thành công.
+Cuối sprint xuất CREATOR-15 Sprint Report theo đúng format các sprint trước (Database, Backend, REST API, Frontend, Integration, Build Status, Acceptance Checklist)

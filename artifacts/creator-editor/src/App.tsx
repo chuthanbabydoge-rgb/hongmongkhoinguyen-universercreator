@@ -165,6 +165,22 @@ import PetStatistics from "@/pages/pet/pet-statistics";
 import PetImportExport from "@/pages/pet/pet-import-export";
 import PetValidator from "@/pages/pet/pet-validator";
 import PetSimulator from "@/pages/pet/pet-simulator";
+import BossDashboard from "@/pages/boss/boss-dashboard";
+import BossBrowser from "@/pages/boss/boss-browser";
+import BossEditorPage from "@/pages/boss/boss-editor-page";
+import BossPhaseEditor from "@/pages/boss/boss-phase-editor";
+import BossSkillEditor from "@/pages/boss/boss-skill-editor";
+import BossPatternEditor from "@/pages/boss/boss-pattern-editor";
+import BossArenaEditor from "@/pages/boss/boss-arena-editor";
+import BossLootEditor from "@/pages/boss/boss-loot-editor";
+import BossRewardEditor from "@/pages/boss/boss-reward-editor";
+import BossSimulator from "@/pages/boss/boss-simulator";
+import BossTemplates from "@/pages/boss/boss-templates";
+import BossHistory from "@/pages/boss/boss-history";
+import BossStatistics from "@/pages/boss/boss-statistics";
+import BossImportExport from "@/pages/boss/boss-import-export";
+import BossValidatorPage from "@/pages/boss/boss-validator";
+import BossRuntime from "@/pages/boss/boss-runtime";
 import DungeonDashboard from "@/pages/dungeon/dungeon-dashboard";
 import DungeonBrowser from "@/pages/dungeon/dungeon-browser";
 import DungeonEditorPage from "@/pages/dungeon/dungeon-editor-page";
@@ -399,6 +415,23 @@ function Router() {
             <Route path="/dungeon-trap-editor/:id" component={TrapEditor} />
             <Route path="/dungeon-puzzle-editor/:id" component={PuzzleEditor} />
             <Route path="/dungeon-reward-editor/:id" component={RewardEditor} />
+            {/* CREATOR-15: Boss Editor */}
+            <Route path="/boss-dashboard" component={BossDashboard} />
+            <Route path="/boss-browser" component={BossBrowser} />
+            <Route path="/boss-editor/:id" component={BossEditorPage} />
+            <Route path="/boss-phase-editor/:id" component={BossPhaseEditor} />
+            <Route path="/boss-skill-editor/:id" component={BossSkillEditor} />
+            <Route path="/boss-pattern-editor/:id" component={BossPatternEditor} />
+            <Route path="/boss-arena-editor/:id" component={BossArenaEditor} />
+            <Route path="/boss-loot-editor/:id" component={BossLootEditor} />
+            <Route path="/boss-reward-editor/:id" component={BossRewardEditor} />
+            <Route path="/boss-simulator" component={BossSimulator} />
+            <Route path="/boss-templates" component={BossTemplates} />
+            <Route path="/boss-history/:id" component={BossHistory} />
+            <Route path="/boss-statistics" component={BossStatistics} />
+            <Route path="/boss-import-export" component={BossImportExport} />
+            <Route path="/boss-validator" component={BossValidatorPage} />
+            <Route path="/boss-runtime/:id" component={BossRuntime} />
             <Route component={NotFound} />
           </Switch>
         </Layout>

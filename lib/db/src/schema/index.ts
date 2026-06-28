@@ -12,3 +12,4 @@ export * from "./skills";
 export * from "./combat";
 export * from "./dungeons";
 export * from "./pets";
+export * from "./bosses";

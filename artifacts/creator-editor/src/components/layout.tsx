@@ -61,6 +61,7 @@ import {
   ShieldOff,
   Palette,
   Wand2,
+  Skull,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -208,6 +209,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         { href: "/dungeon-templates", label: "Templates", icon: BookOpen },
         { href: "/dungeon-simulator", label: "Simulator", icon: Play },
         { href: "/dungeon-import-export", label: "Import / Export", icon: Download },
+      ],
+    },
+    {
+      label: "Boss Editor",
+      items: [
+        { href: "/boss-dashboard", label: "Dashboard", icon: Skull },
+        { href: "/boss-browser", label: "Browser", icon: Swords },
+        { href: "/boss-templates", label: "Templates", icon: BookOpen },
+        { href: "/boss-simulator", label: "Simulator", icon: Play },
+        { href: "/boss-validator", label: "Validator", icon: ShieldAlert },
+        { href: "/boss-import-export", label: "Import / Export", icon: Download },
       ],
     },
     {
