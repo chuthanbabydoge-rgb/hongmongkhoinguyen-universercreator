@@ -1,0 +1,443 @@
+Pet Editor
+Mục tiêu
+
+Xây dựng Universe Creator – Pet Editor hoàn chỉnh.
+
+Pet Editor là nơi tạo toàn bộ hệ thống Pet, Mount và Companion cho Universe.
+
+Editor này phải tích hợp với:
+
+CREATOR-04 Asset Pipeline
+CREATOR-05 Visual Scripting
+CREATOR-06 Runtime Engine
+CREATOR-07 World Editor
+CREATOR-08 NPC Editor
+CREATOR-09 Quest Editor
+CREATOR-10 Item Editor
+CREATOR-11 Skill Editor
+CREATOR-12 Combat Editor
+CREATOR-13 Dungeon Editor
+
+Không được rewrite các sprint cũ.
+
+Chỉ bổ sung.
+
+DATABASE
+
+Tạo file
+
+lib/db/src/schema/pets.ts
+7 enums
+pet_type
+pet_rarity
+pet_state
+pet_behavior
+pet_growth_stage
+pet_stat_type
+pet_food_type
+20 tables
+creator_pets
+
+creator_pet_species
+
+creator_pet_stats
+
+creator_pet_growth
+
+creator_pet_evolution
+
+creator_pet_skills
+
+creator_pet_equipment
+
+creator_pet_training
+
+creator_pet_affection
+
+creator_pet_food
+
+creator_pet_breeding
+
+creator_pet_mounts
+
+creator_pet_companions
+
+creator_pet_ai
+
+creator_pet_templates
+
+creator_pet_versions
+
+creator_pet_history
+
+creator_pet_statistics
+
+creator_pet_exports
+
+creator_pet_imports
+
+Push schema vào PostgreSQL.
+
+Export trong
+
+schema/index.ts
+BACKEND
+
+Tạo
+
+repositories/pet-repository.ts
+
+Full CRUD bằng Drizzle.
+
+Services
+PetEditorService
+
+Hỗ trợ
+
+create
+
+update
+
+delete
+
+duplicate
+
+fork
+
+publish
+
+archive
+
+restore
+PetValidator
+
+Kiểm tra
+
+circular evolution
+invalid stats
+duplicate skills
+missing assets
+invalid mount config
+breeding loop
+affection overflow
+warnings
+PetExporter
+
+Export
+
+JSON
+
+Template
+
+Package
+
+Có SHA256 checksum.
+
+PetImporter
+
+Import
+
+JSON
+
+Template
+
+Package
+PetRuntimeBridge
+
+Simulation gồm
+
+Spawn
+
+Summon
+
+Follow
+
+Attack
+
+Defend
+
+Mount
+
+Dismount
+
+Feed
+
+Train
+
+LevelUp
+
+Evolve
+
+Breed
+
+Dismiss
+REST API
+
+Tạo
+
+routes/pets.ts
+
+Khoảng
+
+60 endpoints
+
+Prefix
+
+/api/pets/*
+
+Bao gồm
+
+CRUD
+
+Species
+
+Growth
+
+Evolution
+
+Stats
+
+Training
+
+Equipment
+
+Skills
+
+Food
+
+Affection
+
+Breeding
+
+Mount
+
+Companion
+
+AI
+
+History
+
+Templates
+
+Import
+
+Export
+
+Validate
+
+Simulation
+
+Statistics
+
+Đăng ký router trong
+
+routes/index.ts
+FRONTEND
+
+Tạo thư mục
+
+pages/
+16 pages
+pet-dashboard
+
+pet-browser
+
+pet-editor
+
+pet-species-editor
+
+pet-growth-editor
+
+pet-evolution-editor
+
+pet-skill-editor
+
+pet-training-editor
+
+pet-equipment-editor
+
+pet-food-editor
+
+pet-breeding-editor
+
+pet-mount-editor
+
+pet-simulator
+
+pet-history
+
+pet-import-export
+
+pet-validator
+
+Editor chính sử dụng
+
+Tabbed Layout
+
+Các tab
+
+General
+
+Stats
+
+Growth
+
+Evolution
+
+Skills
+
+Equipment
+
+Training
+
+Food
+
+Affection
+
+Breeding
+
+Mount
+
+Companion
+
+AI
+
+Simulation
+
+History
+SIDEBAR
+
+Thêm
+
+Pet Editor
+
+Menu
+
+Dashboard
+
+Browser
+
+Templates
+
+Simulator
+
+Validator
+
+Import / Export
+INTEGRATION
+CREATOR-04
+
+Asset IDs
+
+icon
+
+portrait
+
+model
+
+animation
+
+audio
+CREATOR-05
+
+Graph
+
+behaviorGraphId
+
+eventGraphId
+CREATOR-06
+
+Runtime
+
+Spawn
+
+AI
+
+Movement
+
+Combat
+
+Mount
+
+Follow
+CREATOR-07
+
+World
+
+Pet spawn points.
+
+CREATOR-08
+
+NPC
+
+NPC có pet companion.
+
+CREATOR-09
+
+Quest
+
+Quest reward.
+
+Quest required pet.
+
+CREATOR-10
+
+Item
+
+Pet food.
+
+Equipment.
+
+Consumables.
+
+CREATOR-11
+
+Skill
+
+Pet skills.
+
+Passive skills.
+
+CREATOR-12
+
+Combat
+
+Combat simulation.
+
+Threat.
+
+Damage.
+
+Support.
+
+CREATOR-13
+
+Dungeon
+
+Dungeon companion.
+
+Dungeon summon.
+
+ACCEPTANCE CRITERIA
+7 enums.
+20 PostgreSQL tables.
+Drizzle ORM only.
+Repository đầy đủ.
+PetEditorService hoàn chỉnh.
+PetValidator.
+PetImporter.
+PetExporter.
+PetRuntimeBridge.
+~60 REST endpoints tại /api/pets/*.
+16 React pages.
+Sidebar tích hợp.
+App routing đầy đủ.
+Không sửa logic các sprint trước.
+Không mock.
+Không in-memory.
+TypeScript strict.
+Build thành công.
+API Server chạy.
+Creator Editor chạy.
+PostgreSQL schema được push thành công.
+Báo cáo kết quả dưới dạng CREATOR-14 Sprint Report giống các sprint trước
