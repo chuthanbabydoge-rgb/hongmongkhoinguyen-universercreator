@@ -58,3 +58,8 @@ timeoutMs = 20000
 
 [nix]
 channel = "stable-25_05"
+
+[userenv]
+
+[userenv.shared]
+JWT_SECRET = "universe-creator-jwt-secret-710ah3ke8bo"

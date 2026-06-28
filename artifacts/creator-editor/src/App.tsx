@@ -185,7 +185,7 @@ import BuildingDashboard from "@/pages/building/building-dashboard";
 import BuildingBrowser from "@/pages/building/building-browser";
 import BuildingEditorPage from "@/pages/building/building-editor";
 import FloorEditor from "@/pages/building/floor-editor";
-import RoomEditor from "@/pages/building/room-editor";
+import BuildingRoomEditor from "@/pages/building/room-editor";
 import DoorEditor from "@/pages/building/door-editor";
 import WindowEditor from "@/pages/building/window-editor";
 import FurnitureEditor from "@/pages/building/furniture-editor";
@@ -223,7 +223,7 @@ import DungeonSimulator from "@/pages/dungeon/dungeon-simulator";
 import DungeonStatistics from "@/pages/dungeon/dungeon-statistics";
 import DungeonHistory from "@/pages/dungeon/dungeon-history";
 import DungeonImportExport from "@/pages/dungeon/dungeon-import-export";
-import RoomEditor from "@/pages/dungeon/room-editor";
+import DungeonRoomEditor from "@/pages/dungeon/room-editor";
 import ConnectionEditor from "@/pages/dungeon/connection-editor";
 import SpawnEditor from "@/pages/dungeon/spawn-editor";
 import BossEditor from "@/pages/dungeon/boss-editor";
@@ -441,7 +441,7 @@ function Router() {
             <Route path="/dungeon-statistics/:id" component={DungeonStatistics} />
             <Route path="/dungeon-history/:id" component={DungeonHistory} />
             <Route path="/dungeon-import-export" component={DungeonImportExport} />
-            <Route path="/dungeon-room-editor/:id" component={RoomEditor} />
+            <Route path="/dungeon-room-editor/:id" component={DungeonRoomEditor} />
             <Route path="/dungeon-connection-editor/:id" component={ConnectionEditor} />
             <Route path="/dungeon-spawn-editor/:id" component={SpawnEditor} />
             <Route path="/dungeon-boss-editor/:id" component={BossEditor} />
@@ -471,7 +471,7 @@ function Router() {
             <Route path="/building-browser" component={BuildingBrowser} />
             <Route path="/building-editor/:id" component={BuildingEditorPage} />
             <Route path="/floor-editor/:id" component={FloorEditor} />
-            <Route path="/room-editor/:id" component={RoomEditor} />
+            <Route path="/room-editor/:id" component={BuildingRoomEditor} />
             <Route path="/door-editor/:id" component={DoorEditor} />
             <Route path="/window-editor/:id" component={WindowEditor} />
             <Route path="/furniture-editor/:id" component={FurnitureEditor} />

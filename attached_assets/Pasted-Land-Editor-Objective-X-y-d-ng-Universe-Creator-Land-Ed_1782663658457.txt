@@ -1,0 +1,449 @@
+Land Editor
+Objective
+
+Xây dựng Universe Creator – Land Editor hoàn chỉnh.
+
+Land Editor quản lý toàn bộ đất đai trong Universe.
+
+Một Land có thể là:
+
+Residential
+Commercial
+Industrial
+Agricultural
+Government
+Protected
+Park
+Military
+Dungeon Land
+Custom Zone
+
+Không rewrite các sprint trước.
+
+Chỉ bổ sung.
+
+DATABASE
+
+Tạo
+
+lib/db/src/schema/land-editor.ts
+7 enums
+land_type
+
+land_status
+
+land_zone
+
+ownership_type
+
+terrain_type
+
+utility_type
+
+land_access_type
+20 tables
+creator_lands
+
+creator_land_parcels
+
+creator_land_boundaries
+
+creator_land_owners
+
+creator_land_zones
+
+creator_land_terrain
+
+creator_land_utilities
+
+creator_land_roads
+
+creator_land_teleports
+
+creator_land_buildings
+
+creator_land_bookmarks
+
+creator_land_templates
+
+creator_land_versions
+
+creator_land_history
+
+creator_land_statistics
+
+creator_land_exports
+
+creator_land_imports
+
+creator_land_runtime
+
+creator_land_permissions
+
+creator_land_marketplace
+
+Push schema vào PostgreSQL.
+
+Export trong
+
+lib/db/src/schema/index.ts
+BACKEND
+
+Tạo
+
+repositories/land-repository.ts
+
+Drizzle ORM CRUD đầy đủ.
+
+Services
+LandEditorService
+
+Hỗ trợ
+
+create
+
+update
+
+delete
+
+duplicate
+
+fork
+
+publish
+
+archive
+
+restore
+LandValidator
+
+Kiểm tra
+
+overlapping parcels
+invalid boundaries
+orphan ownership
+invalid zoning
+disconnected roads
+invalid building references
+teleport conflicts
+utility conflicts
+warnings
+LandExporter
+
+Export
+
+JSON
+
+Template
+
+Package
+
+SHA256 checksum.
+
+LandImporter
+
+Import
+
+JSON
+
+Template
+
+Package
+LandRuntimeBridge
+
+Simulation
+
+Terrain Streaming
+
+Parcel Loading
+
+Ownership
+
+Building Placement
+
+Road Connectivity
+
+Utility Network
+
+Teleport Network
+
+Marketplace
+
+Construction
+
+Zone Validation
+
+Traffic Flow
+
+Runtime Preview
+REST API
+
+Tạo
+
+routes/lands.ts
+
+Khoảng
+
+70+
+
+endpoints.
+
+Prefix
+
+/lands/*
+
+Không dùng /api/lands trong router.
+
+Express đã mount /api.
+
+Bao gồm
+
+CRUD
+
+Parcels
+
+Boundaries
+
+Owners
+
+Zones
+
+Terrain
+
+Roads
+
+Buildings
+
+Utilities
+
+Teleports
+
+Marketplace
+
+Templates
+
+History
+
+Statistics
+
+Import
+
+Export
+
+Validate
+
+Simulation
+
+Đăng ký trong
+
+routes/index.ts
+FRONTEND
+
+Tạo
+
+pages/
+16 pages
+land-dashboard
+
+land-browser
+
+land-editor
+
+parcel-editor
+
+boundary-editor
+
+ownership-manager
+
+zone-editor
+
+terrain-editor
+
+road-manager
+
+utility-manager
+
+teleport-manager
+
+building-placement
+
+land-simulator
+
+land-history
+
+land-import-export
+
+land-validator
+Main Editor Tabs
+General
+
+Parcels
+
+Boundaries
+
+Ownership
+
+Zones
+
+Terrain
+
+Buildings
+
+Roads
+
+Utilities
+
+Teleports
+
+Marketplace
+
+Statistics
+
+Simulation
+
+History
+SIDEBAR
+
+Thêm section
+
+Land Editor
+
+Menu
+
+Dashboard
+
+Browser
+
+Templates
+
+Simulator
+
+Validator
+
+Import / Export
+INTEGRATION
+CREATOR-04 Asset Pipeline
+Terrain Textures
+
+Heightmaps
+
+Materials
+
+Icons
+
+GIS Assets
+CREATOR-05 Visual Scripting
+landGraphId
+
+zoneGraphId
+
+teleportGraphId
+CREATOR-06 Runtime Engine
+Streaming
+
+Terrain
+
+Chunk Loading
+
+Road Network
+
+Simulation
+CREATOR-07 World Editor
+
+Land belongs to Worlds.
+
+Terrain synchronization.
+
+CREATOR-08 NPC Editor
+
+NPC residency.
+
+Land ownership.
+
+Patrol zones.
+
+CREATOR-09 Quest Editor
+
+Quest regions.
+
+Claim land.
+
+Capture territory.
+
+CREATOR-10 Item Editor
+
+Resource nodes.
+
+Harvest areas.
+
+Loot regions.
+
+CREATOR-11 Skill Editor
+
+Mining.
+
+Farming.
+
+Construction skills.
+
+CREATOR-12 Combat Editor
+
+PvP zones.
+
+Safe zones.
+
+Restricted combat areas.
+
+CREATOR-13 Dungeon Editor
+
+Dungeon entrances.
+
+Dungeon ownership.
+
+CREATOR-14 Pet Editor
+
+Pet farms.
+
+Stables.
+
+Animal zones.
+
+CREATOR-16 City Editor
+
+Land belongs to Cities.
+
+District references.
+
+City expansion.
+
+CREATOR-17 Building Editor
+
+Buildings placed on Land.
+
+Parcel validation.
+
+Construction permissions.
+
+ACCEPTANCE CRITERIA
+✅ 7 enums
+✅ 20 PostgreSQL tables
+✅ Drizzle ORM only
+✅ LandRepository
+✅ LandEditorService
+✅ LandValidator
+✅ LandImporter
+✅ LandExporter
+✅ LandRuntimeBridge
+✅ ~70 REST endpoints (/lands/*)
+✅ 16 React pages
+✅ Sidebar integration
+✅ App routing hoàn chỉnh
+✅ Không sửa logic các sprint trước
+✅ Không mock
+✅ Không in-memory
+✅ TypeScript strict
+✅ Build thành công
+✅ API Server chạy
+✅ Creator Editor chạy
+✅ PostgreSQL schema được push thành công
+✅ Sau khi hoàn thành, trả về CREATOR-18 Sprint Report theo đúng format các sprint trước
