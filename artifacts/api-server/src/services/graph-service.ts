@@ -97,8 +97,8 @@ export class GraphService {
       description: existing.description,
       type: existing.type,
       tags: existing.tags,
-      metadata: existing.metadata,
-      viewport: existing.viewport,
+      metadata: existing.metadata as any,
+      viewport: existing.viewport as any,
       isTemplate: false,
       isPublic: false,
     });

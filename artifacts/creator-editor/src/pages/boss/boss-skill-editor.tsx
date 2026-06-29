@@ -83,9 +83,9 @@ export default function BossSkillEditor() {
               <CardHeader className="pb-2 flex flex-row items-center justify-between">
                 <div className="flex items-center gap-2">
                   <CardTitle className="text-base">{String(s.name)}</CardTitle>
-                  {s.isUltimate && <Badge variant="destructive">Ultimate</Badge>}
-                  {s.isSignatureMove && <Badge>Signature</Badge>}
-                  {s.isPassive && <Badge variant="secondary">Passive</Badge>}
+                  {(s.isUltimate as boolean) && <Badge variant="destructive">Ultimate</Badge>}
+                  {(s.isSignatureMove as boolean) && <Badge>Signature</Badge>}
+                  {(s.isPassive as boolean) && <Badge variant="secondary">Passive</Badge>}
                 </div>
                 <div className="flex gap-2">
                   <Button size="sm" variant="outline" onClick={() => { setEditingId(Number(s.id)); setForm({ ...s }); }}>Edit</Button>

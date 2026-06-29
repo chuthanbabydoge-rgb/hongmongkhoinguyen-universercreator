@@ -55,7 +55,7 @@ export default function Templates() {
           setLocation(`/projects/${project.id}`);
         },
         onError: (err) => {
-          toast({ variant: "destructive", title: "Failed to use template", description: err.error?.message });
+          toast({ variant: "destructive", title: "Failed to use template", description: (err as any).error?.message });
         }
       }
     );

@@ -86,8 +86,8 @@ export default function FurnitureEditor() {
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                {f.isInteractable && <Badge variant="secondary">Interactable</Badge>}
-                {f.isContainer && <Badge variant="outline">Container</Badge>}
+                {(f.isInteractable as boolean) && <Badge variant="secondary">Interactable</Badge>}
+                {(f.isContainer as boolean) && <Badge variant="outline">Container</Badge>}
                 <Button size="sm" variant="outline" onClick={() => deleteMutation.mutate(Number(f.id))}><Trash2 className="w-3 h-3 text-destructive" /></Button>
               </div>
             </div>

@@ -301,7 +301,7 @@ export class WorldEditorService {
       version: nextVersion,
       label: label ?? null,
       description: description ?? null,
-      snapshot: pkg as Record<string, unknown>,
+      snapshot: pkg as unknown as Record<string, unknown>,
       isAutomatic: !label,
     });
   }

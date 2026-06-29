@@ -65,9 +65,9 @@ export default function DoorEditor() {
                 <div className="text-xs text-muted-foreground">{String(d.width)}×{String(d.height)}m</div>
               </div>
               <div className="flex items-center gap-2">
-                {d.isExterior && <Badge variant="outline">Exterior</Badge>}
-                {d.isLocked && <Badge variant="destructive">Locked</Badge>}
-                {d.isAutomatic && <Badge variant="secondary">Auto</Badge>}
+                {(d.isExterior as boolean) && <Badge variant="outline">Exterior</Badge>}
+                {(d.isLocked as boolean) && <Badge variant="destructive">Locked</Badge>}
+                {(d.isAutomatic as boolean) && <Badge variant="secondary">Auto</Badge>}
                 <Button size="sm" variant="outline" onClick={() => deleteMutation.mutate(Number(d.id))}><Trash2 className="w-3 h-3 text-destructive" /></Button>
               </div>
             </div>

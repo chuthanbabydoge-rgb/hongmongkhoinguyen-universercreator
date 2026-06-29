@@ -26,7 +26,7 @@ export const trapTypeEnum = pgEnum("trap_type", [
   "ice_trap", "electric_trap", "magic_trap", "alarm_trap", "pit_trap",
 ]);
 
-export const rewardTypeEnum = pgEnum("dungeon_reward_type", [
+export const dungeonRewardTypeEnum = pgEnum("dungeon_reward_type", [
   "item", "currency", "experience", "skill_point", "loot_table", "chest",
   "blueprint", "cosmetic", "reputation", "custom",
 ]);
@@ -219,7 +219,7 @@ export const creatorDungeonRewards = pgTable("creator_dungeon_rewards", {
   id: serial("id").primaryKey(),
   dungeonId: integer("dungeon_id").notNull(),
   name: text("name").notNull(),
-  rewardType: rewardTypeEnum("dungeon_reward_type").notNull().default("item"),
+  rewardType: dungeonRewardTypeEnum("dungeon_reward_type").notNull().default("item"),
   itemRef: text("item_ref"),
   lootTableRef: text("loot_table_ref"),
   currencyAmount: integer("currency_amount").notNull().default(0),

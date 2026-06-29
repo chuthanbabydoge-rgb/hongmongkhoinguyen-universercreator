@@ -98,7 +98,7 @@ export default function Assets() {
           form.reset();
         },
         onError: (err) => {
-          toast({ variant: "destructive", title: "Registration failed", description: err.error?.message });
+          toast({ variant: "destructive", title: "Registration failed", description: (err as any).error?.message });
         }
       }
     );

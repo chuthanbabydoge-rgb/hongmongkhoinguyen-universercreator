@@ -37,8 +37,8 @@ export default function BossHistory() {
             <div key={i} className="flex items-center justify-between text-sm border-b border-border pb-2 last:border-0">
               <div>
                 <span className="font-medium capitalize">{String(h.action).replace(/_/g, " ")}</span>
-                {h.field && <span className="text-muted-foreground ml-2">· {String(h.field)}</span>}
-                {h.oldValue && h.newValue && <span className="text-muted-foreground ml-2">· {String(h.oldValue)} → {String(h.newValue)}</span>}
+                {(h.field as boolean) && <span className="text-muted-foreground ml-2">· {String(h.field)}</span>}
+                {(h.oldValue as boolean) && (h.newValue as boolean) && <span className="text-muted-foreground ml-2">· {String(h.oldValue)} → {String(h.newValue)}</span>}
               </div>
               <span className="text-muted-foreground text-xs">{new Date(String(h.createdAt)).toLocaleString()}</span>
             </div>

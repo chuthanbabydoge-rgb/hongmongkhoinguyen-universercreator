@@ -31,7 +31,7 @@ export class PetRuntimeBridge {
     const loyalty = await this.repo.getLoyalty(petId);
     const pet = await this.repo.getPet(petId);
     const hungerGain = amount;
-    const loyaltyGain = hunger?.loyaltyPerFeed ?? 5;
+    const loyaltyGain = loyalty?.loyaltyPerFeed ?? 5;
     const newHunger = Math.min((hunger?.currentHunger ?? 80) + hungerGain, hunger?.maxHunger ?? 100);
     const newLoyalty = Math.min((loyalty?.currentLoyalty ?? 50) + loyaltyGain, loyalty?.maxLoyalty ?? 100);
     await this.repo.upsertHunger({ petId, currentHunger: newHunger, maxHunger: hunger?.maxHunger ?? 100, hungerDecayRate: hunger?.hungerDecayRate ?? 1.0, preferredFood: "meat", feedCooldown: hunger?.feedCooldown ?? 300 });

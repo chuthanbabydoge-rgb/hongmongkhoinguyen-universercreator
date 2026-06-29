@@ -33,6 +33,10 @@ import buildingsRouter from "./buildings";
 import worldSystemRouter from "./world-system";
 import landsRouter from "./lands";
 import transportationRouter from "./transportation";
+import nationsRouter from "./nations";
+import educationRouter from "./education";
+import sportsRouter from "./sports";
+import socialRouter from "./social";
 
 const router: IRouter = Router();
 
@@ -70,5 +74,9 @@ router.use(buildingsRouter);
 router.use(worldSystemRouter);
 router.use(landsRouter);
 router.use(transportationRouter);
+router.use(nationsRouter);
+router.use(educationRouter);
+router.use(sportsRouter);
+router.use(socialRouter);
 
 export default router;

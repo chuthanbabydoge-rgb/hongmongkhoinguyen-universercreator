@@ -44,7 +44,7 @@ router.post("/api/item-editor/loot-tables", requireAuth, async (req: AuthRequest
   try {
     const { tableName } = req.body as { tableName: string };
     if (!tableName) { res.status(400).json({ error: "ValidationError", message: "tableName is required" }); return; }
-    res.status(201).json(await service.createLootTable({ ...req.body as object, createdBy: req.auth!.userId }));
+    res.status(201).json(await service.createLootTable({ ...req.body as any, createdBy: req.auth!.userId }));
   } catch (err) { res.status(500).json({ error: "InternalError", message: String(err) }); }
 });
 
@@ -58,7 +58,7 @@ router.get("/api/item-editor/loot-tables/:id", requireAuth, async (req: AuthRequ
 
 router.patch("/api/item-editor/loot-tables/:id", requireAuth, async (req: AuthRequest, res) => {
   try {
-    res.json(await service.updateLootTable(Number(req.params["id"]), req.body as object));
+    res.json(await service.updateLootTable(Number(req.params["id"]), req.body as any));
   } catch (err) { res.status(500).json({ error: "InternalError", message: String(err) }); }
 });
 
@@ -74,12 +74,12 @@ router.get("/api/item-editor/loot-tables/:id/drops", requireAuth, async (req: Au
 
 router.post("/api/item-editor/loot-tables/:id/drops", requireAuth, async (req: AuthRequest, res) => {
   try {
-    res.status(201).json(await service.createDrop({ ...req.body as object, lootTableId: Number(req.params["id"]) }));
+    res.status(201).json(await service.createDrop({ ...req.body as any, lootTableId: Number(req.params["id"]) }));
   } catch (err) { res.status(500).json({ error: "InternalError", message: String(err) }); }
 });
 
 router.patch("/api/item-editor/drops/:dropId", requireAuth, async (req: AuthRequest, res) => {
-  try { res.json(await service.updateDrop(Number(req.params["dropId"]), req.body as object)); }
+  try { res.json(await service.updateDrop(Number(req.params["dropId"]), req.body as any)); }
   catch (err) { res.status(500).json({ error: "InternalError", message: String(err) }); }
 });
 
@@ -97,12 +97,12 @@ router.get("/api/item-editor/inventories", requireAuth, async (req: AuthRequest,
 
 router.post("/api/item-editor/inventories", requireAuth, async (req: AuthRequest, res) => {
   try {
-    res.status(201).json(await service.createInventory({ ...req.body as object, createdBy: req.auth!.userId }));
+    res.status(201).json(await service.createInventory({ ...req.body as any, createdBy: req.auth!.userId }));
   } catch (err) { res.status(500).json({ error: "InternalError", message: String(err) }); }
 });
 
 router.patch("/api/item-editor/inventories/:id", requireAuth, async (req: AuthRequest, res) => {
-  try { res.json(await service.updateInventory(Number(req.params["id"]), req.body as object)); }
+  try { res.json(await service.updateInventory(Number(req.params["id"]), req.body as any)); }
   catch (err) { res.status(500).json({ error: "InternalError", message: String(err) }); }
 });
 
@@ -188,7 +188,7 @@ router.get("/api/item-editor/:id/stats", requireAuth, async (req: AuthRequest, r
 
 router.post("/api/item-editor/:id/stats", requireAuth, async (req: AuthRequest, res) => {
   try {
-    res.status(201).json(await service.upsertStat(Number(req.params["id"]), req.body as object));
+    res.status(201).json(await service.upsertStat(Number(req.params["id"]), req.body as any));
   } catch (err) { res.status(500).json({ error: "InternalError", message: String(err) }); }
 });
 
@@ -206,7 +206,7 @@ router.get("/api/item-editor/:id/attributes", requireAuth, async (req: AuthReque
 
 router.post("/api/item-editor/:id/attributes", requireAuth, async (req: AuthRequest, res) => {
   try {
-    res.status(201).json(await service.upsertAttribute(Number(req.params["id"]), req.body as object));
+    res.status(201).json(await service.upsertAttribute(Number(req.params["id"]), req.body as any));
   } catch (err) { res.status(500).json({ error: "InternalError", message: String(err) }); }
 });
 
@@ -224,12 +224,12 @@ router.get("/api/item-editor/:id/effects", requireAuth, async (req: AuthRequest,
 
 router.post("/api/item-editor/:id/effects", requireAuth, async (req: AuthRequest, res) => {
   try {
-    res.status(201).json(await service.createEffect(Number(req.params["id"]), req.body as object));
+    res.status(201).json(await service.createEffect(Number(req.params["id"]), req.body as any));
   } catch (err) { res.status(500).json({ error: "InternalError", message: String(err) }); }
 });
 
 router.patch("/api/item-editor/effects/:effectId", requireAuth, async (req: AuthRequest, res) => {
-  try { res.json(await service.updateEffect(Number(req.params["effectId"]), req.body as object)); }
+  try { res.json(await service.updateEffect(Number(req.params["effectId"]), req.body as any)); }
   catch (err) { res.status(500).json({ error: "InternalError", message: String(err) }); }
 });
 
@@ -247,7 +247,7 @@ router.get("/api/item-editor/:id/equipment-slots", requireAuth, async (req: Auth
 
 router.post("/api/item-editor/:id/equipment-slots", requireAuth, async (req: AuthRequest, res) => {
   try {
-    res.status(201).json(await service.createEquipmentSlot(Number(req.params["id"]), req.body as object));
+    res.status(201).json(await service.createEquipmentSlot(Number(req.params["id"]), req.body as any));
   } catch (err) { res.status(500).json({ error: "InternalError", message: String(err) }); }
 });
 
@@ -268,13 +268,13 @@ router.post("/api/item-editor/:id/recipes", requireAuth, async (req: AuthRequest
     const { recipeName } = req.body as { recipeName: string };
     if (!recipeName) { res.status(400).json({ error: "ValidationError", message: "recipeName is required" }); return; }
     res.status(201).json(await service.createRecipe({
-      ...req.body as object, outputItemId: Number(req.params["id"]), createdBy: req.auth!.userId,
+      ...req.body as any, outputItemId: Number(req.params["id"]), createdBy: req.auth!.userId,
     }));
   } catch (err) { res.status(500).json({ error: "InternalError", message: String(err) }); }
 });
 
 router.patch("/api/item-editor/recipes/:recipeId", requireAuth, async (req: AuthRequest, res) => {
-  try { res.json(await service.updateRecipe(Number(req.params["recipeId"]), req.body as object)); }
+  try { res.json(await service.updateRecipe(Number(req.params["recipeId"]), req.body as any)); }
   catch (err) { res.status(500).json({ error: "InternalError", message: String(err) }); }
 });
 
@@ -290,7 +290,7 @@ router.get("/api/item-editor/recipes/:recipeId/components", requireAuth, async (
 
 router.post("/api/item-editor/recipes/:recipeId/components", requireAuth, async (req: AuthRequest, res) => {
   try {
-    res.status(201).json(await service.createComponent({ ...req.body as object, recipeId: Number(req.params["recipeId"]) }));
+    res.status(201).json(await service.createComponent({ ...req.body as any, recipeId: Number(req.params["recipeId"]) }));
   } catch (err) { res.status(500).json({ error: "InternalError", message: String(err) }); }
 });
 
@@ -308,7 +308,7 @@ router.get("/api/item-editor/:id/pricing", requireAuth, async (req: AuthRequest,
 
 router.post("/api/item-editor/:id/pricing", requireAuth, async (req: AuthRequest, res) => {
   try {
-    res.status(201).json(await service.upsertPricing(Number(req.params["id"]), req.body as object));
+    res.status(201).json(await service.upsertPricing(Number(req.params["id"]), req.body as any));
   } catch (err) { res.status(500).json({ error: "InternalError", message: String(err) }); }
 });
 
@@ -326,7 +326,7 @@ router.get("/api/item-editor/:id/restrictions", requireAuth, async (req: AuthReq
 
 router.post("/api/item-editor/:id/restrictions", requireAuth, async (req: AuthRequest, res) => {
   try {
-    res.status(201).json(await service.createRestriction({ ...req.body as object, itemId: Number(req.params["id"]) }));
+    res.status(201).json(await service.createRestriction({ ...req.body as any, itemId: Number(req.params["id"]) }));
   } catch (err) { res.status(500).json({ error: "InternalError", message: String(err) }); }
 });
 

@@ -49,7 +49,7 @@ export default function WorldChunkManager() {
 
   const byState = (chunks ?? []).reduce((acc, c) => {
     const s = String(c.chunkState);
-    acc[s] = (acc[s] ?? 0) + 1;
+    acc[s] = ((acc[s] as number) || 0) + 1;
     return acc;
   }, {} as Record<string, number>);
 
@@ -74,7 +74,7 @@ export default function WorldChunkManager() {
         <div className="flex gap-3 flex-wrap">
           {Object.entries(byState).map(([state, count]) => (
             <div key={state} className="flex items-center gap-1.5 text-sm">
-              <span className={`font-medium ${stateColor[state] ?? ""}`}>{count}</span>
+              <span className={`font-medium ${stateColor[state] ?? ""}`}>{String(count)}</span>
               <span className="text-muted-foreground capitalize">{state}</span>
             </div>
           ))}

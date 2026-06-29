@@ -93,7 +93,7 @@ export default function WorldLighting() {
                 <span className="text-sm">Bloom</span>
                 <input type="checkbox" checked={!!form.bloomEnabled} onChange={(e) => set("bloomEnabled", e.target.checked)} className="accent-primary w-4 h-4" />
               </div>
-              {form.bloomEnabled && (
+              {(form.bloomEnabled as boolean) && (
                 <Slider label="Bloom Intensity" value={Number(form.bloomIntensity ?? 0.5)} onChange={(v: number) => set("bloomIntensity", v)} />
               )}
               <div className="flex items-center justify-between">

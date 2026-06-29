@@ -397,7 +397,7 @@ router.get("/npc-editor/:id/equipment", requireAuth, async (req: AuthRequest, re
 router.put("/npc-editor/:id/equipment/:slot", requireAuth, async (req: AuthRequest, res) => {
   try {
     const id = Number(req.params["id"]);
-    const slot = req.params["slot"]!;
+    const slot = Array.isArray(req.params["slot"]) ? req.params["slot"][0] : req.params["slot"];
     res.json(await service.upsertEquipmentSlot(id, req.auth!.userId, slot, req.body as Record<string, unknown>));
   } catch (err) {
     res.status(500).json({ error: "InternalError", message: String(err) });

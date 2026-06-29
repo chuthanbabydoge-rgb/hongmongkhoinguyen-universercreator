@@ -89,7 +89,7 @@ export default function WorldRegionManager() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Badge variant="secondary" className="capitalize">{String(r.regionType)}</Badge>
-                  {r.pvpEnabled && <Badge variant="destructive" className="text-xs">PvP</Badge>}
+                  {(r.pvpEnabled as boolean) && <Badge variant="destructive" className="text-xs">PvP</Badge>}
                   <Badge variant="outline">Lv {String(r.levelMin)}–{String(r.levelMax)}</Badge>
                   <Button size="sm" variant="ghost" onClick={() => { if (confirm("Delete region?")) deleteMutation.mutate(Number(r.id)); }}><Trash2 className="w-3 h-3 text-destructive" /></Button>
                 </div>

@@ -80,7 +80,7 @@ export default function BossBrowser() {
                   <div>
                     <div className="font-medium">{String(boss.name)}</div>
                     <div className="text-xs text-muted-foreground capitalize">
-                      {String(boss.bossType ?? "").replace(/_/g, " ")} · Lv.{String(boss.level)} · {boss.totalPhases} phase{Number(boss.totalPhases) !== 1 ? "s" : ""}
+                      {String(boss.bossType ?? "").replace(/_/g, " ")} · Lv.{String(boss.level)} · {String(boss.totalPhases)} phase{Number(boss.totalPhases) !== 1 ? "s" : ""}
                     </div>
                   </div>
                 </div>

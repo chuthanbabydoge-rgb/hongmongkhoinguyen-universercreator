@@ -189,7 +189,8 @@ router.post("/graphs/:id/execute", requireAuth, async (req: AuthRequest, res) =>
 // POST /api/graphs/runtime/:runtimeId/pause
 router.post("/graphs/runtime/:runtimeId/pause", requireAuth, async (req, res) => {
   try {
-    const ok = service.pauseRuntime(req.params["runtimeId"]!);
+    const runtimeId = Array.isArray(req.params["runtimeId"]) ? req.params["runtimeId"][0] : req.params["runtimeId"];
+    const ok = service.pauseRuntime(runtimeId);
     if (!ok) {
       res.status(404).json({ error: "NotFound", message: "Runtime not found or not running" });
       return;
@@ -203,7 +204,8 @@ router.post("/graphs/runtime/:runtimeId/pause", requireAuth, async (req, res) =>
 // POST /api/graphs/runtime/:runtimeId/resume
 router.post("/graphs/runtime/:runtimeId/resume", requireAuth, async (req, res) => {
   try {
-    const ok = service.resumeRuntime(req.params["runtimeId"]!);
+    const runtimeId = Array.isArray(req.params["runtimeId"]) ? req.params["runtimeId"][0] : req.params["runtimeId"];
+    const ok = service.resumeRuntime(runtimeId);
     if (!ok) {
       res.status(404).json({ error: "NotFound", message: "Runtime not found or not paused" });
       return;
@@ -217,7 +219,8 @@ router.post("/graphs/runtime/:runtimeId/resume", requireAuth, async (req, res) =
 // POST /api/graphs/runtime/:runtimeId/stop
 router.post("/graphs/runtime/:runtimeId/stop", requireAuth, async (req, res) => {
   try {
-    const ok = service.stopRuntime(req.params["runtimeId"]!);
+    const runtimeId = Array.isArray(req.params["runtimeId"]) ? req.params["runtimeId"][0] : req.params["runtimeId"];
+    const ok = service.stopRuntime(runtimeId);
     if (!ok) {
       res.status(404).json({ error: "NotFound", message: "Runtime not found" });
       return;

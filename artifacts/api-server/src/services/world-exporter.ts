@@ -56,7 +56,7 @@ export class WorldExporter {
         name,
         description: description ?? null,
         worldType: pkg.world.worldType,
-        templateData: pkg as Record<string, unknown>,
+        templateData: pkg as unknown as Record<string, unknown>,
       });
       const updated = await this.repo.updateExport(exportRecord.id, {
         status: "completed",

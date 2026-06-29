@@ -24,7 +24,7 @@ export class WorldRuntimeEngine {
   // ChunkManager
   async loadChunk(worldId: number, chunkX: number, chunkY: number, chunkZ = 0) {
     const chunk = await worldSystemRepo.upsertChunk({
-      worldInstanceId: worldId,
+      worldId,
       chunkX,
       chunkY,
       chunkZ,
@@ -67,11 +67,8 @@ export class WorldRuntimeEngine {
   async changeWeather(worldId: number, weather: string, transitionDuration = 60) {
     const current = await worldSystemRepo.getWeather(worldId);
     const updated = await worldSystemRepo.upsertWeather(worldId, {
-      nextWeather: current?.currentWeather as any,
       currentWeather: weather as any,
       transitionDuration,
-      isManualOverride: true,
-      updatedAt: new Date(),
     });
     await worldSystemRepo.upsertStatistics(worldId, { totalWeatherChanges: 1 });
     return updated;
@@ -184,7 +181,7 @@ export class WorldRuntimeEngine {
     const checkpoints = await worldSystemRepo.listCheckpoints(worldId);
     const checkpoint = checkpoints.find(c => c.id === checkpointId);
     if (!checkpoint) throw new Error("Checkpoint not found");
-    await worldSystemRepo.addHistory({ worldInstanceId: worldId, action: "rollback_to_checkpoint", newValue: String(checkpointId), changedBy: userId });
+    await worldSystemRepo.addHistory({ worldId, userId, action: "rollback_to_checkpoint", newValue: String(checkpointId) });
     return { checkpoint, rolledBackAt: new Date().toISOString() };
   }
 

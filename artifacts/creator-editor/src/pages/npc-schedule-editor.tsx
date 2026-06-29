@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Calendar, Plus, Trash2, Save, Clock } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
 const auth = () => ({ Authorization: `Bearer ${localStorage.getItem("creator_token")}` });
@@ -27,8 +27,14 @@ export default function NpcScheduleEditor() {
   const { data: schedule } = useQuery({
     queryKey: ["/api/npc-editor", npcId, "schedule"],
     queryFn: () => apiFetch(`/api/npc-editor/${npcId}/schedule`),
-    onSuccess: (d: any) => { if (!loaded) { setEntries((d?.entries as ScheduleEntry[]) ?? []); setLoaded(true); } },
   });
+
+  useEffect(() => {
+    if (schedule && !loaded) {
+      setEntries((schedule?.entries as ScheduleEntry[]) ?? []);
+      setLoaded(true);
+    }
+  }, [schedule, loaded]);
 
   const updateSchedule = useMutation({
     mutationFn: (data: Record<string, unknown>) => apiFetch(`/api/npc-editor/${npcId}/schedule`, { method: "PATCH", body: JSON.stringify(data) }),

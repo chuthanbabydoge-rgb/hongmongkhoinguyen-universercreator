@@ -52,13 +52,13 @@ export default function CityTemplates() {
         <div className="flex items-start justify-between">
           <CardTitle className="text-sm">{String(t.name)}</CardTitle>
           <div className="flex gap-1">
-            {t.isPublic && <Badge variant="default"><Globe className="w-3 h-3 mr-1" />Public</Badge>}
+            {(t.isPublic as boolean) && <Badge variant="default"><Globe className="w-3 h-3 mr-1" />Public</Badge>}
             <Badge variant="outline" className="capitalize">{String(t.category)}</Badge>
           </div>
         </div>
       </CardHeader>
       <CardContent>
-        {t.description && <p className="text-xs text-muted-foreground mb-3">{String(t.description)}</p>}
+        {(t.description as boolean) && <p className="text-xs text-muted-foreground mb-3">{String(t.description)}</p>}
         <div className="flex items-center justify-between">
           <span className="text-xs text-muted-foreground">Used {String(t.usageCount ?? 0)} times</span>
           <Button size="sm" variant="destructive" onClick={() => deleteMut.mutate(Number(t.id))} disabled={deleteMut.isPending}><Trash2 className="w-3 h-3" /></Button>

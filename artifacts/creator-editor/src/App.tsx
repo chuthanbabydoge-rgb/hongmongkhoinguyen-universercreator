@@ -267,6 +267,34 @@ import TransportHistory from "@/pages/transportation/transport-history";
 import TransportImportExport from "@/pages/transportation/transport-import-export";
 import TransportValidator from "@/pages/transportation/transport-validator";
 
+// CREATOR-20: Nation Editor
+// CREATOR-22: Sports Editor
+import SportsDashboard from "@/pages/sports/sports-dashboard";
+import SportsBrowser from "@/pages/sports/sports-browser";
+import SportsEditor from "@/pages/sports/sports-editor";
+import LeagueEditor from "@/pages/sports/league-editor";
+import SeasonEditor from "@/pages/sports/season-editor";
+import ClubManager from "@/pages/sports/club-manager";
+import TeamManager from "@/pages/sports/team-manager";
+import PlayerManager from "@/pages/sports/player-manager";
+import CoachManager from "@/pages/sports/coach-manager";
+import MatchCenter from "@/pages/sports/match-center";
+import RankingManager from "@/pages/sports/ranking-manager";
+import TrainingCenter from "@/pages/sports/training-center";
+import TransferCenter from "@/pages/sports/transfer-center";
+import SportsSimulator from "@/pages/sports/sports-simulator";
+import SportsHistory from "@/pages/sports/sports-history";
+import SportsImportExport from "@/pages/sports/sports-import-export";
+
+// CREATOR-23: Social Editor
+import SocialDashboard from "@/pages/social/social-dashboard";
+import SocialBrowser from "@/pages/social/social-browser";
+import SocialEditor from "@/pages/social/social-editor";
+import GuildManager from "@/pages/social/guild-manager";
+import CommunityManager from "@/pages/social/community-manager";
+import PartyManager from "@/pages/social/party-manager";
+import FriendsManager from "@/pages/social/friends-manager";
+
 const queryClient = new QueryClient();
 
 setAuthTokenGetter(() => localStorage.getItem("creator_token") ?? "");
@@ -572,6 +600,33 @@ function Router() {
             <Route path="/transport-history/:id" component={TransportHistory} />
             <Route path="/transport-import-export/:id" component={TransportImportExport} />
             <Route path="/transport-validator/:id" component={TransportValidator} />
+
+            {/* CREATOR-22: Sports Editor */}
+            <Route path="/sports-dashboard" component={SportsDashboard} />
+            <Route path="/sports-browser" component={SportsBrowser} />
+            <Route path="/sports-editor/:id" component={SportsEditor} />
+            <Route path="/league-editor/:id" component={LeagueEditor} />
+            <Route path="/season-editor/:id" component={SeasonEditor} />
+            <Route path="/club-manager/:id" component={ClubManager} />
+            <Route path="/team-manager/:id" component={TeamManager} />
+            <Route path="/player-manager/:id" component={PlayerManager} />
+            <Route path="/coach-manager/:id" component={CoachManager} />
+            <Route path="/match-center/:id" component={MatchCenter} />
+            <Route path="/ranking-manager/:id" component={RankingManager} />
+            <Route path="/training-center/:id" component={TrainingCenter} />
+            <Route path="/transfer-center/:id" component={TransferCenter} />
+            <Route path="/sports-simulator/:id" component={SportsSimulator} />
+            <Route path="/sports-history/:id" component={SportsHistory} />
+            <Route path="/sports-import-export/:id" component={SportsImportExport} />
+
+            {/* CREATOR-23: Social Editor */}
+            <Route path="/social-dashboard" component={SocialDashboard} />
+            <Route path="/social-browser" component={SocialBrowser} />
+            <Route path="/social-editor/:id" component={SocialEditor} />
+            <Route path="/guild-manager/:id" component={GuildManager} />
+            <Route path="/community-manager/:id" component={CommunityManager} />
+            <Route path="/party-manager/:id" component={PartyManager} />
+            <Route path="/friends-manager/:id" component={FriendsManager} />
 
             <Route component={NotFound} />
           </Switch>

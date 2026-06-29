@@ -75,8 +75,8 @@ export default function CityHistory() {
                 <CardContent className="py-2 flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <Badge variant={actionColor(String(h.action))} className="text-xs capitalize">{String(h.action)}</Badge>
-                    {h.field && <span className="text-sm text-muted-foreground">{String(h.field)}</span>}
-                    {h.newValue && <span className="text-sm font-mono text-xs bg-muted px-1 rounded">{String(h.newValue).slice(0, 40)}</span>}
+                    {(h.field as boolean) && <span className="text-sm text-muted-foreground">{String(h.field)}</span>}
+                    {(h.newValue as boolean) && <span className="text-sm font-mono text-xs bg-muted px-1 rounded">{String(h.newValue).slice(0, 40)}</span>}
                   </div>
                   <span className="text-xs text-muted-foreground">{new Date(String(h.createdAt)).toLocaleString()}</span>
                 </CardContent>

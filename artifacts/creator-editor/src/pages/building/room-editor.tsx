@@ -93,7 +93,7 @@ export default function RoomEditor() {
             <Card key={String(r.id)}>
               <CardContent className="py-3 flex items-center justify-between">
                 <div>
-                  <div className="font-medium flex items-center gap-2">{String(r.name)}{r.isLocked && <Lock className="w-3 h-3 text-destructive" />}</div>
+                  <div className="font-medium flex items-center gap-2">{String(r.name)}{(r.isLocked as boolean) && <Lock className="w-3 h-3 text-destructive" />}</div>
                   <div className="text-xs text-muted-foreground">{String(r.roomType)} — {String(r.width)}×{String(r.depth)}m, max {String(r.maxOccupancy)}</div>
                 </div>
                 <div className="flex items-center gap-2">

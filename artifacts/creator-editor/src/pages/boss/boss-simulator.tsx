@@ -114,14 +114,14 @@ export default function BossSimulator() {
               {result.wiped !== undefined && (
                 <div className="flex items-center gap-2">
                   <span className="font-medium">Outcome:</span>
-                  <Badge variant={result.wiped ? "destructive" : "default"}>{result.wiped ? "WIPE" : "KILL"}</Badge>
+                  <Badge variant={(result.wiped as boolean) ? "destructive" : "default"}>{(result.wiped as boolean) ? "WIPE" : "KILL"}</Badge>
                 </div>
               )}
-              <div className="flex justify-between text-sm"><span className="text-muted-foreground">Est. Kill Time</span><span>{result.estimatedKillTimeSeconds ?? result.estimatedDurationSeconds}s</span></div>
-              {result.enrageAt && <div className="flex justify-between text-sm"><span className="text-muted-foreground">Enrage Timer</span><span>{String(result.enrageAt)}s</span></div>}
-              {result.phaseCount && <div className="flex justify-between text-sm"><span className="text-muted-foreground">Total Phases</span><span>{String(result.phaseCount)}</span></div>}
+              <div className="flex justify-between text-sm"><span className="text-muted-foreground">Est. Kill Time</span><span>{String(result.estimatedKillTimeSeconds ?? result.estimatedDurationSeconds)}s</span></div>
+              {!!(result.enrageAt as any) && <div className="flex justify-between text-sm"><span className="text-muted-foreground">Enrage Timer</span><span>{String(result.enrageAt)}s</span></div>}
+              {!!(result.phaseCount as any) && <div className="flex justify-between text-sm"><span className="text-muted-foreground">Total Phases</span><span>{String(result.phaseCount)}</span></div>}
               {result.enrageTriggered !== undefined && (
-                <div className="flex justify-between text-sm"><span className="text-muted-foreground">Enrage Triggered</span><Badge variant={result.enrageTriggered ? "destructive" : "secondary"}>{result.enrageTriggered ? "Yes" : "No"}</Badge></div>
+                <div className="flex justify-between text-sm"><span className="text-muted-foreground">Enrage Triggered</span><Badge variant={(result.enrageTriggered as boolean) ? "destructive" : "secondary"}>{(result.enrageTriggered as boolean) ? "Yes" : "No"}</Badge></div>
               )}
               <div className="flex justify-between text-sm"><span className="text-muted-foreground">Difficulty</span><span className="capitalize">{String(result.difficulty ?? "normal")}</span></div>
               <div className="text-xs text-muted-foreground mt-2">Simulated at: {String(result.simulatedAt)}</div>

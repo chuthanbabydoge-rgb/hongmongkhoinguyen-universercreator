@@ -88,9 +88,9 @@ export default function BossEditorPage() {
           <div>
             <div className="font-bold text-xl">{String(form.name ?? "Boss")}</div>
             <div className="flex gap-2 mt-1">
-              {boss.isPublished && <Badge>Published</Badge>}
-              {boss.isArchived && <Badge variant="secondary">Archived</Badge>}
-              {dirty && <Badge variant="outline">Unsaved</Badge>}
+              {(boss.isPublished as boolean) && <Badge>Published</Badge>}
+              {(boss.isArchived as boolean) && <Badge variant="secondary">Archived</Badge>}
+              {(dirty as boolean) && <Badge variant="outline">Unsaved</Badge>}
             </div>
           </div>
         </div>
@@ -182,7 +182,7 @@ export default function BossEditorPage() {
                   <Label>Rage Mode</Label>
                 </div>
               </div>
-              {form.hasRageMode && (
+              {!!(form.hasRageMode as any) && (
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1"><Label>Rage Threshold (HP %)</Label><Input type="number" step="0.01" value={String(form.rageThreshold ?? 0.25)} onChange={e => set("rageThreshold", Number(e.target.value))} /></div>
                   <div className="space-y-1"><Label>Enrage Timer (seconds)</Label><Input type="number" value={String(form.enrageTimer ?? "")} onChange={e => set("enrageTimer", Number(e.target.value))} /></div>

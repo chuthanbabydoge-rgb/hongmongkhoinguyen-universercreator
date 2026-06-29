@@ -70,8 +70,8 @@ export default function NpcManager() {
                 <div className="text-xs text-muted-foreground">Role: {String(n.role)} — Ref: {String(n.npcRef)}</div>
               </div>
               <div className="flex items-center gap-2">
-                {n.isResident && <Badge variant="secondary">Resident</Badge>}
-                {n.isWorker && <Badge variant="outline">Worker</Badge>}
+                {(n.isResident as boolean) && <Badge variant="secondary">Resident</Badge>}
+                {(n.isWorker as boolean) && <Badge variant="outline">Worker</Badge>}
                 <Button size="sm" variant="outline" onClick={() => deleteMutation.mutate(Number(n.id))}><Trash2 className="w-3 h-3 text-destructive" /></Button>
               </div>
             </div>

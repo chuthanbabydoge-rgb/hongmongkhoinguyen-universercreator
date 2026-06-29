@@ -27,8 +27,8 @@ router.get("/world-system/:id", async (req, res) => {
   try {
     const world = await worldSystemRepo.getWorld(Number(req.params.id));
     if (!world) return res.status(404).json({ error: "Not found" });
-    res.json(world);
-  } catch (e) { res.status(500).json({ error: (e as Error).message }); }
+    return res.json(world);
+  } catch (e) { return res.status(500).json({ error: (e as Error).message }); }
 });
 
 router.patch("/world-system/:id", async (req, res) => {

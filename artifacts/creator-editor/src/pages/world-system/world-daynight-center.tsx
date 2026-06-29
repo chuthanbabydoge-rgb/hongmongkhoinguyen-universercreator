@@ -82,7 +82,7 @@ export default function WorldDayNightCenter() {
                 <div className="text-4xl font-bold">{String(hour).padStart(2, "0")}:00</div>
                 <div className="flex items-center gap-2">
                   <Badge variant="secondary" className="capitalize">{String(daynight.currentCycle)}</Badge>
-                  {daynight.isPaused && <Badge variant="outline">Paused</Badge>}
+                  {(daynight.isPaused as boolean) && <Badge variant="outline">Paused</Badge>}
                   <Badge variant="outline">{String(daynight.timeScale)}x speed</Badge>
                 </div>
               </div>

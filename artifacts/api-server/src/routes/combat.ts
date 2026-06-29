@@ -428,7 +428,7 @@ router.post("/api/combat/:id/simulate/attack", requireAuth, async (req: AuthRequ
   catch (err) { res.status(500).json({ error: "InternalError", message: String(err) }); }
 });
 router.post("/api/combat/:id/simulate/defense", requireAuth, async (req: AuthRequest, res) => {
-  try { res.json(await service.runtime.simulateDefense(Number(req.params["id"]), req.body as object)); }
+  try { res.json(await service.runtime.simulateDefense(Number(Array.isArray(req.params["id"]) ? req.params["id"][0] : req.params["id"]), req.body as any)); }
   catch (err) { res.status(500).json({ error: "InternalError", message: String(err) }); }
 });
 router.post("/api/combat/:id/simulate/crit", requireAuth, async (req: AuthRequest, res) => {

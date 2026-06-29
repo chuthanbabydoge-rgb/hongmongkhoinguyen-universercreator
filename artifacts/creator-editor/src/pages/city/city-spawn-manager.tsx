@@ -112,8 +112,8 @@ export default function CitySpawnManager() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Badge variant="outline" className="capitalize">{String(s.spawnType)}</Badge>
-                  {s.isDefault && <Badge>Default</Badge>}
-                  {!s.isActive && <Badge variant="destructive">Inactive</Badge>}
+                  {(s.isDefault as boolean) && <Badge>Default</Badge>}
+                  {!(s.isActive as boolean) && <Badge variant="destructive">Inactive</Badge>}
                   <Button size="sm" variant="outline" onClick={() => setEditing(s)}><Edit className="w-3 h-3" /></Button>
                   <Button size="sm" variant="destructive" onClick={() => deleteMut.mutate(Number(s.id))} disabled={deleteMut.isPending}><Trash2 className="w-3 h-3" /></Button>
                 </div>

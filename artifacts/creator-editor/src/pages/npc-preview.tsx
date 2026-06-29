@@ -92,7 +92,7 @@ export default function NpcPreview() {
                     <p className="text-sm text-muted-foreground">{(previewData["behaviors"] as unknown[])?.length ?? 0} behaviors · Tree: {(previewData["behaviorTree"] as any)?.name ?? "none"}</p>
                   </div>
                 )}
-                {previewMode === "dialogue" && previewData["dialogue"] && (
+                {previewMode === "dialogue" && (previewData["dialogue"] as any) && (
                   <div className="space-y-2">
                     <p className="font-medium text-sm">{(previewData["dialogue"] as any).name}</p>
                     <p className="text-xs text-muted-foreground capitalize">{(previewData["dialogue"] as any).dialogueType}</p>

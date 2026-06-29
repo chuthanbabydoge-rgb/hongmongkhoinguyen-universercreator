@@ -51,7 +51,7 @@ export default function BuildingHistory() {
           <CardContent className="space-y-2">
             {versions.map((v: Record<string, unknown>) => (
               <div key={String(v.id)} className="flex items-center justify-between p-2 border rounded text-sm">
-                <div><span className="font-mono">v{String(v.version)}</span> {v.label && <span className="text-muted-foreground">— {String(v.label)}</span>}</div>
+                <div><span className="font-mono">v{String(v.version)}</span> {(v.label as boolean) && <span className="text-muted-foreground">— {String(v.label)}</span>}</div>
                 <div className="text-xs text-muted-foreground">{new Date(String(v.createdAt)).toLocaleDateString()}</div>
               </div>
             ))}

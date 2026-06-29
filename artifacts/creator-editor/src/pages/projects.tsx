@@ -87,7 +87,7 @@ export default function Projects() {
           setLocation(`/projects/${project.id}`);
         },
         onError: (err) => {
-          toast({ variant: "destructive", title: "Failed to create project", description: err.error?.message });
+          toast({ variant: "destructive", title: "Failed to create project", description: (err as any).error?.message });
         }
       }
     );

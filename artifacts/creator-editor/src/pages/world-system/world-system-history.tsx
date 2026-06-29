@@ -56,8 +56,8 @@ export default function WorldSystemHistory() {
             <div key={i} className="flex items-center justify-between py-2 border-b border-border last:border-0 text-sm">
               <div className="flex items-center gap-2">
                 <span className={`font-medium capitalize ${actionColor[String(h.action)] ?? ""}`}>{String(h.action).replace(/_/g, " ")}</span>
-                {h.field && <Badge variant="secondary" className="text-xs">{String(h.field)}</Badge>}
-                {h.newValue && <span className="text-muted-foreground text-xs">→ {String(h.newValue)}</span>}
+                {(h.field as boolean) && <Badge variant="secondary" className="text-xs">{String(h.field)}</Badge>}
+                {(h.newValue as boolean) && <span className="text-muted-foreground text-xs">→ {String(h.newValue)}</span>}
               </div>
               <span className="text-xs text-muted-foreground">{new Date(String(h.createdAt)).toLocaleString()}</span>
             </div>

@@ -109,9 +109,9 @@ export default function CityRoadEditor() {
                   <div className="text-xs text-muted-foreground capitalize">{String(r.roadType).replace(/_/g, " ")} • {String(r.width ?? 10)}m wide • {String(r.speedLimit ?? 30)} km/h</div>
                 </div>
                 <div className="flex items-center gap-2">
-                  {r.isOneWay && <Badge variant="outline">One-way</Badge>}
-                  {r.isToll && <Badge variant="secondary">Toll</Badge>}
-                  {r.isBlocked && <Badge variant="destructive">Blocked</Badge>}
+                  {(r.isOneWay as boolean) && <Badge variant="outline">One-way</Badge>}
+                  {(r.isToll as boolean) && <Badge variant="secondary">Toll</Badge>}
+                  {(r.isBlocked as boolean) && <Badge variant="destructive">Blocked</Badge>}
                   <Button size="sm" variant="outline" onClick={() => setEditing(r)}><Edit className="w-3 h-3" /></Button>
                   <Button size="sm" variant="destructive" onClick={() => deleteMut.mutate(Number(r.id))} disabled={deleteMut.isPending}><Trash2 className="w-3 h-3" /></Button>
                 </div>

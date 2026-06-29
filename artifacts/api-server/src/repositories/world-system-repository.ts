@@ -22,12 +22,13 @@ import {
   creatorWorldExports,
   creatorWorldImports,
 } from "@workspace/db/schema";
+import { worldRuntimeStateEnum } from "@workspace/db/schema";
 
 export class WorldSystemRepository {
   // World Instances
   async listWorlds(limit = 50, offset = 0, filters: Record<string, unknown> = {}) {
     const conditions = [eq(creatorWorldInstances.isArchived, false)];
-    if (filters.runtimeState) conditions.push(eq(creatorWorldInstances.runtimeState, filters.runtimeState as string));
+    if (filters.runtimeState) conditions.push(eq(creatorWorldInstances.runtimeState, filters.runtimeState as any));
     return db.select().from(creatorWorldInstances).where(and(...conditions)).limit(limit).offset(offset).orderBy(desc(creatorWorldInstances.updatedAt));
   }
   async countWorlds() {
@@ -53,7 +54,7 @@ export class WorldSystemRepository {
 
   // Chunks
   async listChunks(worldId: number) {
-    return db.select().from(creatorWorldChunks).where(eq(creatorWorldChunks.worldInstanceId, worldId)).orderBy(desc(creatorWorldChunks.loadPriority));
+    return db.select().from(creatorWorldChunks).where(eq(creatorWorldChunks.worldId, worldId)).orderBy(desc(creatorWorldChunks.updatedAt));
   }
   async getChunk(id: number) {
     const [row] = await db.select().from(creatorWorldChunks).where(eq(creatorWorldChunks.id, id));
@@ -70,7 +71,7 @@ export class WorldSystemRepository {
 
   // Regions
   async listRegions(worldId: number) {
-    return db.select().from(creatorWorldRegions).where(eq(creatorWorldRegions.worldInstanceId, worldId));
+    return db.select().from(creatorWorldRegions).where(eq(creatorWorldRegions.worldId, worldId));
   }
   async getRegion(id: number) {
     const [row] = await db.select().from(creatorWorldRegions).where(eq(creatorWorldRegions.id, id));
@@ -91,7 +92,7 @@ export class WorldSystemRepository {
 
   // Spawnpoints
   async listSpawnpoints(worldId: number) {
-    return db.select().from(creatorWorldSpawnpoints).where(eq(creatorWorldSpawnpoints.worldInstanceId, worldId));
+    return db.select().from(creatorWorldSpawnpoints).where(eq(creatorWorldSpawnpoints.worldId, worldId));
   }
   async createSpawnpoint(data: typeof creatorWorldSpawnpoints.$inferInsert) {
     const [row] = await db.insert(creatorWorldSpawnpoints).values(data).returning();
@@ -125,31 +126,31 @@ export class WorldSystemRepository {
 
   // Weather
   async getWeather(worldId: number) {
-    const [row] = await db.select().from(creatorWorldWeather).where(eq(creatorWorldWeather.worldInstanceId, worldId));
+    const [row] = await db.select().from(creatorWorldWeather).where(eq(creatorWorldWeather.worldId, worldId));
     return row ?? null;
   }
   async upsertWeather(worldId: number, data: Partial<typeof creatorWorldWeather.$inferInsert>) {
     const existing = await this.getWeather(worldId);
     if (existing) {
-      const [row] = await db.update(creatorWorldWeather).set({ ...data, updatedAt: new Date() }).where(eq(creatorWorldWeather.worldInstanceId, worldId)).returning();
+      const [row] = await db.update(creatorWorldWeather).set({ ...data, updatedAt: new Date() }).where(eq(creatorWorldWeather.worldId, worldId)).returning();
       return row;
     }
-    const [row] = await db.insert(creatorWorldWeather).values({ worldInstanceId: worldId, ...data } as any).returning();
+    const [row] = await db.insert(creatorWorldWeather).values({ worldId, ...data } as any).returning();
     return row;
   }
 
   // Day/Night
-  async getDayNight(worldId: number) {
-    const [row] = await db.select().from(creatorWorldDaynight).where(eq(creatorWorldDaynight.worldInstanceId, worldId));
+  async getDayNight(worldInstanceId: number) {
+    const [row] = await db.select().from(creatorWorldDaynight).where(eq(creatorWorldDaynight.worldInstanceId, worldInstanceId));
     return row ?? null;
   }
-  async upsertDayNight(worldId: number, data: Partial<typeof creatorWorldDaynight.$inferInsert>) {
-    const existing = await this.getDayNight(worldId);
+  async upsertDayNight(worldInstanceId: number, data: Partial<typeof creatorWorldDaynight.$inferInsert>) {
+    const existing = await this.getDayNight(worldInstanceId);
     if (existing) {
-      const [row] = await db.update(creatorWorldDaynight).set({ ...data, updatedAt: new Date() }).where(eq(creatorWorldDaynight.worldInstanceId, worldId)).returning();
+      const [row] = await db.update(creatorWorldDaynight).set({ ...data, updatedAt: new Date() }).where(eq(creatorWorldDaynight.worldInstanceId, worldInstanceId)).returning();
       return row;
     }
-    const [row] = await db.insert(creatorWorldDaynight).values({ worldInstanceId: worldId, ...data } as any).returning();
+    const [row] = await db.insert(creatorWorldDaynight).values({ worldInstanceId, ...data } as any).returning();
     return row;
   }
 
@@ -196,7 +197,7 @@ export class WorldSystemRepository {
 
   // Portals
   async listPortals(worldId: number) {
-    return db.select().from(creatorWorldPortals).where(eq(creatorWorldPortals.worldInstanceId, worldId));
+    return db.select().from(creatorWorldPortals).where(eq(creatorWorldPortals.worldId, worldId));
   }
   async createPortal(data: typeof creatorWorldPortals.$inferInsert) {
     const [row] = await db.insert(creatorWorldPortals).values(data).returning();
@@ -213,25 +214,25 @@ export class WorldSystemRepository {
 
   // Runtime
   async getRuntime(worldId: number, sessionId: string) {
-    const [row] = await db.select().from(creatorWorldRuntime).where(and(eq(creatorWorldRuntime.worldInstanceId, worldId), eq(creatorWorldRuntime.sessionId, sessionId)));
+    const [row] = await db.select().from(creatorWorldRuntime).where(and(eq(creatorWorldRuntime.worldId, worldId), eq(creatorWorldRuntime.sessionId, sessionId)));
     return row ?? null;
   }
   async listRuntimes(worldId: number) {
-    return db.select().from(creatorWorldRuntime).where(eq(creatorWorldRuntime.worldInstanceId, worldId)).orderBy(desc(creatorWorldRuntime.updatedAt)).limit(10);
+    return db.select().from(creatorWorldRuntime).where(eq(creatorWorldRuntime.worldId, worldId)).orderBy(desc(creatorWorldRuntime.updatedAt)).limit(10);
   }
   async upsertRuntime(worldId: number, sessionId: string, data: Partial<typeof creatorWorldRuntime.$inferInsert>) {
     const existing = await this.getRuntime(worldId, sessionId);
     if (existing) {
-      const [row] = await db.update(creatorWorldRuntime).set({ ...data, updatedAt: new Date() }).where(and(eq(creatorWorldRuntime.worldInstanceId, worldId), eq(creatorWorldRuntime.sessionId, sessionId))).returning();
+      const [row] = await db.update(creatorWorldRuntime).set({ ...data, updatedAt: new Date() }).where(and(eq(creatorWorldRuntime.worldId, worldId), eq(creatorWorldRuntime.sessionId, sessionId))).returning();
       return row;
     }
-    const [row] = await db.insert(creatorWorldRuntime).values({ worldInstanceId: worldId, sessionId, ...data } as any).returning();
+    const [row] = await db.insert(creatorWorldRuntime).values({ worldId, sessionId, ...data } as any).returning();
     return row;
   }
 
   // Players
-  async listPlayers(worldId: number) {
-    return db.select().from(creatorWorldPlayers).where(and(eq(creatorWorldPlayers.worldInstanceId, worldId), eq(creatorWorldPlayers.isOnline, true)));
+  async listPlayers(worldInstanceId: number) {
+    return db.select().from(creatorWorldPlayers).where(and(eq(creatorWorldPlayers.worldInstanceId, worldInstanceId), eq(creatorWorldPlayers.isOnline, true)));
   }
   async upsertPlayer(data: typeof creatorWorldPlayers.$inferInsert) {
     const [row] = await db.insert(creatorWorldPlayers).values(data).returning();
@@ -239,8 +240,8 @@ export class WorldSystemRepository {
   }
 
   // NPCs
-  async listNpcs(worldId: number) {
-    return db.select().from(creatorWorldNpcs).where(eq(creatorWorldNpcs.worldInstanceId, worldId));
+  async listNpcs(worldInstanceId: number) {
+    return db.select().from(creatorWorldNpcs).where(eq(creatorWorldNpcs.worldInstanceId, worldInstanceId));
   }
   async createNpc(data: typeof creatorWorldNpcs.$inferInsert) {
     const [row] = await db.insert(creatorWorldNpcs).values(data).returning();
@@ -253,22 +254,22 @@ export class WorldSystemRepository {
 
   // Statistics
   async getStatistics(worldId: number) {
-    const [row] = await db.select().from(creatorWorldStatistics).where(eq(creatorWorldStatistics.worldInstanceId, worldId));
+    const [row] = await db.select().from(creatorWorldStatistics).where(eq(creatorWorldStatistics.worldId, worldId));
     return row ?? null;
   }
   async upsertStatistics(worldId: number, data: Partial<typeof creatorWorldStatistics.$inferInsert>) {
     const existing = await this.getStatistics(worldId);
     if (existing) {
-      const [row] = await db.update(creatorWorldStatistics).set({ ...data, updatedAt: new Date() }).where(eq(creatorWorldStatistics.worldInstanceId, worldId)).returning();
+      const [row] = await db.update(creatorWorldStatistics).set({ ...data, updatedAt: new Date() }).where(eq(creatorWorldStatistics.worldId, worldId)).returning();
       return row;
     }
-    const [row] = await db.insert(creatorWorldStatistics).values({ worldInstanceId: worldId, ...data } as any).returning();
+    const [row] = await db.insert(creatorWorldStatistics).values({ worldId, ...data } as any).returning();
     return row;
   }
 
   // History
   async listHistory(worldId: number) {
-    return db.select().from(creatorWorldHistory).where(eq(creatorWorldHistory.worldInstanceId, worldId)).orderBy(desc(creatorWorldHistory.createdAt)).limit(100);
+    return db.select().from(creatorWorldHistory).where(eq(creatorWorldHistory.worldId, worldId)).orderBy(desc(creatorWorldHistory.createdAt)).limit(100);
   }
   async addHistory(data: typeof creatorWorldHistory.$inferInsert) {
     const [row] = await db.insert(creatorWorldHistory).values(data).returning();
@@ -277,7 +278,7 @@ export class WorldSystemRepository {
 
   // Versions
   async listVersions(worldId: number) {
-    return db.select().from(creatorWorldVersions).where(eq(creatorWorldVersions.worldInstanceId, worldId)).orderBy(desc(creatorWorldVersions.version));
+    return db.select().from(creatorWorldVersions).where(eq(creatorWorldVersions.worldId, worldId)).orderBy(desc(creatorWorldVersions.version));
   }
   async createVersion(data: typeof creatorWorldVersions.$inferInsert) {
     const [row] = await db.insert(creatorWorldVersions).values(data).returning();

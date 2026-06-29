@@ -112,8 +112,8 @@ export default function CityBuildingManager() {
                 <div className="flex gap-2 flex-wrap">
                   <Badge variant="outline">{String(b.width ?? 0)}×{String(b.depth ?? 0)}×{String(b.height ?? 0)}m</Badge>
                   <Badge variant="outline">Cap: {String(b.capacity ?? 0)}</Badge>
-                  {b.isEnterable && <Badge variant="secondary">Enterable</Badge>}
-                  {!b.isActive && <Badge variant="destructive">Inactive</Badge>}
+                  {(b.isEnterable as boolean) && <Badge variant="secondary">Enterable</Badge>}
+                  {!(b.isActive as boolean) && <Badge variant="destructive">Inactive</Badge>}
                 </div>
               </CardContent>
             </Card>

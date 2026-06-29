@@ -108,7 +108,7 @@ export default function CityUtilityManager() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Badge variant={u.isActive ? "default" : "outline"}>{u.isActive ? "Active" : "Offline"}</Badge>
-                  {u.isCritical && <Badge variant="destructive">Critical</Badge>}
+                  {(u.isCritical as boolean) && <Badge variant="destructive">Critical</Badge>}
                   <span className="text-xs text-muted-foreground">Lvl {String(u.upgradeLevel ?? 1)}/{String(u.maxUpgradeLevel ?? 5)}</span>
                   <Button size="sm" variant="outline" onClick={() => setEditing(u)}><Edit className="w-3 h-3" /></Button>
                   <Button size="sm" variant="destructive" onClick={() => deleteMut.mutate(Number(u.id))} disabled={deleteMut.isPending}><Trash2 className="w-3 h-3" /></Button>

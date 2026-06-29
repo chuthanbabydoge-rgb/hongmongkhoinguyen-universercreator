@@ -50,7 +50,7 @@ export default function Login() {
           toast({
             variant: "destructive",
             title: "Login failed",
-            description: error.error?.message || "Invalid credentials",
+            description: (error as any).error?.message || "Invalid credentials",
           });
         },
       }

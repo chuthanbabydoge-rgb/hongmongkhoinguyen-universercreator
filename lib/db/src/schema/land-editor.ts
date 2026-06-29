@@ -25,7 +25,7 @@ export const terrainTypeEnum = pgEnum("terrain_type", [
   "volcanic", "coastal", "underground", "custom",
 ]);
 
-export const utilityTypeEnum = pgEnum("land_utility_type", [
+export const landUtilityTypeEnum = pgEnum("land_utility_type", [
   "water", "power", "gas", "sewage", "network", "magic_conduit",
   "teleport_relay", "resource_node", "custom",
 ]);
@@ -165,7 +165,7 @@ export const creatorLandTerrainTable = pgTable("creator_land_terrain", {
 export const creatorLandUtilitiesTable = pgTable("creator_land_utilities", {
   id: serial("id").primaryKey(),
   landId: integer("land_id").notNull(),
-  utilityType: utilityTypeEnum("land_utility_type").notNull().default("power"),
+  utilityType: landUtilityTypeEnum("land_utility_type").notNull().default("power"),
   name: text("name").notNull(),
   posX: real("pos_x").notNull().default(0),
   posZ: real("pos_z").notNull().default(0),

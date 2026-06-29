@@ -110,7 +110,7 @@ export default function WorldPortalManagerSystem() {
               <CardContent className="py-3 flex items-center justify-between">
                 <div>
                   <div className="font-medium flex items-center gap-2">{String(p.name)}
-                    {p.isBidirectional && <ArrowRight className="w-3 h-3 text-muted-foreground" />}
+                    {(p.isBidirectional as boolean) && <ArrowRight className="w-3 h-3 text-muted-foreground" />}
                   </div>
                   <div className="text-xs text-muted-foreground">From ({String(p.fromX)},{String(p.fromY)},{String(p.fromZ)}) → To ({String(p.toX)},{String(p.toY)},{String(p.toZ)})</div>
                 </div>

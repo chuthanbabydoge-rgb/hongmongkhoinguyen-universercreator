@@ -53,7 +53,7 @@ export default function Register() {
           toast({
             variant: "destructive",
             title: "Registration failed",
-            description: error.error?.message || "Could not create account",
+            description: (error as any).error?.message || "Could not create account",
           });
         },
       }

@@ -21,9 +21,9 @@ export class WorldSystemService {
       metadata: data.metadata as any,
       createdBy: userId,
     });
-    await worldSystemRepo.addHistory({ worldInstanceId: world.id, action: "created", changedBy: userId });
+    await worldSystemRepo.addHistory({ worldId: world.id, userId, action: "created" });
     // Initialize subsystems
-    await worldSystemRepo.upsertWeather(world.id, { currentWeather: "sunny", intensity: 1.0, windSpeed: 0 });
+    await worldSystemRepo.upsertWeather(world.id, { currentWeather: "clear", intensity: 1.0, windSpeed: 0 });
     await worldSystemRepo.upsertDayNight(world.id, { currentHour: 8, dayLengthSeconds: 1440, timeScale: 1.0 });
     await worldSystemRepo.upsertStatistics(world.id, {});
     return world;
@@ -35,9 +35,8 @@ export class WorldSystemService {
     const runtime = await worldSystemRepo.upsertRuntime(worldId, sessionId, {
       runtimeState: "running",
       startedAt: new Date(),
-      tickRate: 20,
     });
-    await worldSystemRepo.addHistory({ worldInstanceId: worldId, action: "world_started", changedBy: userId });
+    await worldSystemRepo.addHistory({ worldId: worldId, userId, action: "world_started" });
     await worldSystemRepo.upsertStatistics(worldId, { totalSessionsRun: 1 });
     return { world, runtime, sessionId };
   }
@@ -45,9 +44,9 @@ export class WorldSystemService {
   async stopWorld(worldId: number, sessionId: string, userId: number) {
     const runtime = await worldSystemRepo.getRuntime(worldId, sessionId);
     const uptime = runtime?.startedAt ? Math.floor((Date.now() - runtime.startedAt.getTime()) / 1000) : 0;
-    await worldSystemRepo.upsertRuntime(worldId, sessionId, { runtimeState: "offline", stoppedAt: new Date(), uptimeSeconds: uptime });
+    await worldSystemRepo.upsertRuntime(worldId, sessionId, { runtimeState: "offline", stoppedAt: new Date() });
     const world = await worldSystemRepo.updateWorld(worldId, { runtimeState: "offline" });
-    await worldSystemRepo.addHistory({ worldInstanceId: worldId, action: "world_stopped", changedBy: userId });
+    await worldSystemRepo.addHistory({ worldId: worldId, userId, action: "world_stopped" });
     return { world, uptime };
   }
 
@@ -55,22 +54,22 @@ export class WorldSystemService {
     const world = await worldSystemRepo.getWorld(worldId);
     if (!world) throw new Error("World not found");
     const copy = await worldSystemRepo.createWorld({ ...world, id: undefined as any, name: `${world.name} (Copy)`, runtimeState: "offline", isPublished: false, createdBy: userId, createdAt: new Date(), updatedAt: new Date() });
-    await worldSystemRepo.addHistory({ worldInstanceId: copy.id, action: "duplicated_from", newValue: String(worldId), changedBy: userId });
+    await worldSystemRepo.addHistory({ worldId: copy.id, userId, action: "duplicated_from", newValue: String(worldId) });
     return copy;
   }
 
   async archiveWorld(worldId: number, userId: number) {
     const world = await worldSystemRepo.updateWorld(worldId, { isArchived: true, runtimeState: "offline" });
-    await worldSystemRepo.addHistory({ worldInstanceId: worldId, action: "archived", changedBy: userId });
+    await worldSystemRepo.addHistory({ worldId: worldId, userId, action: "archived" });
     return world;
   }
 
   async publishWorld(worldId: number, userId: number) {
     const world = await worldSystemRepo.getWorld(worldId);
     if (!world) throw new Error("World not found");
-    const version = await worldSystemRepo.createVersion({ worldInstanceId: worldId, version: (world.version ?? 0) + 1, snapshot: world as any, changelog: "Published", createdBy: userId });
+    const version = await worldSystemRepo.createVersion({ worldId: worldId, userId, version: (world.version ?? 0) + 1, snapshot: world as any, changelog: "Published" });
     const updated = await worldSystemRepo.updateWorld(worldId, { isPublished: true, version: (world.version ?? 0) + 1 });
-    await worldSystemRepo.addHistory({ worldInstanceId: worldId, action: "published", newValue: String(version.version), changedBy: userId });
+    await worldSystemRepo.addHistory({ worldId: worldId, userId, action: "published", newValue: String(version.version) });
     return { world: updated, version };
   }
 
@@ -80,7 +79,7 @@ export class WorldSystemService {
     if (!version) throw new Error("Version not found");
     const snapshot = version.snapshot as Record<string, unknown>;
     const restored = await worldSystemRepo.updateWorld(worldId, { ...snapshot, id: worldId, updatedAt: new Date() } as any);
-    await worldSystemRepo.addHistory({ worldInstanceId: worldId, action: "restored", newValue: String(versionId), changedBy: userId });
+    await worldSystemRepo.addHistory({ worldId: worldId, userId, action: "restored", newValue: String(versionId) });
     return restored;
   }
 
@@ -95,7 +94,7 @@ export class WorldSystemService {
     const daynight = await worldSystemRepo.getDayNight(worldId);
     const payload = { type: "world_system_export", version: 1, world, regions, spawnpoints, portals, events, weather, daynight };
     const checksum = crypto.createHash("sha256").update(JSON.stringify(payload)).digest("hex");
-    const exported = await worldSystemRepo.createExport({ worldInstanceId: worldId, exportType: "json", payload, checksum, exportedBy: userId });
+    const exported = await worldSystemRepo.createExport({ worldId: worldId, userId, exportType: "json" });
     return { ...exported, payload };
   }
 
@@ -110,7 +109,7 @@ export class WorldSystemService {
     } catch (e) {
       errors.push((e as Error).message);
     }
-    await worldSystemRepo.createImport({ worldInstanceId: worldId, importType: "json", sourceData: payload, importedBy: userId, status: errors.length ? "error" : "success", errors: errors.length ? errors : null });
+    await worldSystemRepo.createImport({ worldId: worldId, userId, importType: "json", status: errors.length ? "error" : "success" });
     return { ok: !errors.length, errors };
   }
 
@@ -122,7 +121,6 @@ export class WorldSystemService {
       worldInstanceId: worldId,
       sessionId,
       label: label ?? `Checkpoint ${Date.now()}`,
-      worldStateId: null as any,
       isAutoSave: !label,
       triggeredBy: userId ? `user:${userId}` : "system",
     });

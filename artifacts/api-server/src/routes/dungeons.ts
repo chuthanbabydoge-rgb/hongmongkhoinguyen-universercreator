@@ -1,71 +1,71 @@
 import { Router } from "express";
 import { DungeonEditorService } from "../services/dungeon-editor-service";
-import { requireAuth } from "../middlewares/auth";
+import { requireAuth, AuthRequest } from "../middlewares/auth";
 
 const router = Router();
 const svc = new DungeonEditorService();
 
 // ─── Dashboard ───────────────────────────────────────────────────────────────
 
-router.get("/api/dungeons/dashboard", requireAuth, async (req, res, next) => {
-  try { res.json(await svc.getDashboard(req.user!.id)); } catch (e) { next(e); }
+router.get("/api/dungeons/dashboard", requireAuth, async (req: AuthRequest, res, next) => {
+  try { res.json(await svc.getDashboard(req.auth!.userId)); } catch (e) { next(e); }
 });
 
 // ─── Dungeon CRUD ────────────────────────────────────────────────────────────
 
-router.get("/api/dungeons", requireAuth, async (req, res, next) => {
+router.get("/api/dungeons", requireAuth, async (req: AuthRequest, res, next) => {
   try {
     const limit = Number(req.query.limit ?? 20);
     const offset = Number(req.query.offset ?? 0);
     const search = req.query.search as string | undefined;
-    res.json(await svc.listDungeons(req.user!.id, limit, offset, search));
+    res.json(await svc.listDungeons(req.auth!.userId, limit, offset, search));
   } catch (e) { next(e); }
 });
 
-router.post("/api/dungeons", requireAuth, async (req, res, next) => {
-  try { res.status(201).json(await svc.createDungeon(req.user!.id, req.body)); } catch (e) { next(e); }
+router.post("/api/dungeons", requireAuth, async (req: AuthRequest, res, next) => {
+  try { res.status(201).json(await svc.createDungeon(req.auth!.userId, req.body)); } catch (e) { next(e); }
 });
 
-router.get("/api/dungeons/:id", requireAuth, async (req, res, next) => {
+router.get("/api/dungeons/:id", requireAuth, async (req: AuthRequest, res, next) => {
   try {
     const dungeon = await svc.getDungeon(Number(req.params.id));
     if (!dungeon) return res.status(404).json({ error: "Dungeon not found" });
-    res.json(dungeon);
-  } catch (e) { next(e); }
+    return res.json(dungeon);
+  } catch (e) { return next(e); }
 });
 
-router.get("/api/dungeons/:id/full", requireAuth, async (req, res, next) => {
+router.get("/api/dungeons/:id/full", requireAuth, async (req: AuthRequest, res, next) => {
   try { res.json(await svc.getFullDungeon(Number(req.params.id))); } catch (e) { next(e); }
 });
 
-router.patch("/api/dungeons/:id", requireAuth, async (req, res, next) => {
-  try { res.json(await svc.updateDungeon(Number(req.params.id), req.user!.id, req.body)); } catch (e) { next(e); }
+router.patch("/api/dungeons/:id", requireAuth, async (req: AuthRequest, res, next) => {
+  try { res.json(await svc.updateDungeon(Number(req.params.id), req.auth!.userId, req.body)); } catch (e) { next(e); }
 });
 
-router.delete("/api/dungeons/:id", requireAuth, async (req, res, next) => {
+router.delete("/api/dungeons/:id", requireAuth, async (req: AuthRequest, res, next) => {
   try { await svc.deleteDungeon(Number(req.params.id)); res.status(204).send(); } catch (e) { next(e); }
 });
 
 // ─── Lifecycle ───────────────────────────────────────────────────────────────
 
-router.post("/api/dungeons/:id/duplicate", requireAuth, async (req, res, next) => {
-  try { res.status(201).json(await svc.duplicateDungeon(Number(req.params.id), req.user!.id)); } catch (e) { next(e); }
+router.post("/api/dungeons/:id/duplicate", requireAuth, async (req: AuthRequest, res, next) => {
+  try { res.status(201).json(await svc.duplicateDungeon(Number(req.params.id), req.auth!.userId)); } catch (e) { next(e); }
 });
 
-router.post("/api/dungeons/:id/fork", requireAuth, async (req, res, next) => {
-  try { res.status(201).json(await svc.forkDungeon(Number(req.params.id), req.user!.id)); } catch (e) { next(e); }
+router.post("/api/dungeons/:id/fork", requireAuth, async (req: AuthRequest, res, next) => {
+  try { res.status(201).json(await svc.forkDungeon(Number(req.params.id), req.auth!.userId)); } catch (e) { next(e); }
 });
 
-router.post("/api/dungeons/:id/publish", requireAuth, async (req, res, next) => {
-  try { res.json(await svc.publishDungeon(Number(req.params.id), req.user!.id)); } catch (e) { next(e); }
+router.post("/api/dungeons/:id/publish", requireAuth, async (req: AuthRequest, res, next) => {
+  try { res.json(await svc.publishDungeon(Number(req.params.id), req.auth!.userId)); } catch (e) { next(e); }
 });
 
-router.post("/api/dungeons/:id/archive", requireAuth, async (req, res, next) => {
-  try { res.json(await svc.archiveDungeon(Number(req.params.id), req.user!.id)); } catch (e) { next(e); }
+router.post("/api/dungeons/:id/archive", requireAuth, async (req: AuthRequest, res, next) => {
+  try { res.json(await svc.archiveDungeon(Number(req.params.id), req.auth!.userId)); } catch (e) { next(e); }
 });
 
-router.post("/api/dungeons/:id/restore", requireAuth, async (req, res, next) => {
-  try { res.json(await svc.restoreDungeon(Number(req.params.id), req.user!.id)); } catch (e) { next(e); }
+router.post("/api/dungeons/:id/restore", requireAuth, async (req: AuthRequest, res, next) => {
+  try { res.json(await svc.restoreDungeon(Number(req.params.id), req.auth!.userId)); } catch (e) { next(e); }
 });
 
 // ─── Templates ───────────────────────────────────────────────────────────────
@@ -74,14 +74,14 @@ router.get("/api/dungeons/templates/global", requireAuth, async (req, res, next)
   try { res.json(await svc.getGlobalTemplates()); } catch (e) { next(e); }
 });
 
-router.get("/api/dungeons/templates/my", requireAuth, async (req, res, next) => {
-  try { res.json(await svc.listTemplates(req.user!.id)); } catch (e) { next(e); }
+router.get("/api/dungeons/templates/my", requireAuth, async (req: AuthRequest, res, next) => {
+  try { res.json(await svc.listTemplates(req.auth!.userId)); } catch (e) { next(e); }
 });
 
-router.post("/api/dungeons/:id/templates", requireAuth, async (req, res, next) => {
+router.post("/api/dungeons/:id/templates", requireAuth, async (req: AuthRequest, res, next) => {
   try {
     const id = Number(req.params.id);
-    res.status(201).json(await svc.createTemplate({ ...req.body, dungeonId: id, createdBy: req.user!.id }));
+    res.status(201).json(await svc.createTemplate({ ...req.body, dungeonId: id, createdBy: req.auth!.userId }));
   } catch (e) { next(e); }
 });
 
@@ -328,10 +328,10 @@ router.get("/api/dungeons/:id/versions", requireAuth, async (req, res, next) => 
   try { res.json(await svc.getVersions(Number(req.params.id))); } catch (e) { next(e); }
 });
 
-router.post("/api/dungeons/:id/versions", requireAuth, async (req, res, next) => {
+router.post("/api/dungeons/:id/versions", requireAuth, async (req: AuthRequest, res, next) => {
   try {
     const { label, changelog } = req.body;
-    res.status(201).json(await svc.createVersion(Number(req.params.id), req.user!.id, label, changelog));
+    res.status(201).json(await svc.createVersion(Number(req.params.id), req.auth!.userId, label, changelog));
   } catch (e) { next(e); }
 });
 
@@ -339,8 +339,8 @@ router.get("/api/dungeons/:id/versions/:vId", requireAuth, async (req, res, next
   try {
     const version = await svc.getVersion(Number(req.params.vId));
     if (!version) return res.status(404).json({ error: "Version not found" });
-    res.json(version);
-  } catch (e) { next(e); }
+    return res.json(version);
+  } catch (e) { return next(e); }
 });
 
 // ─── History ─────────────────────────────────────────────────────────────────
@@ -367,10 +367,10 @@ router.post("/api/dungeons/:id/validate", requireAuth, async (req, res, next) =>
 
 // ─── Import/Export ───────────────────────────────────────────────────────────
 
-router.post("/api/dungeons/:id/export", requireAuth, async (req, res, next) => {
+router.post("/api/dungeons/:id/export", requireAuth, async (req: AuthRequest, res, next) => {
   try {
     const type = (req.body.type as string) ?? "json";
-    res.json(await svc.exportDungeon(Number(req.params.id), type, req.user!.id));
+    res.json(await svc.exportDungeon(Number(req.params.id), type, req.auth!.userId));
   } catch (e) { next(e); }
 });
 
@@ -378,10 +378,10 @@ router.get("/api/dungeons/:id/exports", requireAuth, async (req, res, next) => {
   try { res.json(await svc.getExports(Number(req.params.id))); } catch (e) { next(e); }
 });
 
-router.post("/api/dungeons/import", requireAuth, async (req, res, next) => {
+router.post("/api/dungeons/import", requireAuth, async (req: AuthRequest, res, next) => {
   try {
     const { type = "json", data } = req.body;
-    res.status(201).json(await svc.importDungeon(req.user!.id, type, data));
+    res.status(201).json(await svc.importDungeon(req.auth!.userId, type, data));
   } catch (e) { next(e); }
 });
 

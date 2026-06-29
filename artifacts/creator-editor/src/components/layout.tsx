@@ -62,6 +62,9 @@ import {
   Palette,
   Wand2,
   Skull,
+  Flag,
+  GraduationCap,
+  Trophy,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -240,6 +243,47 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         { href: "/transport-simulator/0", label: "Simulator", icon: Play },
         { href: "/transport-validator/0", label: "Validator", icon: ShieldAlert },
         { href: "/transport-import-export/0", label: "Import / Export", icon: Download },
+      ],
+    },
+    {
+      label: "Nation Editor",
+      items: [
+        { href: "/nation-dashboard", label: "Dashboard", icon: Flag },
+        { href: "/nation-browser", label: "Browser", icon: Globe },
+        { href: "/nation-validator/0", label: "Validator", icon: ShieldAlert },
+        { href: "/nation-import-export/0", label: "Import / Export", icon: Download },
+        { href: "/nation-statistics/0", label: "Statistics", icon: BarChart2 },
+      ],
+    },
+    {
+      label: "Education Editor",
+      items: [
+        { href: "/education-dashboard", label: "Dashboard", icon: GraduationCap },
+        { href: "/education-browser", label: "Browser", icon: Globe },
+        { href: "/education-simulator/0", label: "Simulator", icon: Play },
+        { href: "/education-validator/0", label: "Validator", icon: ShieldAlert },
+        { href: "/education-import-export/0", label: "Import / Export", icon: Download },
+      ],
+    },
+    {
+      label: "Sports Editor",
+      items: [
+        { href: "/sports-dashboard", label: "Dashboard", icon: Trophy },
+        { href: "/sports-browser", label: "Browser", icon: Globe },
+        { href: "/sports-simulator/0", label: "Simulator", icon: Play },
+        { href: "/ranking-manager/0", label: "Rankings", icon: BarChart2 },
+        { href: "/sports-import-export/0", label: "Import / Export", icon: Download },
+      ],
+    },
+    {
+      label: "Social Editor",
+      items: [
+        { href: "/social-dashboard", label: "Dashboard", icon: Users },
+        { href: "/social-browser", label: "Browser", icon: Globe },
+        { href: "/guild-manager/0", label: "Guilds", icon: Shield },
+        { href: "/social-feed/0", label: "Social Feed", icon: MessageSquare },
+        { href: "/social-simulator/0", label: "Simulator", icon: Play },
+        { href: "/social-import-export/0", label: "Import / Export", icon: Download },
       ],
     },
     {

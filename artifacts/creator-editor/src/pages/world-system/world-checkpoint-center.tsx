@@ -121,7 +121,7 @@ export default function WorldCheckpointCenter() {
                         <div className="text-xs text-muted-foreground">{new Date(String(cp.createdAt)).toLocaleString()}</div>
                       </div>
                       <div className="flex items-center gap-2">
-                        {cp.isAutoSave && <Badge variant="secondary" className="text-xs">Auto</Badge>}
+                        {(cp.isAutoSave as boolean) && <Badge variant="secondary" className="text-xs">Auto</Badge>}
                         <Button size="sm" variant="outline" onClick={() => { if (confirm("Rollback to this checkpoint?")) rollbackMutation.mutate(Number(cp.id)); }}>
                           <RotateCcw className="w-3 h-3 mr-1" />Rollback
                         </Button>

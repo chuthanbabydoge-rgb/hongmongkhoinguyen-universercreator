@@ -119,7 +119,7 @@ export default function ProjectDetail() {
           queryClient.invalidateQueries({ queryKey: getGetProjectQueryKey(projectId) });
         },
         onError: (err) => {
-          toast({ variant: "destructive", title: "Failed to queue publish", description: err.error?.message });
+          toast({ variant: "destructive", title: "Failed to queue publish", description: (err as any).error?.message });
         }
       }
     );

@@ -83,8 +83,8 @@ export default function BossLootEditor() {
               <CardHeader className="pb-2 flex flex-row items-center justify-between">
                 <div className="flex items-center gap-2">
                   <CardTitle className="text-base">{String(l.name)}</CardTitle>
-                  {l.isGuaranteed && <Badge>Guaranteed</Badge>}
-                  {l.isUnique && <Badge variant="secondary">Unique</Badge>}
+                  {(l.isGuaranteed as boolean) && <Badge>Guaranteed</Badge>}
+                  {(l.isUnique as boolean) && <Badge variant="secondary">Unique</Badge>}
                 </div>
                 <div className="flex gap-2">
                   <Button size="sm" variant="outline" onClick={() => { setEditingId(Number(l.id)); setForm({ ...l }); }}>Edit</Button>

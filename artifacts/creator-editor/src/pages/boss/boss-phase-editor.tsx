@@ -90,7 +90,7 @@ export default function BossPhaseEditor() {
               </CardHeader>
               <CardContent className="text-sm text-muted-foreground">
                 HP Threshold: {(Number(phase.hpThreshold) * 100).toFixed(0)}% · Damage ×{String(phase.damageMultiplier)} · Speed ×{String(phase.speedMultiplier)}
-                {phase.isEnragePhase && <span className="ml-2 text-red-500 font-medium">⚡ ENRAGE</span>}
+                {(phase.isEnragePhase as boolean) && <span className="ml-2 text-red-500 font-medium">⚡ ENRAGE</span>}
               </CardContent>
               {editingId === Number(phase.id) && (
                 <CardContent className="border-t border-border pt-4 space-y-4">

@@ -41,8 +41,8 @@ export class DungeonEditorService {
   async duplicateDungeon(id: number, userId: number) {
     const full = await repo.getFullDungeon(id);
     if (!full.dungeon) throw new Error("Dungeon not found");
-    const { id: _id, createdAt: _ca, updatedAt: _ua, ...rest } = full.dungeon;
-    const newDungeon = await repo.createDungeon({ ...rest, createdBy: userId, name: `${full.dungeon.name} (Copy)`, isPublished: false });
+    const { id: _id, createdAt: _ca, updatedAt: _ua, description, metadata, ...rest } = full.dungeon;
+    const newDungeon = await repo.createDungeon({ ...rest, createdBy: userId, name: `${full.dungeon.name} (Copy)`, isPublished: false, description: description ?? undefined, metadata: metadata as any });
     const newId = newDungeon.id;
     await Promise.all([
       ...full.rooms.map(({ id: _id, dungeonId: _d, createdAt: _ca, updatedAt: _ua, ...r }) => repo.createRoom({ ...r, dungeonId: newId })),

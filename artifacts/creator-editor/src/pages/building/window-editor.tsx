@@ -74,8 +74,8 @@ export default function WindowEditor() {
                 <div className="text-xs text-muted-foreground">{String(w.width)}×{String(w.height)}m, height offset {String(w.posY)}m</div>
               </div>
               <div className="flex items-center gap-2">
-                {w.isBreakable && <Badge variant="outline">Breakable</Badge>}
-                {w.isOpen && <Badge variant="secondary">Open</Badge>}
+                {(w.isBreakable as boolean) && <Badge variant="outline">Breakable</Badge>}
+                {(w.isOpen as boolean) && <Badge variant="secondary">Open</Badge>}
                 <Button size="sm" variant="outline" onClick={() => deleteMutation.mutate(Number(w.id))}><Trash2 className="w-3 h-3 text-destructive" /></Button>
               </div>
             </div>

@@ -66,14 +66,14 @@ export default function SpawnManager() {
           {isLoading ? <div className="text-muted-foreground">Loading...</div> : spawnpoints.map((s: Record<string, unknown>) => (
             <div key={String(s.id)} className="flex items-center justify-between p-3 border rounded">
               <div className="flex items-center gap-3">
-                {s.isDefault && <Star className="w-4 h-4 text-yellow-500" />}
+                {(s.isDefault as boolean) && <Star className="w-4 h-4 text-yellow-500" />}
                 <div>
                   <div className="font-medium">{String(s.label)}</div>
                   <div className="text-xs text-muted-foreground">{String(s.spawnType)} — ({String(s.posX)}, {String(s.posY)}, {String(s.posZ)})</div>
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                {s.isDefault && <Badge>Default</Badge>}
+                {(s.isDefault as boolean) && <Badge>Default</Badge>}
                 <Button size="sm" variant="outline" onClick={() => deleteMutation.mutate(Number(s.id))}><Trash2 className="w-3 h-3 text-destructive" /></Button>
               </div>
             </div>
